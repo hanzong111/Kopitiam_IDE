@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#164b45">
+<title>Kopitiam Agents</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50' font-size='52'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pixel.css">
+<link rel="stylesheet" href="vendor/xterm.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand" title="Kopitiam Agents">
+    <span class="brand-mark" aria-hidden="true">K</span>
+    <span class="brand-copy">
+      <span class="brand-zh">咖啡店</span>
+      <span class="brand-en">KOPITIAM AGENTS</span>
+    </span>
+    <span class="brand-kicker">AGENT HAWKER CENTRE · 24 JAM</span>
+  </div>
+
+  <div class="picker">
+    <select id="sessionSel" aria-label="Session"></select>
+    <label class="follow" title="Jump to whichever session is being written to right now">
+      <input type="checkbox" id="follow"> follow live
+    </label>
+  </div>
+
+  <div class="chips" id="chips" aria-live="off">
+    <span class="chip" title="Open terminals running Claude Code"><b id="cClaude">0</b><i>Claude</i></span>
+    <span class="chip" title="Open terminals running Codex"><b id="cCodex">0</b><i>Codex</i></span>
+    <span class="chip" title="Tool calls made by all agents"><b id="cTrips">0</b><i>trips</i></span>
+    <span class="chip" title="All tokens processed: new + cache write + cache read + output"><b id="cTok">0</b><i>tokens</i></span>
+    <span class="chip" title="Share of input served from the prompt cache"><b id="cHit">–</b><i>cache hit</i></span>
+    <span class="chip" title="Estimated API price — see web/prices.json"><b id="cCost">–</b><i>est.</i></span>
+    <span class="chip" title="Tokens processed in the last 60 s"><b id="cBurn">0</b><i>tok/min</i></span>
+  </div>
+
+  <div class="status" id="status"><i class="dot"></i><span>connecting…</span></div>
+</header>
+
+<main class="layout">
+  <section class="work" id="work" aria-label="Workspace">
+    <div class="wbar">
+      <nav class="wtabs" id="wtabs" aria-label="Open agents"></nav>
+      <div class="wnew" id="wnew" hidden><button type="button" data-new="claude" title="Start Claude Code here (no terminal window needed)">+ Claude</button><button type="button" data-new="codex" title="Start Codex here (no terminal window needed)">+ Codex</button></div>
+    </div>
+    <form class="newform" id="newForm" hidden autocomplete="off">
+      Start <b id="newWhat"></b> in folder <input id="newCwd" spellcheck="false" aria-label="Folder"> <button type="submit">Start</button> <button type="button" id="newCancel">Cancel</button>
+    </form>
+    <div class="whead" id="whead"></div>
+    <div class="chat" id="chat" aria-live="off" data-hint="Click a customer, a card or a tab to open that agent here."></div>
+    <div class="screen" id="screenBox" hidden><div class="scr-head">🖥 Live terminal <small id="scrHint">the agent's own screen: click it and type</small></div><div class="term" id="term"></div></div>
+    <form class="composer" id="composer" autocomplete="off">
+      <div class="c-keys" id="ckeys">
+        <button type="button" data-k="screen" class="tog" title="Show the agent's live terminal (approval prompts, menus; you can type in it)">🖥 Terminal</button>
+        <button type="button" data-k="Escape" title="Esc: interrupt the agent / close a menu">⏹ Esc</button>
+        <button type="button" data-k="Up" title="Arrow up">↑</button><button type="button" data-k="Down" title="Arrow down">↓</button>
+        <button type="button" data-k="Enter" title="Enter: confirm the highlighted choice">⏎ Enter</button>
+        <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
+        <span class="c-note" id="cnote" role="status"></span>
+      </div>
+      <div class="c-row"><textarea id="prompt" rows="2" spellcheck="true"></textarea><button type="submit" id="sendBtn">Send</button></div>
+    </form>
+  </section>
+
+  <div class="bottom">
+    <div class="minimap" id="minimap">
+      <div class="mm-head"><span>🏪 Kopitiam</span><button type="button" id="mmToggle" title="Expand the shop (Esc to shrink)">⤢ expand</button></div>
+      <div class="mm-view" id="mmView">
+      <section class="scene" id="scene" aria-label="Kopitiam scene showing what each agent is doing">
+        <div class="ceiling" aria-hidden="true">
+          <div class="tube"></div><div class="tube t2"></div>
+        </div>
+
+        <div class="wall" id="wall">
+          <div class="signboard"><span class="zh">咖啡店</span><span class="en">KOPITIAM AGENTS</span><span class="est">BUKA 24 JAM · KOPI · TEH · ROTI</span></div>
+          <div class="stalls" id="stalls"></div>
+        </div>
+
+        <div class="counter" id="counter">
+          <div class="uncle" id="uncle" data-state="idle">
+            <div class="bubble" id="uncleBubble" hidden></div>
+            <div class="uncle-tag">Uncle Lim · <em>tauke</em></div>
+            <div id="uncleAv"></div>
+            <div class="uncle-status" id="uncleStatus">opening shop…</div>
+          </div>
+          <div class="bar" aria-hidden="true"><span class="kopi">☕</span><span class="till">🧮</span></div>
+          <div class="rail-head">🧾 orders <small id="railCount"></small></div>
+          <div class="rail" id="rail"></div>
+          <div class="case" aria-hidden="true"><span>🍡</span><span>🥮</span><span>🍰</span><span>🥟</span></div>
+          <i class="mark" id="counterFront"></i>
+        </div>
+
+        <div class="floor" id="floor"><div class="fan" aria-hidden="true"><i></i><i></i></div><div class="tables" id="tables"></div></div>
+        <div class="door" id="door"><span>MASUK · 入</span><i class="mark" id="doorMark"></i></div>
+        <div class="people" id="people"></div>
+      </section>
+      </div>
+    </div>
+    <aside class="side" aria-label="Behind the hood">
+      <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="log" class="on">📜 Kitchen log</button>
+        <button role="tab" data-tab="bill">🧾 Bill</button>
+        <button role="tab" data-tab="ticket">🎫 Ticket</button>
+      </nav>
+      <div class="pane" id="pane-log">
+        <div class="filterbar" id="filterBar" hidden>showing <b id="filterName"></b> · <a href="#" id="filterClear">show everyone</a></div>
+        <div class="log" id="log"></div>
+      </div>
+      <div class="pane" id="pane-bill" hidden></div>
+      <div class="pane" id="pane-ticket" hidden></div>
+    </aside>
+  </div>
+
+  <aside class="fleet" id="fleet" aria-label="Agents">
+    <div class="fleet-head">
+      <b>Agent Customers</b>
+      <span class="fleet-sum" id="fleetSum">loading…</span>
+      <button id="notifyBtn" type="button" title="Desktop notification when an agent finishes or needs you">🔔</button>
+    </div>
+    <div class="fleet-bar">
+      <div class="seg" id="fleetView" hidden><button type="button" data-v="active" class="on" title="Only open terminal tabs">Open tabs</button><button type="button" data-v="all" title="Also show closed sessions from the last 24 h">+ Closed</button></div>
+      <span id="subsActive"></span>
+    </div>
+    <div class="fleet-empty" id="fleetEmpty" hidden></div>
+    <div class="fleet-list" id="fleetList"></div>
+  </aside>
+</main>
+
+<script src="vendor/xterm.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
