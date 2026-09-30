@@ -1,0 +1,108 @@
+{
+  "starting": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/starting.png",
+    "label": "Starting"
+  },
+  "running": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/tool.png",
+    "label": "Running"
+  },
+  "thinking": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/thinking.png",
+    "label": "Thinking"
+  },
+  "reading": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/reading.png",
+    "label": "Reading"
+  },
+  "editing": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/editing.png",
+    "label": "Editing"
+  },
+  "building": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/building.png",
+    "label": "Building"
+  },
+  "testing": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/testing.png",
+    "label": "Testing"
+  },
+  "idle": {
+    "clip": "seated_idle",
+    "badge": "shared/badges/idle.png",
+    "label": "Waiting for command"
+  },
+  "queued": {
+    "clip": "standing_hold",
+    "badge": "shared/badges/queued.png",
+    "label": "Queued"
+  },
+  "dependency_wait": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/dependency.png",
+    "label": "Waiting for dependency"
+  },
+  "rate_limited": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/retry_clock.png",
+    "label": "Retry scheduled"
+  },
+  "needs_approval": {
+    "clip": "raise_hand",
+    "badge": "shared/badges/approval.png",
+    "label": "Approval needed"
+  },
+  "needs_answer": {
+    "clip": "raise_hand",
+    "badge": "shared/badges/question.png",
+    "label": "Answer needed"
+  },
+  "ready_for_review": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/review.png",
+    "label": "Result ready"
+  },
+  "accepted": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/accepted.png",
+    "label": "Result accepted"
+  },
+  "stopping": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/stopping.png",
+    "label": "Stopping"
+  },
+  "stopped": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/stop.png",
+    "label": "Stopped"
+  },
+  "cancelled": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/cancelled.png",
+    "label": "Cancelled"
+  },
+  "error": {
+    "clip": "raise_hand",
+    "badge": "shared/badges/error.png",
+    "label": "Error"
+  },
+  "disconnected": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/disconnected.png",
+    "label": "Disconnected",
+    "freezeLastReliableFrame": true
+  },
+  "unknown": {
+    "clip": "seated_hold",
+    "badge": "shared/badges/idle.png",
+    "label": "Activity unknown"
+  }
+}

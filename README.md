@@ -1,19 +1,23 @@
 # Kopitiam Agents ☕ 咖啡店
 
-A read-only headcount of your open agent terminals, drawn as a Malaysian kopitiam:
-**3 terminals running Claude Code = 3 customers in the shop; open a 4th and a 4th walks in.**
+A headcount of your open agent terminals, drawn as a Malaysian kopitiam:
+**3 terminals running Claude Code = 3 hawkers at their stalls; open a 4th and a 4th stall opens.**
 
 | In the shop | In the agent world |
 |---|---|
-| a **customer** at a table | one open terminal tab (Claude Code or Codex) — open a tab, someone walks in; close it, they leave |
-| the customer's number & seat | the tab's number (`Tab 2`). Kept for as long as the tab is open; a closed tab's number and seat go to the next new tab, nobody else moves |
-| shirt colour | warm = Claude Code, cool = Codex (the node also carries `data-src="claude|codex"` for sprite sheets) |
-| the badge over their head | ⚙️ working · ✅ done, your turn · ⚠️ needs you (they wave) |
-| an **order chit** on the rail | what you last asked that tab (cooking → served) |
-| **Uncle Lim** at the counter | decoration only (shows the headcount) |
-| a **trip to a stall** | a tool call — 🍛 Nasi Lemak = read/grep · 🥞 Roti Canai = bash · 🍞 Kaya Toast = edit/write · ☕ Teh Tarik = web · 🍧 Cendol = MCP/other |
-| dish carried back & plated on the table | the tool result (💥 = the tool errored) |
+| a **hawker** at their stall | one open terminal tab (Claude Code or Codex): open a tab and a hawker starts work; close it and they pack up |
+| the stall & the number on its sign | the tab's number (`Tab 2`): four evenly spaced stalls in a row, stall 1 on the left. Open a new terminal and its hawker walks in from the left to the first free stall; close it and they walk back out. A number is kept for as long as the tab is open, nobody else moves. Tabs 5+ wait at the left end |
+| a **customer** on a stool in front of a stall | one sub-agent of that tab: walks up and sits down when it's spawned; its chip shows what it's doing (📄 reading · ✏️ editing · 🔧 tool · 🧪 testing · 💭 thinking · 🟥 stopped); stands up and leaves as soon as it's done (it stays listed in the card). Three stools per stall, more show as "+N sub-agents". Click one to read that sub-agent's own brief, replies and tool calls in the chat (← back to main) |
+| what the hawker is doing | the tab's current activity: reading (read/grep/web) · preparing (edit, other tools) · cooking (builds) · tasting (tests) · thinking · raised hand (needs you) · holding out a dish (done, your turn) |
+| the badge beside the stall | the same state as an icon: 📄 reading · ✏️ editing · 🔧 tool · 🔨 building · 🧪 testing · 💭 thinking · 🔗 waiting on sub-agents · ✋ approval · ❓ question · 🍽 ready for review · 🔌 disconnected |
+| steam / stove heat | the agent is working |
+| the **order ticket** (expanded map, selected tab) | what you last asked that tab |
+| the speech bubble | what it is doing right now, with a timer, or why it needs you |
 | **the bill** | tokens: new / cache write / cache read / output, plus an estimated price |
+
+Art: the **Kopitiam Mini Sprite Pack** in `web/sprites/` and the **Subagent Customers** add-on in `web/sprites/customers/` (see its README and production plan for clips, timing, anchors
+and the state map). Three hawker skins take turns: Uncle Lim at the kopi stall, the noodle hawker, the rice-stall auntie.
+With *reduce motion* on, hawkers hold a resting pose and effects are off; badges and labels stay.
 
 ## Run
 
@@ -55,14 +59,16 @@ The header shows the count: `4 terminals · 3 Claude · 1 Codex`.
 
 **Layout:** the big area is the **workspace**: one tab per open terminal (with its character's portrait) and that
 agent's conversation: your prompts, its replies and its tool calls (read from the session log).
-The kopitiam itself is the **mini-map** bottom-left (⤢ expand / Esc to shrink), next to the kitchen log / bill /
-ticket; the agent cards are on the right.
+The kopitiam fills the band under the workspace; the agent cards are on the right. Drag the grip on its top edge (or
+focus it and press ↑/↓) to resize it in zoom steps (1× … 4×; remembered per browser, double-click for the default).
+The bar background is `web/sprites/room/bar.png` (148 px tall in sprite pixels, repeats sideways; a plain placeholder
+is drawn until it exists). The kitchen log / bill / ticket panel is parked for now (hidden in `index.html`, the code is still there).
 
-Open the page: every open Claude Code / Codex tab is a customer. Click a customer, table, chit or sidebar card to
+Open the page: every open Claude Code / Codex tab is a hawker. Click a stall, its nameplate or a sidebar card to
 show that tab's log, bill and ticket on the right (sub-agents are listed under the tab's card in the sidebar).
 
-Tabs on the right: **Kitchen log** (every event, click a line to filter to that agent) ·
-**Bill** (per-agent token receipt) · **Ticket** (click a customer/table/chit: the exact brief they were
+(Parked for now.) Tabs in the side panel: **Kitchen log** (every event, click a line to filter to that agent) ·
+**Bill** (per-agent token receipt) · **Ticket** (click a log line or sub-agent: the exact brief they were
 given, their token mix, and every stall trip with timings).
 
 ## Agents sidebar (left)
@@ -101,7 +107,7 @@ Things worth knowing:
   aren't billed per token — read the $ as "what this would cost on the API".
 - **Privacy:** session logs contain your prompts and tool output. The server binds to `127.0.0.1`, rejects
   any other `Host` header (DNS-rebinding guard) and never writes to the logs.
-- Codex is single-agent for now (its log has no sub-agent linkage here), so you'll see Uncle Lim only.
+- Codex is single-agent for now (its log has no sub-agent linkage here).
 
 ## Files
 
@@ -110,10 +116,13 @@ server.py        HTTP + SSE, static files
 fleet.py         finds open Claude Code / Codex terminals (and the kopi they run under), per-session status
 kopi.py          the pass-through wrapper, `kopi attach`, and the shell hook (install-shell / uninstall-shell)
 kopictl.py       server side of kopi: find wrappers, type into them, stream their output, start new agents
-web/vendor/      xterm.js 5.5.0 (MIT) for the live terminal
+web/vendor/      xterm.js 5.5.0 (MIT) for the live terminal · marked 18 (MIT) + DOMPurify 3 (Apache-2.0/MPL-2.0) to show
+                 replies as Markdown, sanitized (no scripts, styles, forms or remote images)
 adapters.py      session-log adapters → one normalized event stream
 web/index.html   layout
-web/style.css    the kopitiam
-web/app.js       event reducer, animation choreography, log/bill/ticket, demo script
+web/style.css    base layout and panels
+web/pixel.css    pixel skin and the kopitiam scene
+web/app.js       event reducer, hawker/stall renderer, log/bill/ticket
+web/sprites/     Kopitiam Mini Sprite Pack: atlases, stalls, room, props, UI frames/badges, manifest.json
 web/prices.json  editable price table
 ```

@@ -1,0 +1,88 @@
+{
+  "starting": {
+    "clip": "asking",
+    "badge": "ui/badges/starting.png"
+  },
+  "idle": {
+    "clip": "idle",
+    "badge": "ui/badges/idle.png"
+  },
+  "thinking": {
+    "clip": "thinking",
+    "badge": "ui/badges/thinking.png"
+  },
+  "reading": {
+    "clip": "reading",
+    "badge": "ui/badges/reading.png"
+  },
+  "editing": {
+    "clip": "editing",
+    "badge": "ui/badges/editing.png"
+  },
+  "tool": {
+    "clip": "editing",
+    "badge": "ui/badges/tool.png"
+  },
+  "building": {
+    "clip": "building",
+    "badge": "ui/badges/building.png"
+  },
+  "testing": {
+    "clip": "testing",
+    "badge": "ui/badges/testing.png"
+  },
+  "needs_approval": {
+    "clip": "asking",
+    "badge": "ui/badges/approval.png"
+  },
+  "needs_answer": {
+    "clip": "asking",
+    "badge": "ui/badges/question.png"
+  },
+  "queued": {
+    "clip": "idle",
+    "badge": "ui/badges/queued.png"
+  },
+  "dependency_wait": {
+    "clip": "idle",
+    "badge": "ui/badges/dependency.png"
+  },
+  "rate_limited": {
+    "clip": "idle",
+    "badge": "ui/badges/retry_clock.png"
+  },
+  "ready_for_review": {
+    "clip": "review",
+    "badge": "ui/badges/review.png"
+  },
+  "accepted": {
+    "clip": "accepted",
+    "badge": "ui/badges/accepted.png"
+  },
+  "stopping": {
+    "clip": "stopping",
+    "badge": "ui/badges/stopping.png"
+  },
+  "stopped": {
+    "clip": "stopped",
+    "badge": "ui/badges/stop.png"
+  },
+  "cancelled": {
+    "clip": "stopped",
+    "badge": "ui/badges/cancelled.png"
+  },
+  "error": {
+    "clip": "error",
+    "badge": "ui/badges/error.png"
+  },
+  "disconnected": {
+    "clip": "stopped",
+    "badge": "ui/badges/disconnected.png",
+    "freezeLastReliableFrame": true
+  },
+  "unknown": {
+    "clip": "idle",
+    "badge": "ui/badges/idle.png",
+    "label": "Activity unknown"
+  }
+}

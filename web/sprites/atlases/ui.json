@@ -1,0 +1,798 @@
+{
+  "file": "atlases/ui.png",
+  "size": [
+    512,
+    128
+  ],
+  "padding": 2,
+  "frames": [
+    {
+      "id": "frames.attention_board",
+      "file": "ui/frames/attention_board.png",
+      "rect": [
+        2,
+        2,
+        64,
+        48
+      ],
+      "anchor": null
+    },
+    {
+      "id": "frames.order_ticket",
+      "file": "ui/frames/order_ticket.png",
+      "rect": [
+        68,
+        2,
+        32,
+        40
+      ],
+      "anchor": null
+    },
+    {
+      "id": "frames.empty_agent_slot",
+      "file": "ui/frames/empty_agent_slot.png",
+      "rect": [
+        102,
+        2,
+        32,
+        40
+      ],
+      "anchor": null
+    },
+    {
+      "id": "frames.tooltip",
+      "file": "ui/frames/tooltip.png",
+      "rect": [
+        136,
+        2,
+        48,
+        24
+      ],
+      "anchor": null
+    },
+    {
+      "id": "selection.footprint",
+      "file": "ui/selection/footprint.png",
+      "rect": [
+        186,
+        2,
+        48,
+        24
+      ],
+      "anchor": [
+        24,
+        12
+      ]
+    },
+    {
+      "id": "selection.hover",
+      "file": "ui/selection/hover.png",
+      "rect": [
+        236,
+        2,
+        48,
+        24
+      ],
+      "anchor": [
+        24,
+        12
+      ]
+    },
+    {
+      "id": "selection.selected",
+      "file": "ui/selection/selected.png",
+      "rect": [
+        286,
+        2,
+        48,
+        24
+      ],
+      "anchor": [
+        24,
+        12
+      ]
+    },
+    {
+      "id": "selection.keyboard_focus",
+      "file": "ui/selection/keyboard_focus.png",
+      "rect": [
+        336,
+        2,
+        48,
+        24
+      ],
+      "anchor": [
+        24,
+        12
+      ]
+    },
+    {
+      "id": "frames.speech_bubble",
+      "file": "ui/frames/speech_bubble.png",
+      "rect": [
+        386,
+        2,
+        32,
+        24
+      ],
+      "anchor": null
+    },
+    {
+      "id": "badges.approval",
+      "file": "ui/badges/approval.png",
+      "rect": [
+        420,
+        2,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.question",
+      "file": "ui/badges/question.png",
+      "rect": [
+        446,
+        2,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.review",
+      "file": "ui/badges/review.png",
+      "rect": [
+        472,
+        2,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.error",
+      "file": "ui/badges/error.png",
+      "rect": [
+        2,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.disconnected",
+      "file": "ui/badges/disconnected.png",
+      "rect": [
+        28,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.queued",
+      "file": "ui/badges/queued.png",
+      "rect": [
+        54,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.dependency",
+      "file": "ui/badges/dependency.png",
+      "rect": [
+        80,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.retry_clock",
+      "file": "ui/badges/retry_clock.png",
+      "rect": [
+        106,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.stop",
+      "file": "ui/badges/stop.png",
+      "rect": [
+        132,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.accepted",
+      "file": "ui/badges/accepted.png",
+      "rect": [
+        158,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.starting",
+      "file": "ui/badges/starting.png",
+      "rect": [
+        184,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.thinking",
+      "file": "ui/badges/thinking.png",
+      "rect": [
+        210,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.reading",
+      "file": "ui/badges/reading.png",
+      "rect": [
+        236,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.editing",
+      "file": "ui/badges/editing.png",
+      "rect": [
+        262,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.building",
+      "file": "ui/badges/building.png",
+      "rect": [
+        288,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.testing",
+      "file": "ui/badges/testing.png",
+      "rect": [
+        314,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.stopping",
+      "file": "ui/badges/stopping.png",
+      "rect": [
+        340,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.cancelled",
+      "file": "ui/badges/cancelled.png",
+      "rect": [
+        366,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.idle",
+      "file": "ui/badges/idle.png",
+      "rect": [
+        392,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "badges.tool",
+      "file": "ui/badges/tool.png",
+      "rect": [
+        418,
+        52,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ]
+    },
+    {
+      "id": "frames.nameplate",
+      "file": "ui/frames/nameplate.png",
+      "rect": [
+        444,
+        52,
+        48,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "shadows.floor",
+      "file": "ui/shadows/floor.png",
+      "rect": [
+        2,
+        78,
+        32,
+        16
+      ],
+      "anchor": [
+        16,
+        8
+      ]
+    },
+    {
+      "id": "icons.add",
+      "file": "ui/icons/add.png",
+      "rect": [
+        36,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.conversation",
+      "file": "ui/icons/conversation.png",
+      "rect": [
+        54,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.terminal",
+      "file": "ui/icons/terminal.png",
+      "rect": [
+        72,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.changes",
+      "file": "ui/icons/changes.png",
+      "rect": [
+        90,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.queue",
+      "file": "ui/icons/queue.png",
+      "rect": [
+        108,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.steer",
+      "file": "ui/icons/steer.png",
+      "rect": [
+        126,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.stop",
+      "file": "ui/icons/stop.png",
+      "rect": [
+        144,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.retry",
+      "file": "ui/icons/retry.png",
+      "rect": [
+        162,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.approve",
+      "file": "ui/icons/approve.png",
+      "rect": [
+        180,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.deny",
+      "file": "ui/icons/deny.png",
+      "rect": [
+        198,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.approval",
+      "file": "ui/icons/approval.png",
+      "rect": [
+        216,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.question",
+      "file": "ui/icons/question.png",
+      "rect": [
+        234,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.review",
+      "file": "ui/icons/review.png",
+      "rect": [
+        252,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.error",
+      "file": "ui/icons/error.png",
+      "rect": [
+        270,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.disconnected",
+      "file": "ui/icons/disconnected.png",
+      "rect": [
+        288,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.dependency",
+      "file": "ui/icons/dependency.png",
+      "rect": [
+        306,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.clock",
+      "file": "ui/icons/clock.png",
+      "rect": [
+        324,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.thinking",
+      "file": "ui/icons/thinking.png",
+      "rect": [
+        342,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.reading",
+      "file": "ui/icons/reading.png",
+      "rect": [
+        360,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.editing",
+      "file": "ui/icons/editing.png",
+      "rect": [
+        378,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.building",
+      "file": "ui/icons/building.png",
+      "rect": [
+        396,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.testing",
+      "file": "ui/icons/testing.png",
+      "rect": [
+        414,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.idle",
+      "file": "ui/icons/idle.png",
+      "rect": [
+        432,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.tool",
+      "file": "ui/icons/tool.png",
+      "rect": [
+        450,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.accepted",
+      "file": "ui/icons/accepted.png",
+      "rect": [
+        468,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.starting",
+      "file": "ui/icons/starting.png",
+      "rect": [
+        486,
+        78,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.stopping",
+      "file": "ui/icons/stopping.png",
+      "rect": [
+        2,
+        96,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.cancelled",
+      "file": "ui/icons/cancelled.png",
+      "rect": [
+        20,
+        96,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.queued",
+      "file": "ui/icons/queued.png",
+      "rect": [
+        38,
+        96,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "icons.retry_clock",
+      "file": "ui/icons/retry_clock.png",
+      "rect": [
+        56,
+        96,
+        16,
+        16
+      ],
+      "anchor": null
+    },
+    {
+      "id": "shadows.table",
+      "file": "ui/shadows/table.png",
+      "rect": [
+        74,
+        96,
+        32,
+        12
+      ],
+      "anchor": [
+        16,
+        6
+      ]
+    },
+    {
+      "id": "shadows.character",
+      "file": "ui/shadows/character.png",
+      "rect": [
+        108,
+        96,
+        24,
+        8
+      ],
+      "anchor": [
+        12,
+        4
+      ]
+    },
+    {
+      "id": "shadows.stool",
+      "file": "ui/shadows/stool.png",
+      "rect": [
+        134,
+        96,
+        20,
+        8
+      ],
+      "anchor": [
+        10,
+        4
+      ]
+    }
+  ]
+}

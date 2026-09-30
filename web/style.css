@@ -1,5 +1,4 @@
-/* Kopitiam Agents — warm kopitiam palette. No stacking contexts on .floor/.tables/.table/.top so
-   people (z:4) can sit *behind* a table rim while plates (z:3) stay on top of the marble. */
+/* Kopitiam Agents — warm kopitiam palette. The scene itself is styled in pixel.css. */
 :root{
   --ink:#2b1d14; --ink-2:#5b4636; --paper:#fbf6e9; --paper-2:#f2e9d2; --line:#dccfae;
   --wood:#8a5a34; --wood-d:#4d2e19; --wood-l:#b98a5b;
@@ -43,140 +42,6 @@ button,select,input{font:inherit;color:inherit}
 /* ───── layout ───── */
 .layout{height:calc(100vh - 56px);display:grid;grid-template-columns:minmax(0,1fr) 380px 320px}   /* scene | log | agent customers */
 .side{background:var(--paper);border-left:4px solid var(--wood-d);display:flex;flex-direction:column;min-height:0}
-
-/* ───── scene ───── */
-.scene{position:relative;display:grid;grid-template-columns:232px 1fr;grid-template-rows:158px 1fr;min-height:560px;overflow:hidden;
-  background:#e9dfc4}
-.ceiling{position:absolute;inset:0 0 auto 0;height:34px;z-index:1;pointer-events:none}
-@keyframes spin{to{transform:rotate(360deg)}}
-.fan{position:absolute;left:calc(50% - 30px);top:0;width:60px;height:60px;z-index:1;pointer-events:none;opacity:.5;animation:spin 1.3s linear infinite}
-.fan i{position:absolute;left:0;top:26px;width:60px;height:8px;border-radius:4px;background:#7b5a3b}
-.fan i:nth-child(2){transform:rotate(90deg)}
-.fan::after{content:"";position:absolute;left:23px;top:23px;width:14px;height:14px;border-radius:50%;background:#4d2e19}
-.tube{position:absolute;top:4px;left:22%;width:120px;height:7px;border-radius:4px;background:#fffbe8;box-shadow:0 0 22px 8px rgba(255,248,210,.6)}
-.tube.t2{left:auto;right:8%}
-
-.wall{grid-column:1/-1;grid-row:1;position:relative;padding:34px 14px 0;
-  background:
-    linear-gradient(#e9dfc4 0 58%, #6fa8a1 58% 100%);
-  border-bottom:6px solid var(--wood-d)}
-.signboard{position:absolute;left:14px;top:12px;display:flex;align-items:baseline;gap:10px;padding:5px 14px;background:var(--red);color:#fff3cf;border:3px solid var(--gold);border-radius:6px;box-shadow:var(--shadow);z-index:2}
-.signboard .zh{font:700 20px var(--serif);color:var(--gold)}
-.signboard .en{font:800 14px var(--sans);letter-spacing:.14em}
-.signboard .est{font:11px var(--sans);opacity:.85;display:none}
-.stalls{position:absolute;left:250px;right:14px;top:22px;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-
-.stall{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:4px}
-.stall .awning{position:absolute;left:4%;right:4%;top:0;height:26px;border-radius:6px 6px 0 0;
-  background:repeating-linear-gradient(90deg,var(--red) 0 16px,#fbf3dc 16px 32px);box-shadow:0 4px 0 rgba(0,0,0,.14)}
-.stall .body{position:absolute;left:8%;right:8%;top:26px;bottom:22px;background:linear-gradient(#f5e9c7,#e4d3a5);border:2px solid var(--wood);border-top:0;
-  display:flex;align-items:center;justify-content:center;gap:8px;transition:box-shadow .25s, filter .25s}
-.stall .dish{font-size:34px;filter:drop-shadow(0 2px 0 rgba(0,0,0,.12))}
-.stall .info{display:flex;flex-direction:column;line-height:1.15}
-.stall .name{font:700 13px var(--sans);color:var(--wood-d)}
-.stall .sub{font:10.5px var(--sans);color:var(--ink-2)}
-.stall .count{position:absolute;right:-6px;top:-8px;min-width:24px;padding:1px 6px;border-radius:999px;background:var(--teal-d);color:#fff;font:700 11px var(--mono);text-align:center}
-.stall .steam{position:absolute;left:14%;top:-2px;width:28px;height:26px;opacity:0;transition:opacity .3s}
-.stall .steam i{position:absolute;bottom:0;width:4px;height:14px;border-radius:4px;background:rgba(255,255,255,.85);animation:steam 1.6s ease-in infinite}
-.stall .steam i:nth-child(1){left:2px}.stall .steam i:nth-child(2){left:11px;animation-delay:.5s}.stall .steam i:nth-child(3){left:20px;animation-delay:1s}
-@keyframes steam{0%{transform:translateY(6px) scaleY(.6);opacity:0}30%{opacity:.9}100%{transform:translateY(-16px) scaleY(1.3);opacity:0}}
-.stall.busy .body,.stall.glow .body{box-shadow:0 0 0 3px var(--gold),0 0 22px 4px rgba(217,164,65,.7)}
-.stall.busy .steam,.stall.glow .steam{opacity:1}
-.stall .front{position:absolute;left:50%;bottom:-58px;width:1px;height:1px}
-
-/* ───── counter ───── */
-.counter{grid-column:1;grid-row:2;position:relative;padding:8px 12px 108px;display:flex;flex-direction:column;gap:6px;
-  background:linear-gradient(90deg,#b98a5b,#a5774b 88%,#7a4f2d);border-right:8px solid var(--wood-d);min-height:0}
-.uncle{position:relative;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:18px}
-.uncle #uncleAv{position:relative;z-index:1}
-.uncle-tag{position:absolute;top:0;left:0;right:0;text-align:center;font:700 11px var(--sans);color:#fff3cf;background:rgba(43,29,20,.7);border-radius:6px;padding:2px 6px}
-.uncle-tag em{font-style:normal;font-weight:500;opacity:.85}
-.uncle-status{position:absolute;bottom:0;left:-2px;right:-2px;text-align:center;font:600 11px var(--sans);color:#fff3cf;text-shadow:0 1px 0 rgba(0,0,0,.4);z-index:3}
-.bar{position:relative;z-index:2;height:26px;margin:0 -12px;background:linear-gradient(#6b4324,#4d2e19);border-top:3px solid #c9a06c;display:flex;justify-content:space-between;align-items:flex-start;padding:0 14px;font-size:18px;line-height:1}
-.bar span{transform:translateY(-16px)}
-.rail-head{font:700 12px var(--sans);color:#fff3cf;letter-spacing:.05em;text-transform:uppercase;display:flex;justify-content:space-between;margin-top:2px}
-.rail-head small{font-weight:500;opacity:.85;text-transform:none}
-.rail{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:2px 2px 4px;scrollbar-width:thin}
-.chit{position:relative;background:#fffdf5;border:1px solid #cdbb90;border-left:6px solid var(--gold);border-radius:3px;padding:4px 7px 5px;font-size:12px;line-height:1.25;box-shadow:0 2px 0 rgba(0,0,0,.18);cursor:pointer;animation:chit-in .4s ease-out}
-.chit:hover{background:#fff}
-.chit b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chit small{display:flex;justify-content:space-between;color:var(--ink-2);font-size:10.5px}
-.chit[data-s=cooking]{border-left-color:var(--amber)}
-.chit[data-s=served]{border-left-color:var(--green);opacity:.72}
-.chit[data-s=served] b{text-decoration:line-through;text-decoration-color:rgba(0,0,0,.25)}
-@keyframes chit-in{from{transform:translateY(-10px) rotate(-3deg);opacity:0}}
-.case{display:flex;justify-content:space-around;padding:3px 4px;border:2px solid #d9c59b;border-radius:6px;background:rgba(255,255,255,.35);font-size:18px}
-.mark{position:absolute;width:1px;height:1px;pointer-events:none}
-#counterFront{right:-30px;top:196px}
-
-/* ───── floor + tables ───── */
-.floor{grid-column:2;grid-row:2;position:relative;min-height:0;padding:14px 16px 20px;
-  background:
-    linear-gradient(rgba(255,255,255,.18),rgba(255,255,255,0) 35%),
-    conic-gradient(var(--tile-a) 25%,var(--tile-b) 0 50%,var(--tile-a) 0 75%,var(--tile-b) 0) 0 0/54px 54px}
-.tables{height:100%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:6px 10px}
-.table{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:8px;cursor:pointer}
-.table .top{position:relative;width:104px;height:54px;border-radius:50%;
-  background:radial-gradient(ellipse at 35% 30%,#fff 0,var(--marble) 45%,#cfc8b8 100%);border:3px solid #8a6a48;
-  box-shadow:0 8px 0 #6b4a2f,0 12px 12px rgba(0,0,0,.2);transition:box-shadow .25s}
-.setting{position:relative;width:104px;height:54px;flex:none}
-.stool{position:absolute;top:22px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#c99a68,#8a5a34 70%);border:2px solid #4d2e19;box-shadow:0 4px 0 #4d2e19}
-.stool.l{left:-30px}.stool.r{right:-30px}
-.table .seat{position:absolute;left:50%;top:50%;width:1px;height:1px}
-.table .ware{position:absolute;z-index:3;left:8px;right:8px;top:24px;bottom:2px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0 1px;font-size:15px;line-height:1;pointer-events:none;overflow:hidden}
-.table .ware span{animation:plate-in .35s ease-out}
-@keyframes plate-in{from{transform:translateY(-14px) scale(.4);opacity:0}}
-.table .tno{position:absolute;left:calc(50% + 34px);top:-4px;font:700 10px var(--mono);color:#fff;background:var(--teal-d);border-radius:4px;padding:0 4px;opacity:.55}
-.table .tlabel{margin-top:16px;min-height:16px;max-width:100%;font:600 11px var(--sans);color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
-.table .tbill{font:600 10.5px var(--mono);color:var(--teal-d);min-height:13px}
-.table[data-empty=true] .top{opacity:.7}
-.table.sel .top{box-shadow:0 8px 0 #6b4a2f,0 0 0 4px var(--gold),0 0 22px 6px rgba(217,164,65,.6)}
-
-/* ───── door ───── */
-.door{position:absolute;left:16px;bottom:0;width:104px;height:92px;z-index:1;background:linear-gradient(#5f3a1f,#442912);border:4px solid #2b1a0d;border-bottom:0;border-radius:10px 10px 0 0;
-  display:flex;align-items:flex-start;justify-content:center;padding-top:6px}
-.door span{font:700 10px var(--mono);color:#f4d98a;letter-spacing:.06em;background:rgba(0,0,0,.35);padding:1px 5px;border-radius:3px}
-.door .mark{left:50%;bottom:-4px}
-
-/* ───── people ───── */
-.people{position:absolute;inset:0;z-index:4;pointer-events:none}
-.person{position:absolute;left:0;top:0;width:60px;margin-left:-30px;transform:translateY(-100%);pointer-events:auto;cursor:pointer;
-  transition-property:left,top;transition-timing-function:cubic-bezier(.45,.05,.4,1);transition-duration:0ms;opacity:0}
-.person.show{opacity:1;transition-property:left,top,opacity}
-.person.gone{opacity:0;transition:opacity .6s}
-.person .av{display:block;margin:0 auto;overflow:visible}
-.person .tag{position:absolute;left:50%;top:-16px;transform:translateX(-50%);white-space:nowrap;font:700 10.5px var(--sans);color:#fff;background:var(--tagc,#555);padding:1px 7px;border-radius:999px;box-shadow:0 1px 0 rgba(0,0,0,.25)}
-.person .hold{position:absolute;left:50%;top:26px;transform:translateX(-50%);font-size:22px;display:none;filter:drop-shadow(0 2px 0 rgba(0,0,0,.2))}
-.person[data-state=carrying] .hold{display:block}
-.person .arms,.person .legs{transform-box:fill-box;transform-origin:center top}
-.person[data-state=walking] .av,.person[data-state=carrying] .av,.person[data-state=leaving] .av{animation:bob .42s ease-in-out infinite}
-.person[data-state=walking] .legs,.person[data-state=carrying] .legs,.person[data-state=leaving] .legs{animation:step .42s ease-in-out infinite}
-.person[data-state=waiting] .av{animation:wait 1.4s ease-in-out infinite}
-.person[data-state=happy] .av{animation:hop .5s ease-out 3}
-.person[data-state=sad] .av{animation:shake .3s linear 3}
-.person[data-state=thinking],.person[data-state=queue]{--sit:1}
-.person[data-state=thinking] .av{clip-path:inset(0 0 30% 0);animation:munch 2.4s ease-in-out infinite}
-.person[data-dir=l] .flipper{transform:scaleX(-1)}
-.person.sel .av{filter:drop-shadow(0 0 5px var(--gold)) drop-shadow(0 0 2px var(--gold))}
-.person.sel .tag{outline:2px solid var(--gold)}
-@keyframes bob{50%{transform:translateY(-4px)}}
-@keyframes step{50%{transform:scaleY(.8)}}
-@keyframes wait{50%{transform:translateY(-2px)}}
-@keyframes hop{40%{transform:translateY(-14px)}}
-@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
-@keyframes munch{50%{transform:translateY(1.5px)}}
-
-.bubble{position:absolute;left:50%;bottom:calc(100% + 20px);transform:translateX(-50%);width:max-content;max-width:210px;padding:5px 9px;border-radius:10px;background:#fffdf5;color:var(--ink);border:2px solid var(--ink);
-  font:600 11.5px/1.25 var(--sans);box-shadow:0 3px 0 rgba(0,0,0,.18);z-index:5;pointer-events:none;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;word-break:break-word}
-.bubble::after{content:"";position:absolute;left:50%;bottom:-8px;width:10px;height:10px;background:#fffdf5;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateX(-50%) rotate(45deg)}
-.bubble.err{background:#ffe6e2;border-color:var(--red)}
-.bubble.err::after{background:#ffe6e2;border-color:var(--red)}
-.uncle .bubble{bottom:calc(100% - 22px);left:100%;transform:none;margin-left:6px;max-width:200px}
-.uncle .bubble::after{left:-5px;bottom:12px;transform:rotate(135deg)}
-
-.uncle[data-state=busy] #uncleAv{animation:hop .6s ease-out infinite}
-.uncle[data-state=waiting] #uncleAv{animation:wait 2.4s ease-in-out infinite}
 
 /* ───── side panel ───── */
 .tabs{display:flex;background:var(--paper-2);border-bottom:2px solid var(--line)}
@@ -242,17 +107,13 @@ button,select,input{font:inherit;color:inherit}
   body{overflow:auto}
   .topbar{height:auto;flex-wrap:wrap;padding:8px 12px;row-gap:8px}
   .layout{height:auto;grid-template-columns:1fr}
-  .scene{min-height:640px}
   .side{border-left:0;border-top:4px solid var(--wood-d);height:60vh}
   .chips{margin-left:0}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important}
-  .person{transition-duration:0ms!important}
 }
 
-.person[data-state=waiting] .bubble{bottom:auto;top:calc(100% + 10px)}
-.person[data-state=waiting] .bubble::after{bottom:auto;top:-7px;border:0;border-left:2px solid var(--ink);border-top:2px solid var(--ink)}
 
 /* ───── fleet (left): who is done, who needs you, and the instruct box ───── */
 .fleet{background:var(--paper);border-left:4px solid var(--wood-d);display:flex;flex-direction:column;min-height:0}
@@ -300,15 +161,7 @@ button,select,input{font:inherit;color:inherit}
 @media (max-width:1380px){.layout{grid-template-columns:minmax(0,1fr) 340px 290px}}
 @media (max-width:1100px){.layout{grid-template-columns:1fr;height:auto}.fleet{border-left:0;border-top:4px solid var(--wood-d);max-height:60vh}}
 
-/* ───── placement fixes: stalls stack vertically; drop decoration when the scene is narrow ───── */
-.stall .body{flex-direction:column;justify-content:center;gap:0;padding:0 2px}
-.stall .dish{font-size:26px;line-height:1.1}
-.stall .info{align-items:center;text-align:center}
-.stall .name{font-size:12px;line-height:1.15}
 .tabs button{white-space:nowrap;font-size:12.5px;padding:10px 4px}
-@media (max-width:1560px){.stall .sub{display:none}}
-@media (max-width:1400px){.stool{display:none}.signboard .zh{display:none}.stalls{left:190px}.signboard{padding:5px 9px}}
-
 /* ───── agent roster in the sidebar ───── */
 .fleet-bar{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--ink-2)}
 .seg{display:flex;border:1px solid #bfae86;border-radius:7px;overflow:hidden}
@@ -343,13 +196,6 @@ button,select,input{font:inherit;color:inherit}
 .c-tab-age{margin-left:auto;color:#a3927a}
 .items:empty::before{content:attr(data-none);display:block;padding:10px 4px;font-size:12px;color:var(--ink-2)}
 
-/* ───── tab customers ───── */
-.person .pst{position:absolute;left:calc(50% + 22px);top:-22px;font-size:15px;line-height:1;filter:drop-shadow(0 1px 0 rgba(0,0,0,.3))}
-.person .pst[data-s=working]{animation:spin 2.4s linear infinite}
-.person[data-state=idle] .av{clip-path:inset(0 0 30% 0)}
-.person[data-state=attention] .av{clip-path:inset(0 0 30% 0);animation:hop .9s ease-in-out infinite}
-.chit[data-s=attention]{border-left-color:#d6452d}
-.chit[data-s=queued]{border-left-color:#b8a98a}
 .c-tab{flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
 .c-tab>span{overflow:hidden;text-overflow:ellipsis}
 .c-tab b{flex:none}

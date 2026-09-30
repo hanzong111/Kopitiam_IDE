@@ -2,12 +2,12 @@
 /* Kopitiam Agents — the browser side.
  *
  * Everything on screen is a pure function of a stream of normalized events (see server.py `ev()`):
- *   prompt · spawn · brief · tool · result · say · usage · done
+ *   prompt · spawn · brief · think · tool · result · say · usage · done
  * Two sources feed the same `apply()`: the local server (real Claude Code / Codex sessions) and a
  * built-in scripted demo. History already on disk is applied instantly ("replay"); new events animate.
  *
- * Metaphor:  orchestrator = Uncle Lim at the counter · sub-agent = a customer · task = an order chit
- *            tool call = a trip to a stall · result = the dish coming back · tokens = the bill
+ * Metaphor:  open terminal tab = a hawker at their own stall · what they are doing = their animation + badge
+ *            your last message = the order ticket · finished turn = a dish waiting for you · tokens = the bill
  */
 
 /* ───────────────────────── constants & helpers ───────────────────────── */
@@ -21,11 +21,9 @@ const STALLS = {
 const DISH = { read: '🍛', run: '🥞', edit: '🍞', web: '☕', other: '🍧', delegate: '🧾' };
 const NAMES = ['Kumar', 'Siti', 'Ah Seng', 'Mei Ling', 'Ravi', 'Aisyah', 'Ah Beng', 'Farah', 'Suresh', 'Li Na', 'Hafiz', 'Priya'];
 const SHIRTS = ['#c2472f', '#2b7fa8', '#6d9430', '#9c3a70', '#d08a1e', '#3f62a8', '#1f9186', '#8a5a34'];
-// one terminal = one customer; Claude Code customers wear warm shirts, Codex customers cool ones
+// name colours in the log/bill: warm = Claude Code, cool = Codex (the hawker art itself is provider-neutral)
 const SRC_SHIRTS = { claude: ['#c2472f', '#d08a1e', '#9c3a70', '#8a5a34', '#b5562c'], codex: ['#2b7fa8', '#1f9186', '#3f62a8', '#6d9430', '#2f6f8f'] };
 const SRC_NAME = { claude: 'Claude', codex: 'Codex' };
-const HAIRS = ['#1b1b1b', '#3b2a1a', '#5a3a22', '#2a2a2a', '#7a7a7a'];
-const N_TABLES = 9;
 const MAX_FEED = 700;
 const MAIN_COLOR = '#1f4f4c';
 
@@ -43,99 +41,126 @@ const short = (s, n) => { s = String(s || '').replace(/\s+/g, ' ').trim(); retur
 const ago = ms => { const s = (Date.now() - ms) / 1000; return s < 90 ? 'just now' : s < 3600 ? Math.round(s / 60) + 'm ago' : s < 86400 ? Math.round(s / 3600) + 'h ago' : Math.round(s / 86400) + 'd ago'; };
 const stallKind = k => STALLS[k] ? k : 'other';
 
-/* ───────────────────────── avatars (inline SVG) ───────────────────────── */
-function avatarSVG(shirt, hair, o = {}) {
-  const skin = o.skin || '#e6b585', w = o.w || 44, h = o.h || 72, vb = o.vb || '0 0 48 78';   // vb crops (card portrait)
-  const uncle = o.uncle ? `
-    <rect x="14" y="31" width="5" height="13" fill="#b3312a"/>
-    <rect x="19" y="31" width="4" height="4" fill="#f7e8bd"/>
-    <rect x="19" y="39" width="4" height="4" fill="#f7e8bd"/>
-    <rect x="15" y="15" width="8" height="6" fill="none" stroke="#24140d" stroke-width="2"/>
-    <rect x="25" y="15" width="8" height="6" fill="none" stroke="#24140d" stroke-width="2"/>
-    <rect x="23" y="17" width="2" height="2" fill="#24140d"/>` : '';
-  return `<div class="flipper"><svg class="av" viewBox="${vb}" width="${w}" height="${h}" shape-rendering="crispEdges" aria-hidden="true">
-    <rect x="9" y="74" width="30" height="4" fill="rgba(0,0,0,.22)"/>
-    <g class="legs">
-      <rect x="14" y="52" width="8" height="18" fill="#33415c"/><rect x="26" y="52" width="8" height="18" fill="#33415c"/>
-      <rect x="12" y="69" width="11" height="5" fill="#24140d"/><rect x="25" y="69" width="11" height="5" fill="#24140d"/>
-    </g>
-    <g class="arms">
-      <rect x="8" y="32" width="6" height="17" fill="${skin}"/><rect x="34" y="32" width="6" height="17" fill="${skin}"/>
-      <rect x="8" y="47" width="7" height="6" fill="${skin}"/><rect x="33" y="47" width="7" height="6" fill="${skin}"/>
-    </g>
-    <rect x="12" y="29" width="24" height="26" fill="${shirt}"/>
-    <rect x="15" y="29" width="18" height="3" fill="rgba(255,255,255,.28)"/>
-    <rect x="21" y="25" width="6" height="5" fill="${skin}"/>
-    <rect x="15" y="8" width="18" height="18" fill="${skin}"/>
-    <rect x="12" y="13" width="3" height="8" fill="${skin}"/><rect x="33" y="13" width="3" height="8" fill="${skin}"/>
-    <rect x="15" y="5" width="18" height="6" fill="${hair}"/>
-    <rect x="12" y="8" width="6" height="8" fill="${hair}"/><rect x="30" y="8" width="6" height="8" fill="${hair}"/>
-    <rect x="18" y="16" width="3" height="3" fill="#24140d"/><rect x="27" y="16" width="3" height="3" fill="#24140d"/>
-    <rect x="23" y="19" width="3" height="2" fill="#b77a58"/>
-    <rect x="20" y="23" width="8" height="2" fill="#8a3b2b"/>
-    ${uncle}
-  </svg></div>`;
-}
+/* ───────────────────────── sprites (web/sprites = Kopitiam Mini Sprite Pack, see its README) ─────────────────────────
+ * Everything is in logical pixels and drawn with nearest-neighbour sampling. manifest.json is authoritative for clip
+ * frames, timing, atlas rectangles and stall anchors; it is loaded in boot() before the first tab is drawn. */
+const SP = 'sprites/';
+const SKINS = ['hawker01', 'hawker02', 'hawker03'];          // kopi uncle · noodle hawker · rice-stall auntie
+const KITS = ['kopi', 'noodle', 'rice'];                     // the stall each skin works at
+const SKIN_NAMES = [['Uncle Lim', 'Ah Seng', 'Kumar'], ['Ah Keong', 'Ravi', 'Hafiz'], ['Mak Siti', 'Kak Aisyah', 'Kak Farah']];
+let ART = null;                                              // sprites/manifest.json
+const PORTRAIT = (p, w, h) => `<img class="px" src="${SP}characters/${SKINS[p.skin || 0]}/reference/portrait.png" width="${w}" height="${h || w}" alt="">`;
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)');
 
 /* ───────────────────────── scene wiring ───────────────────────── */
-const sceneEl = $('#scene'), peopleEl = $('#people'), stallsEl = $('#stalls'), tablesEl = $('#tables'), railEl = $('#rail');
-const logEl = $('#log'), uncleEl = $('#uncle'), uncleBubble = $('#uncleBubble'), uncleStatus = $('#uncleStatus');
-const marks = { door: $('#doorMark'), counter: $('#counterFront') };
-const stallEls = {}, tableEls = [];
+const sceneEl = $('#scene'), worldEl = $('#world'), hudEl = $('#hud');
+const backsEl = $('#backs'), actorsEl = $('#actors'), frontsEl = $('#fronts'), custsEl = $('#custs');
+const logEl = $('#log');
 let PRICES = { models: [], cacheWrite5m: 1.25, cacheWrite1h: 2 };
 
-function buildStalls() {
-  stallsEl.innerHTML = '';
-  for (const [kind, s] of Object.entries(STALLS)) {
-    const root = el('div', 'stall');
-    root.dataset.kind = kind;
-    root.innerHTML = `<div class="awning"></div>
-      <div class="body"><span class="dish">${s.dish}</span><div class="info"><span class="name">${s.name}</span><span class="sub">${s.sub}</span></div></div>
-      <div class="steam"><i></i><i></i><i></i></div><span class="count">0</span><i class="mark front"></i>`;
-    stallsEl.appendChild(root);
-    stallEls[kind] = { root, front: $('.front', root), count: $('.count', root), busy: 0, trips: 0 };
-  }
-}
-function buildTables() {
-  tablesEl.innerHTML = '';
-  tableEls.length = 0;
-  for (let i = 0; i < N_TABLES; i++) {
-    const t = el('div', 'table');
-    t.dataset.empty = 'true';
-    t.innerHTML = `<div class="setting"><i class="stool l"></i><i class="stool r"></i>
-      <div class="top"><span class="tno">${i + 1}</span><i class="mark seat"></i><div class="ware"></div></div></div>
-      <div class="tlabel"></div><div class="tbill"></div>`;
-    t.addEventListener('click', e => { e.stopPropagation(); const p = PEOPLE.get(TABLES[i][0]); if (p && p.onClick) p.onClick(); });
-    tablesEl.appendChild(t);
-    tableEls.push({ root: t, seat: $('.seat', t), ware: $('.ware', t), label: $('.tlabel', t), bill: $('.tbill', t) });
-  }
-}
-$('#uncleAv').innerHTML = avatarSVG('#f4f1e8', '#8c8c8c', { uncle: true, w: 58, h: 96 });
+/* The shop is a flat bar across the whole bottom band: four stalls in a row with equal gaps (between them and at both
+ * edges), hawkers walking in from the left edge. World units are logical pixels: the bar is BAR_H tall and as wide as
+ * the band allows at the current zoom (--s, nearest-neighbour); text lives in #hud at screen size.
+ * Layers: bar background → stall backs → hawkers (a hawker walking past a stall goes behind its counter) → worktops,
+ * fronts, equipment, effects, badges. */
+const BAR_H = 148, ROW_Y = 48, STALL_W = 96, N_STALLS = 4, MIN_GAP = 8;   // stall canvases are 96×80; row top at ROW_Y
+const LANE_Y = ROW_Y + 52;                                   // hawkers' feet line, behind the counters (stall agent_feet)
+const BAR_BG = 'room/bar.png';                               // your bar background: BAR_H px tall, repeats sideways
+const DOOR = [-20, LANE_Y];                                  // just off the left edge: where hawkers walk in and out
+const DOOR_Q = [[16, 138], [34, 138]];                       // tabs beyond the stalls wait at the left, in front
+const WALK_PX_S = 90;                                        // walking speed, logical px per second
+let WORLD_W = 512, SLOT_X = [];                              // bar width and stall x positions, set by layoutBar()
+const SLOT_OWNER = [];                                       // stall index -> person id
+const slotEls = [];
 
-/* The scene is drawn at its native size and CSS-scaled into the mini-map, so on-screen distances are divided by
- * SCALE to get back to scene coordinates (people's left/top live in scene coordinates and survive any rescale). */
-const SCENE_W = 960, SCENE_H = 640;
-let SCALE = 0.42;
+function img(file, x, y, cls) {
+  const i = el('img', 'px' + (cls ? ' ' + cls : ''));
+  i.src = SP + file; i.alt = ''; i.draggable = false;
+  i.style.left = x + 'px'; i.style.top = y + 'px';
+  return i;
+}
+function buildRoom() {
+  backsEl.replaceChildren(); frontsEl.replaceChildren(); slotEls.length = 0;
+  for (let i = 0; i < N_STALLS; i++) {                      // draw order from layers.json: back, agent, worktop, front, equipment
+    const kit = kitOf(KITS[i % KITS.length]);
+    const back = el('div', 'slot'), front = el('div', 'slot');
+    for (const s of [back, front]) s.style.top = ROW_Y + 'px';
+    back.append(img(kit.layers.back, 0, 0));
+    front.append(img(kit.layers.worktop, 0, 0), img(kit.layers.front, 0, 0), img(kit.layers.equipment, 0, 0));
+    const hit = el('div', 'hit');                            // the whole stall is the click target, whoever runs it
+    hit.tabIndex = -1; hit.setAttribute('role', 'button');
+    const go = e => { e.stopPropagation(); const p = PEOPLE.get(SLOT_OWNER[i]); if (p && p.onClick) p.onClick(); };
+    hit.addEventListener('click', go);
+    hit.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(e); } });
+    front.appendChild(hit);
+    backsEl.appendChild(back); frontsEl.appendChild(front);
+    slotEls.push({ kit, back, front, hit });
+  }
+  const bgImg = new Image();                                 // use the bar background once it exists; until then the placeholder
+  bgImg.onload = () => { $('#room').style.backgroundImage = `url(${SP}${BAR_BG})`; $('#room').classList.add('custom'); };
+  bgImg.src = SP + BAR_BG;
+  layoutBar();
+}
+/* equal gaps: between the stalls and at both ends of the bar */
+function layoutBar() {
+  const gap = Math.max(MIN_GAP, (WORLD_W - N_STALLS * STALL_W) / (N_STALLS + 1));
+  SLOT_X = Array.from({ length: N_STALLS }, (_, i) => Math.round(gap + i * (STALL_W + gap)));
+  slotEls.forEach((s, i) => { s.back.style.left = s.front.style.left = SLOT_X[i] + 'px'; });
+  for (const a of PEOPLE.values()) if (a.hawker && !a.leaving) placeTab(a, !a.walking);
+}
+
+/* Sizing: the shop fills the whole bottom band. Its zoom is a step chosen with the splitter above it (remembered per
+ * browser), capped so the workspace keeps MIN_WORK_H and the four stalls fit across. The window onto the room is as
+ * wide as the band allows, centred on the stalls. */
+const STEPS = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3, 3.5, 4], MIN_WORK_H = 240, MM_HEAD = 26;
+const SCALE_KEY = 'kopitiam.shopZoom';
+let SCALE = 2, WANT = null;
+try { WANT = STEPS.includes(+localStorage.getItem(SCALE_KEY)) ? +localStorage.getItem(SCALE_KEY) : null; } catch { /* storage blocked */ }
+const bandW = () => $('.bottom').clientWidth || innerWidth - 330;
+function maxStep() {
+  const need = N_STALLS * STALL_W + (N_STALLS + 1) * MIN_GAP;   // four stalls must fit across
+  const ok = STEPS.filter(s => BAR_H * s + MM_HEAD <= innerHeight - 72 - MIN_WORK_H && need * s <= bandW());
+  return ok.length ? ok[ok.length - 1] : STEPS[0];
+}
+const defaultStep = () => STEPS.filter(s => BAR_H * s + MM_HEAD <= (innerHeight - 72) * 0.42).pop() || STEPS[0];
 function fitScene() {
-  const mm = $('#minimap'), big = mm.classList.contains('expanded');
-  SCALE = big ? Math.min((innerWidth - 48) / SCENE_W, (innerHeight - 140) / (SCENE_H + 30), 1.3)
-    : innerWidth <= 1080 ? Math.min(1, (innerWidth - 8) / SCENE_W) : 0.42;
-  mm.style.setProperty('--s', SCALE.toFixed(4));
-  $('#mmToggle').textContent = big ? '⤡ shrink' : '⤢ expand';
+  SCALE = Math.min(WANT || defaultStep(), maxStep());
+  WORLD_W = Math.floor(bandW() / SCALE);
+  const st = sceneEl.style;
+  st.setProperty('--s', SCALE); st.height = BAR_H * SCALE + 'px';
+  worldEl.style.width = WORLD_W + 'px'; worldEl.style.height = BAR_H + 'px';
+  document.documentElement.style.setProperty('--mm-h', BAR_H * SCALE + MM_HEAD + 'px');
+  layoutBar();
+  const sp = $('#split'); sp.setAttribute('aria-valuenow', SCALE); sp.title = `Drag to resize the shop (now ${SCALE}×) · double-click: default size`;
 }
-function toggleMinimap(force) {
-  const mm = $('#minimap'), big = force != null ? force : !mm.classList.contains('expanded');
-  mm.classList.toggle('expanded', big); fitScene();
+/* splitter between the workspace and the shop: drag (or ↑/↓ when focused) to change the zoom step */
+function setStep(s) {
+  WANT = s; fitScene();
+  try { if (s == null) localStorage.removeItem(SCALE_KEY); else localStorage.setItem(SCALE_KEY, s); } catch { /* storage blocked */ }
 }
-$('#mmToggle').addEventListener('click', e => { e.stopPropagation(); toggleMinimap(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#minimap').classList.contains('expanded')) toggleMinimap(false); });
-function anchor(marker) {
-  const s = sceneEl.getBoundingClientRect(), r = marker.getBoundingClientRect();
-  return { x: (r.left - s.left + r.width / 2) / SCALE, y: (r.top - s.top + r.height) / SCALE };
-}
+(() => {
+  const sp = $('#split');
+  sp.addEventListener('pointerdown', e => {
+    e.preventDefault(); try { sp.setPointerCapture(e.pointerId); } catch { /* synthetic pointer */ } sp.classList.add('drag');
+    const bottom = $('.layout').getBoundingClientRect().bottom, cap = maxStep();
+    const move = ev => {                                   // nearest step to where the band's top edge is being dragged
+      const want = (bottom - ev.clientY - MM_HEAD) / BAR_H;
+      const s = STEPS.filter(x => x <= cap).reduce((b, x) => Math.abs(x - want) < Math.abs(b - want) ? x : b, STEPS[0]);
+      if (s !== SCALE) { WANT = s; fitScene(); }
+    };
+    const up = () => { sp.classList.remove('drag'); sp.removeEventListener('pointermove', move); sp.removeEventListener('pointerup', up); sp.removeEventListener('pointercancel', up); setStep(SCALE); };
+    sp.addEventListener('pointermove', move); sp.addEventListener('pointerup', up); sp.addEventListener('pointercancel', up);
+  });
+  sp.addEventListener('dblclick', () => setStep(null));
+  sp.addEventListener('keydown', e => {
+    const i = STEPS.indexOf(SCALE), d = e.key === 'ArrowUp' ? 1 : e.key === 'ArrowDown' ? -1 : 0;
+    if (!d) return; e.preventDefault();
+    const s = STEPS[Math.max(0, Math.min(STEPS.length - 1, i + d))];
+    if (s <= maxStep()) setStep(s);
+  });
+})();
 
 /* ───────────────────────── world state ───────────────────────── */
-const TABLES = Array.from({ length: N_TABLES }, () => []);   // table -> person ids (owned by the tab scene)
 const PEOPLE = new Map();                                     // person id -> person (one per open terminal tab)
 let S = null, conn = { es: null, timers: [], src: '', id: '', opened: false, events: [] };
 
@@ -143,7 +168,7 @@ function freshState() {
   return {
     agents: new Map(), seq: 0, selected: null, filter: null, lastMainT: 0, replaying: false,
     totals: { i: 0, cw: 0, cr: 0, o: 0, th: 0, cost: 0, unpriced: false, trips: 0 },
-    burn: [], toolRows: new Map(), chatTools: new Map(), chits: new Map(), uncleTimer: 0, sessionModel: '', mode: 'idle',
+    burn: [], toolRows: new Map(), chatTools: new Map(), chatFor: 'main', sessionModel: '', mode: 'idle',
   };
 }
 
@@ -153,10 +178,9 @@ function ensureAgent(id) {
   const main = id === 'main', n = S.seq;
   a = {
     id, main, label: main ? 'Orchestrator' : 'sub-agent', atype: '', model: '', brief: '', parent: 'main',
-    name: main ? 'Main agent' : NAMES[n % NAMES.length], color: main ? MAIN_COLOR : SHIRTS[n % SHIRTS.length], hair: HAIRS[n % HAIRS.length],
+    name: main ? 'Main agent' : NAMES[n % NAMES.length], color: main ? MAIN_COLOR : SHIRTS[n % SHIRTS.length],
     tools: [], pending: new Map(), usage: { i: 0, cw: 0, cr: 0, o: 0, th: 0 }, cost: 0, unpriced: false, trips: 0,
     startT: 0, endT: 0, done: false, briefed: false, spawned: false, seated: false, lastSay: '',
-    q: [], pumping: false, cur: null, node: null, at: null, seat: null, seatIdx: 0, jx: ((n % 3) - 1) * 16, state: 'queue', dead: false, waitInfo: null,
   };
   if (!main) S.seq++;
   S.agents.set(id, a);
@@ -189,9 +213,9 @@ function apply(ev, instant) {
   const a = ensureAgent(ev.a);
   switch (ev.k) {
     case 'prompt': {
-      feedRow(ev, ensureAgent('main'), `🧑 <b>You:</b> ${esc(short(ev.text, 600))}`);
+      feedRow(ev, ensureAgent('main'), `🧑 <b>You:</b> ${esc(short(mdPlain(ev.text), 600))}`);
       if (!S.replaying && WS.pending.length) WS.pending.shift().remove();   // the log confirmed a message we showed early
-      chatAdd('u', ev.text, ev.t);
+      if (S.chatFor === 'main') chatAdd('u', ev.text, ev.t);
       break;
     }
     case 'spawn': {
@@ -208,13 +232,14 @@ function apply(ev, instant) {
     case 'brief': {
       a.brief = a.brief || ev.text; a.briefed = true; if (!a.startT) a.startT = ev.t;
       feedRow(ev, a, `📋 got the brief <span class="res">(${fmtN(ev.text.length)} chars)</span>`);
+      if (S.chatFor === ev.a) chatAdd('u', ev.text, ev.t, 'Brief from ' + (S.agents.get(a.parent) || {}).name);
       break;
     }
     case 'tool': {
       const rec = { id: ev.id, name: ev.name, kind: ev.kind, sum: ev.sum, inp: ev.inp, t: ev.t, pending: true, err: false, n: 0 };
       a.tools.push(rec); a.pending.set(ev.id, rec); a.trips++; S.totals.trips++;
       feedTool(ev, a, rec);
-      if (a.main) S.chatTools.set(ev.id, chatAdd('t', `${DISH[stallKind(ev.kind)] || '🍽️'} ${ev.sum}`, ev.t));
+      if (S.chatFor === ev.a) S.chatTools.set(ev.id, chatAdd('t', `${DISH[stallKind(ev.kind)] || '🍽️'} ${ev.sum}`, ev.t));
       break;
     }
     case 'result': {
@@ -224,16 +249,16 @@ function apply(ev, instant) {
         a.pending.delete(ev.id);
       }
       feedResult(ev, rec);
-      const ct = S.chatTools.get(ev.id);
-      if (ct) { if (ev.err) { ct.classList.add('err'); ct.textContent += '  ✗'; } S.chatTools.delete(ev.id); }
+      if (S.chatFor === ev.a) chatResult(ev);
       break;
     }
     case 'say': {
       a.lastSay = ev.text;
-      feedRow(ev, a, `💬 ${esc(short(ev.text, 500))}`);
-      if (a.main) chatAdd('a', ev.text, ev.t);
+      feedRow(ev, a, `💬 ${esc(short(mdPlain(ev.text), 500))}`);
+      if (S.chatFor === ev.a) chatAdd('a', ev.text, ev.t);
       break;
     }
+    case 'think': if (S.chatFor === ev.a) chatAdd('t', thinkText(ev), ev.t).classList.add('think'); break;
     case 'usage': addUsage(a, ev); break;
     case 'done': {
       if (a.main || a.done) break;
@@ -244,182 +269,411 @@ function apply(ev, instant) {
   }
 }
 
-/* ───────────────────────── animation actions ───────────────────────── */
-function ensurePerson(a) {
-  if (a.main || a.node || a.dead) return a.node;
-  const n = el('div', 'person');
-  n.dataset.id = a.id; n.dataset.state = 'queue'; n.dataset.dir = 'r'; if (a.src) n.dataset.src = a.src;   // sprite sheets can key on data-src
-  n.style.setProperty('--tagc', a.color);
-  n.innerHTML = `<div class="bubble" hidden></div><div class="tag">${esc(a.name)}</div><div class="pst"></div><div class="hold"></div>${avatarSVG(a.color, a.hair)}`;
-  n.addEventListener('click', e => { e.stopPropagation(); if (a.onClick) a.onClick(); });
-  PEOPLE.set(a.id, a);
-  peopleEl.appendChild(n);
-  a.node = n;
-  jump(a, marks.door, 0);
-  requestAnimationFrame(() => n.classList.add('show'));
+/* ───────────────────────── hawkers & stalls ─────────────────────────
+ * One open terminal tab = one hawker at their own stall. The fleet snapshot picks the state (visualFor); the frame
+ * loop only draws it. Animation never changes state: a finished one-shot just holds its last frame. */
+let CLIPS = [], FX = {};                 // per skin: clip -> { rects, ms, pb } · effect id -> { file, rects, ms, pb, still }
+function loadArt(m) {
+  ART = m;
+  const rectOf = atlas => new Map(atlas.frames.map(f => [f.file, f.rect]));
+  CLIPS = SKINS.map(id => {
+    const c = m.characters.find(x => x.id === id), r = rectOf(c.atlas), out = { atlas: c.atlas.file };
+    for (const [k, v] of Object.entries(c.clips)) out[k] = { rects: v.frames.map(f => r.get(f)), ms: v.durationMs, pb: v.playback };
+    return out;
+  });
+  for (const e of m.effects) { const r = rectOf(e.atlas); FX[e.id] = { file: e.atlas.file, rects: e.frames.map(f => r.get(f)), ms: e.durationMs, pb: e.playback, still: r.get(e.staticFallback) }; }
+}
+const kitOf = id => ART.stalls.find(s => s.id === id);
+
+const TEST_RE = /\b(tests?|pytest|jest|vitest|mocha|rspec|ctest|unittest|tox|go test|cargo test|(npm|pnpm|yarn)( run)? test)\b/i;
+const BUILD_RE = /\b(make|cmake|build|compile|tsc|webpack|gradle|mvn|colcon|catkin|cargo build|go build|docker build|(npm|pnpm|yarn)( run)? build|(npm|pnpm) (ci|install)|pip install)\b/i;
+const WORK_CLIPS = new Set(['thinking', 'reading', 'editing', 'building', 'testing']);
+function visualFor(a, s) {                   // fleet snapshot -> { clip, badge, text } (see the pack's state-map.json)
+  if (a.leaving) return { clip: 'stopping', badge: 'stopping', text: '👋 tab closed' };
+  if (!s) return { clip: 'idle', badge: '', text: '' };
+  if (s.status === 'attention') {
+    const q = /question|ask|answer/i.test(s.reason || '');
+    return { clip: 'asking', badge: q ? 'question' : 'approval', text: '⚠ ' + (s.reason || 'needs you'), att: true };
+  }
+  if (s.status === 'working') {
+    const d = s.now_doing || {}, t = d.text || '', k = d.kind;
+    const [clip, badge] = k === 'read' ? ['reading', 'reading'] : k === 'edit' ? ['editing', 'editing'] : k === 'web' ? ['reading', 'tool']
+      : k === 'run' ? (TEST_RE.test(t) ? ['testing', 'testing'] : BUILD_RE.test(t) ? ['building', 'building'] : ['editing', 'tool'])
+      : k === 'delegate' ? ['idle', 'dependency'] : k === 'other' ? ['editing', 'tool'] : ['thinking', 'thinking'];
+    return { clip, badge, text: `${ACT_ICON[k] || '⚙️'} ${short(t || 'working…', 90)}`, since: d.since };
+  }
+  if (!s.last_prompt && !(s.tokens && s.tokens.total)) return { clip: 'idle', badge: '', text: '' };   // new tab: nothing asked yet
+  return { clip: 'review_hold', badge: 'review', text: '✅ done, your turn' };                        // output waiting for you
+}
+function setClip(a, clip) { if (a.clip !== clip) { a.clip = clip; a.t0 = performance.now(); } }
+function setBadge(a, b) {
+  if (a.badgeId === b) return; a.badgeId = b;
+  a.badge.hidden = !b; if (b) { a.badge.src = `${SP}ui/badges/${b}.png`; a.badge.title = b.replace('_', ' '); }
+}
+
+/* where a tab stands: tab N runs stall N (left → right); once all four are taken, the next tabs wait by the door */
+function placeOf(a) {
+  const i = a.tabNo - 1;
+  if (i < SLOT_X.length) { const [fx, fy] = slotEls[i].kit.anchors.agent_feet; return { slot: i, fx: SLOT_X[i] + fx, fy: ROW_Y + fy, x: SLOT_X[i], y: ROW_Y }; }
+  const q = i - SLOT_X.length, [fx, fy] = DOOR_Q[Math.min(q, DOOR_Q.length - 1)];
+  return { slot: -1, q, fx, fy, x: fx - 16, y: fy - 36 };
+}
+const refView = (a, dir) => `url(${SP}characters/${SKINS[a.skin]}/reference/${dir}.png)`;
+function standAt(a, fx, fy) { const h = a.hawker.style; h.left = (fx - 16) + 'px'; h.top = (fy - 36) + 'px'; h.zIndex = fy; a.at = [fx, fy]; }
+/* The pack has no walk cycle (planned for a later milestone), so a walking hawker uses its static diagonal view with a
+ * one-pixel step bob. Walking only moves the sprite: it never changes what the tab is doing. */
+function walkTo(a, fx, fy) {                             // the frame loop moves the hawker (elapsed time, like every clip)
+  const hw = a.hawker; if (!hw) return Promise.resolve();
+  const [x0, y0] = a.at || [fx, fy], ms = REDUCED.matches ? 0 : Math.round(Math.hypot(fx - x0, fy - y0) / WALK_PX_S * 1000);
+  if (a.walk) a.walk.done();                                 // a new walk replaces the old one from where the hawker is now
+  a.walking = true; hw.classList.add('walk');
+  hw.style.backgroundImage = refView(a, fx >= x0 ? 'se' : 'sw'); hw.style.backgroundPosition = '0 0';
+  return new Promise(r => {
+    const w = a.walk = { x0, y0, x1: fx, y1: fy, t0: performance.now(), ms, done: () => { clearTimeout(w.timer); if (a.walk === w) a.walk = null; r(); } };
+    w.timer = setTimeout(() => { if (a.walk === w && a.hawker) { w.t0 = -Infinity; stepWalk(a, 0); } }, ms + 60);   // arrives even if frames are paused (hidden tab)
+  });
+}
+function stepWalk(a, now) {
+  const w = a.walk, k = w.ms && w.t0 > -Infinity ? Math.min(1, Math.max(0, (now - w.t0) / w.ms)) : 1;
+  standAt(a, Math.round(w.x0 + (w.x1 - w.x0) * k), Math.round(w.y0 + (w.y1 - w.y0) * k));
+  if (k < 1) return;
+  a.walking = false; a.hawker.classList.remove('walk');
+  a.hawker.style.backgroundImage = `url(${SP}${CLIPS[a.skin].atlas})`; a.hawker._k = null;   // back to the animation frames
+  w.done();
+}
+function mountTab(a, walkIn) {
+  const pl = placeOf(a), s = pl.slot >= 0 ? slotEls[pl.slot] : null;
+  if (s) { SLOT_OWNER[pl.slot] = a.id; s.hit.tabIndex = 0; s.hit.setAttribute('aria-label', `Tab ${a.tabNo} · ${a.name}`); s.front.dataset.src = a.src || ''; }
+  const hw = el('div', 'hawker'); hw.style.backgroundImage = `url(${SP}${CLIPS[a.skin].atlas})`;
+  hw.addEventListener('click', e => { e.stopPropagation(); if (a.onClick) a.onClick(); });   // hawkers waiting at the side
+  if (pl.slot < 0 && pl.q >= DOOR_Q.length) hw.hidden = true;
+  (s ? actorsEl : frontsEl).appendChild(hw);                 // stall hawkers stand behind their counter; waiting ones in front
+  // effects + badge ride on the stall's front layer (or next to a waiting hawker)
+  const fx = el('div', 'fx');
+  const [bx, by] = s ? s.kit.anchors.status_badge : [30, 8];
+  const badge = img('ui/badges/idle.png', bx - 12, by - 24, 'badge'); badge.hidden = true; fx.appendChild(badge);
+  badge.addEventListener('click', e => { e.stopPropagation(); if (a.onClick) a.onClick(); });
+  frontsEl.appendChild(fx);
+  // screen-size text: nameplate on the stall's sign, order ticket under the stall, speech bubble above it
+  const tag = el('div', 'np'), bub = el('div', 'bub'), chit = el('div', 'tk');
+  bub.hidden = true; tag.dataset.src = a.src || '';
+  for (const h of [tag, chit]) h.addEventListener('click', e => { e.stopPropagation(); if (a.onClick) a.onClick(); });
+  const more = el('div', 'cmore'); more.hidden = true;             // sub-agents with no free stool
+  const hud = el('div', 'tabhud' + (s ? '' : ' q')); hud.append(bub, tag, chit, more); if (hw.hidden) hud.hidden = true;
+  Object.assign(a, { hawker: hw, badge, fxEl: fx, hud, tagEl: tag, bubEl: bub, chitEl: chit, moreEl: more, kit: s ? s.kit : null, place: pl, badgeId: null, arrived: false });
+  setClip(a, 'idle');
+  hudEl.appendChild(hud);
+  placeTab(a, false);
+  const arrive = () => { a.arrived = true; placeTab(a, true); fx.classList.add('show'); hud.classList.add('show'); };
+  if (walkIn && !hw.hidden && !REDUCED.matches) {           // a new terminal: the hawker walks in from the left to their stall
+    standAt(a, ...DOOR);
+    requestAnimationFrame(() => walkTo(a, pl.fx, pl.fy).then(() => { if (!a.leaving) arrive(); }));
+  } else { standAt(a, pl.fx, pl.fy); arrive(); }
+}
+/* put a tab's badge/effects and labels at its stall (again after a resize); snap also moves the hawker there */
+function placeTab(a, snap) {
+  const pl = a.place = placeOf(a), s = pl.slot >= 0;
+  a.fxEl.style.left = pl.x + 'px'; a.fxEl.style.top = pl.y + 'px';
+  const cx = pl.x + (s ? 48 : 16), top = pl.y + (s ? 4 : 0), sign = pl.y + (s ? 18 : 2), base = pl.y + (s ? 80 : 42);
+  a.tagEl.style.cssText = `--x:${cx};--y:${sign}`; a.chitEl.style.cssText = `--x:${cx};--y:${base}`; a.bubEl.style.cssText = `--x:${cx};--y:${top}`;
+  a.moreEl.style.cssText = `--x:${pl.x + 92};--y:${BAR_H - 4}`;
+  if (snap) standAt(a, pl.fx, pl.fy);
+  if (a.custs && s) for (const c of a.custs.values()) if (c.el && c.phase !== 'walk') placeCustomer(a, c);
+}
+
+/* ───────────────────────── sub-agents: customers at the stall ─────────────────────────
+ * Each confirmed sub-agent of a tab is a customer (sprites/customers, see its Kopitiam_Subagent_Customers.md) who walks
+ * up from the bottom of the bar and sits on a stool in front of its parent's stall, back to us, facing the hawker.
+ * The fleet roster is the source of truth: working → seated + activity chip, stopped → stop chip; once it is done it
+ * stands up and fades out (its result stays readable from the card and the chat).
+ * The runtime reports no per-sub-agent approvals, so the raised hand is not used (nothing is guessed). */
+let CUST = null;                                             // customers/manifest.json: per variant atlas + clips
+const SEATS = [18, 48, 78], SEAT_Y = 146, CUST_WALK_MS = 800;  // stool ground x within a stall, ground y, arrival time
+// status chip colours = the core badges' colours (the 24 px badges would cover the hawker at this size)
+const CHIP_BG = { reading: '#567f96', thinking: '#567f96', editing: '#52754b', tool: '#52754b', testing: '#52754b', building: '#d89d3c', dependency: '#927250', review: '#8b7096', stop: '#b76445' };
+const CUST_VIEW = { read: 'reading', edit: 'editing', web: 'reading', delegate: 'dependency', other: 'tool', think: 'thinking', say: 'thinking' };
+function loadCustomers(m) {
+  CUST = m.customers.map(c => ({ id: c.id, atlas: c.atlas.file, clips: Object.fromEntries(Object.entries(c.clips).map(([k, v]) =>
+    [k, { f: v.frameIndices, ms: v.durationMs, pb: v.playback }])) }));
+}
+function custBadge(r) {                                      // roster entry -> badge id
+  if (r.state === 'done') return 'review';
+  if (r.state === 'stopped') return 'stop';
+  const d = r.doing || {}, k = d.kind;
+  if (k === 'run') return TEST_RE.test(d.text || '') ? 'testing' : BUILD_RE.test(d.text || '') ? 'building' : 'tool';
+  return CUST_VIEW[k] || 'thinking';
+}
+function syncCustomers(a, s) {
+  if (!CUST || !a.hawker) return;
+  const cs = a.custs || (a.custs = new Map()), roster = (s && s.agents) || [], alive = new Set();
+  if (a.custSeq == null) a.custSeq = 0;
+  for (const r of roster) {
+    if (r.state === 'done') continue;                        // finished: it gets up and leaves (still listed in the card)
+    alive.add(r.id);
+    let c = cs.get(r.id);
+    const look = a.custLook || (a.custLook = new Map());     // appearance fixed for life, also if it leaves and comes back
+    if (!look.has(r.id)) look.set(r.id, a.custSeq++ % CUST.length);
+    if (!c) { c = { id: r.id, variant: look.get(r.id), seat: -1 }; cs.set(r.id, c); }
+    c.r = r;
+  }
+  for (const c of cs.values()) if (!alive.has(c.id) && !c.leaving) retireCustomer(a, c);
+  // seats: keep a live customer's seat; waiting ones take free seats in arrival order (only at a real stall)
+  const taken = new Set([...cs.values()].filter(c => c.seat >= 0 && !c.leaving).map(c => c.seat));
+  for (const c of cs.values()) {
+    if (c.leaving || c.seat >= 0 || a.place.slot < 0) continue;
+    const free = SEATS.findIndex((_, i) => !taken.has(i));
+    if (free < 0) break;
+    c.seat = free; taken.add(free); mountCustomer(a, c, !TS.first);
+  }
+  for (const c of cs.values()) if (c.el && !c.leaving) {
+    const b = custBadge(c.r);
+    if (c.badgeId !== b) { c.badgeId = b; c.badge.firstChild.src = `${SP}ui/icons/${b}.png`; c.badge.style.setProperty('--bc', CHIP_BG[b] || '#567f96'); c.badge.title = b; }
+    c.want = c.r.state === 'working' ? 'seated_idle' : 'seated_hold';
+    if (c.phase === 'seated' && c.clip !== c.want) setCustClip(c, c.want);
+    c.el.title = `${c.r.label}${c.r.atype ? ' [' + c.r.atype + ']' : ''} · ${c.r.state === 'working' ? (c.r.doing && c.r.doing.text) || 'working' : c.r.state}`;
+  }
+  const over = [...cs.values()].filter(c => !c.leaving && c.seat < 0).length;
+  a.moreEl.hidden = !over; a.moreEl.textContent = `+${over} sub-agent${over === 1 ? '' : 's'}`;
+}
+const custPos = (a, c) => [SLOT_X[a.place.slot] + SEATS[c.seat], SEAT_Y];
+function setCustClip(c, clip) { c.clip = clip; c.t0 = performance.now(); }
+function mountCustomer(a, c, walkIn) {
+  const V = CUST[c.variant], node = document.createElement('div');
+  node.className = 'cust'; node.style.backgroundImage = `url(${SP}customers/${V.atlas})`;
+  node.tabIndex = 0; node.setAttribute('role', 'button');
+  const open = e => { e.stopPropagation(); selectTab(a.id, c.id); };
+  node.addEventListener('click', open);
+  node.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(e); } });
+  c.stool = img('customers/shared/stool.png', 0, 0, 'stool');
+  c.badge = el('div', 'cbadge'); c.badge.appendChild(img('ui/icons/thinking.png', 0, 0)); c.badge.addEventListener('click', open);
+  custsEl.append(c.stool, node, c.badge);
+  c.el = node; c.phase = 'seated'; c.clip = 'seated_idle'; c.t0 = performance.now();
+  placeCustomer(a, c);
+  if (walkIn && !REDUCED.matches) {                          // walk north from below the bar, then sit
+    c.phase = 'walk'; setCustClip(c, 'walk_north'); c.walkT0 = performance.now(); c.badge.hidden = true;
+    c.walkTimer = setTimeout(() => arriveCustomer(a, c), CUST_WALK_MS + 60);   // arrives even if frames are paused
+  } else c.clip = c.r && c.r.state === 'working' ? 'seated_idle' : 'seated_hold';
+}
+function placeCustomer(a, c, dy = 0) {
+  const [x, y] = custPos(a, c);
+  c.stool.style.left = (x - 16) + 'px'; c.stool.style.top = (y - 36) + 'px'; c.stool.style.zIndex = y - 1;
+  c.el.style.left = (x - 16) + 'px'; c.el.style.top = (y - 36 + dy) + 'px'; c.el.style.zIndex = y;
+  c.badge.style.left = (x - 9) + 'px'; c.badge.style.top = (y - 46 + dy) + 'px'; c.badge.style.zIndex = y + 1;   // small chip above the head, on the counter front
+}
+function arriveCustomer(a, c) {
+  if (c.phase !== 'walk' || !c.el) return;
+  clearTimeout(c.walkTimer); placeCustomer(a, c);
+  c.phase = 'sit'; setCustClip(c, 'sit_down'); c.badge.hidden = false;
+}
+function retireCustomer(a, c) {                              // retired by the runtime: stand up, fade, free the stool
+  c.leaving = true; clearTimeout(c.walkTimer);
+  if (!c.el) { a.custs.delete(c.id); return; }
+  const gone = () => { for (const n of [c.el, c.stool, c.badge]) n && n.remove(); a.custs.delete(c.id); if (a.sess) syncCustomers(a, FL.byKey.get(keyOf(a.sess))); };
+  if (REDUCED.matches) return gone();
+  c.phase = 'leave'; setCustClip(c, 'stand_up'); c.badge.hidden = true;
+  setTimeout(() => { c.el && c.el.classList.add('gone'); c.stool && c.stool.classList.add('gone'); }, 480);
+  setTimeout(gone, 760);
+}
+function paintCustomers(a, now) {
+  for (const c of a.custs.values()) {
+    if (!c.el) continue;
+    if (c.phase === 'walk') {
+      const k = Math.min(1, (now - c.walkT0) / CUST_WALK_MS);
+      placeCustomer(a, c, Math.round((1 - k) * 48));           // from below the bar up to the stool
+      if (k >= 1) arriveCustomer(a, c);
+    }
+    const C = CUST[c.variant].clips;
+    let cl = C[c.clip] || C.seated_hold, i = Math.max(0, Math.floor((now - c.t0) / cl.ms));
+    if (REDUCED.matches && c.phase !== 'leave') { cl = C.seated_hold; i = 0; }
+    else if (cl.pb === 'loop') i %= cl.f.length;
+    else if (i >= cl.f.length) {
+      i = cl.f.length - 1;
+      if (c.phase === 'sit') { c.phase = 'seated'; setCustClip(c, c.want || 'seated_idle'); }
+    }
+    const f = cl.f[i], key = f + '';
+    if (c.el._k !== key) { c.el._k = key; c.el.style.backgroundPosition = `-${(f % 4) * 32}px -${Math.floor(f / 4) * 40}px`; }
+  }
+}
+function syncCustomerSel() {                                 // highlight the customer whose conversation is open
+  for (const a of PEOPLE.values()) if (a.custs) for (const c of a.custs.values())
+    c.el && c.el.classList.toggle('sel', !!(S && a.sess && selKey() === keyOf(a.sess) && S.chatFor === c.id));
+}
+
+/* continuous effect at the stall (steam while building/testing, stove heat while working) */
+const FX_AT = { steam: [22, 44], stove_glow: [24, 53] };   // over the kettle / pot, under the noodle wok (stall coords)
+function setLoopFx(a, id) {
+  if (a.loopFx === id) return; a.loopFx = id;
+  a.fxEl.replaceChildren();
+  if (id && a.kit) a.fxEl.prepend(fxNode(id, ...FX_AT[id], true));
+}
+function fxNode(id, ax, ay, loop) {           // effect canvas is 32×32, anchor [16, 28]
+  const f = FX[id], n = el('i', 'fxf');
+  n.style.cssText = `left:${ax - 16}px;top:${ay - 28}px;background-image:url(${SP}${f.file})`;
+  n._fx = f; n._t0 = performance.now(); n._loop = loop;
   return n;
 }
-function setState(a, s) { a.state = s; if (a.node) a.node.dataset.state = s; }
-function jump(a, marker, jx) { const p = anchor(marker); const n = a.node; n.style.transitionDuration = '0ms'; n.style.left = (p.x + jx) + 'px'; n.style.top = p.y + 'px'; a.at = marker; a.atJx = jx; }
-function go(a, marker, ms, jx = 0) {
-  const n = a.node; if (!n || a.dead) return Promise.resolve();
-  const p = anchor(marker), x = p.x + jx, cx = parseFloat(n.style.left);
-  if (!isNaN(cx) && Math.abs(x - cx) > 2) n.dataset.dir = x < cx ? 'l' : 'r';
-  n.style.transitionDuration = ms + 'ms'; n.style.left = x + 'px'; n.style.top = p.y + 'px';
-  a.at = marker; a.atJx = jx;
-  return ms > 0 ? sleep(ms) : Promise.resolve();
+function oneShot(a, id, anchorName) {        // once, for a new event (never on replay, repaint or reselect)
+  if (!a.kit || REDUCED.matches) return;
+  const [x, y] = a.kit.anchors[anchorName], n = fxNode(id, x, y, false);
+  a.fxEl.appendChild(n);
+  setTimeout(() => n.remove(), FX[id].ms * FX[id].rects.length + 50);
 }
-function seatFor(a) {
-  if (a.seat == null) {
-    let best = 0, bl = 1e9;
-    TABLES.forEach((occ, i) => { if (occ.length < bl) { bl = occ.length; best = i; } });
-    a.seat = best; a.seatIdx = TABLES[best].length; TABLES[best].push(a.id); refreshTable(best);
+
+/* frame loop: frames come from elapsed time, not from the number of repaints */
+let FROZEN = false;                          // server unreachable: freeze the last reliable frame
+function clipRect(a, now) {
+  const C = CLIPS[a.skin];
+  let c = C[a.clip] || C.idle, i = Math.max(0, Math.floor((now - a.t0) / c.ms));   // rAF time can precede t0
+  const n = c.rects.length;
+  if (REDUCED.matches) {                     // resting poses; waits keep their raised-hand / review / error hold
+    if (c.pb === 'loop') { c = C.idle; i = 0; } else if (a.clip === 'review') { c = C.review_hold; i = 0; } else i = n - 1;
+  } else if (c.pb === 'loop') i %= n;
+  else if (i >= n) {
+    if (a.clip === 'review') { c = C.review_hold; i = 0; }
+    else if (c.pb === 'once_idle') { c = C.idle; i = Math.floor((now - a.t0 - n * C[a.clip].ms) / c.ms) % c.rects.length; }
+    else i = n - 1;
   }
-  return tableEls[a.seat];
+  return c.rects[i];
 }
-const seatJx = a => a.seatIdx ? (a.seatIdx % 2 ? 36 : -36) : 0;
-function refreshTable(i) {
-  const ids = TABLES[i], t = tableEls[i];
-  t.root.dataset.empty = ids.length ? 'false' : 'true';
-  t.label.textContent = ids.map(id => { const p = PEOPLE.get(id); return p && (p.tabNo ? `Tab ${p.tabNo} · ${p.name}` : p.name); }).filter(Boolean).join(' & ');
-  if (!ids.length) { t.bill.textContent = ''; t.ware.innerHTML = ''; }
-}
-function addPlate(a, kind, err) {
-  if (a.seat == null) return;
-  const w = tableEls[a.seat].ware;
-  w.appendChild(el('span', '', err ? '💥' : DISH[kind] || '🍽️'));
-  while (w.children.length > 18) w.removeChild(w.firstChild);
-}
-function bubble(node, text, o = {}) {
-  const b = node.querySelector('.bubble'); if (!b) return;
-  b.textContent = text; b.classList.toggle('err', !!o.err); b.hidden = false;
-  clearTimeout(node._bt);
-  if (o.ms) node._bt = setTimeout(() => { b.hidden = true; }, o.ms);
-}
-const hideBubble = node => { const b = node.querySelector('.bubble'); if (b) b.hidden = true; clearTimeout(node._bt); };
-
-const ACT = {
-  async arrive(a) { setState(a, 'queue'); if (a.node) bubble(a.node, '⏳ waiting to order…'); },
-  async order(a, act, sp) {
-    if (a.node) hideBubble(a.node);
-    setState(a, 'walking'); await go(a, marks.counter, 1000 * sp, a.jx);
-    setState(a, 'happy'); if (a.node) bubble(a.node, '📋 got my order!', { ms: 1400 });
-    uncleSays(`📋 ${a.name}: “${short(a.label, 60)}”`, 2200);
-    await sleep(850 * sp);
-    const t = seatFor(a);
-    setState(a, 'walking'); await go(a, t.seat, 1100 * sp, seatJx(a));
-    a.seated = true; a.node && (a.node.dataset.dir = 'r'); restPose(a);
-  },
-  async fetch(a, act, sp) {
-    const st = stallEls[act.kind];
-    st.trips++; st.count.textContent = st.trips;
-    setState(a, 'walking'); if (a.node) hideBubble(a.node);
-    await go(a, st.front, 850 * sp, a.jx);
-    if (a.dead) return;
-    setState(a, 'waiting');
-    st.busy++; st.root.classList.add('busy');
-    a.waitInfo = { base: `${DISH[act.kind]} ${short(act.sum, 70)}`, since: Date.now() };
-    if (a.node) bubble(a.node, a.waitInfo.base);
-    if (!act.resolved) await new Promise(r => { act.resolve = r; });
-    a.waitInfo = null;
-    st.busy = Math.max(0, st.busy - 1); if (!st.busy) st.root.classList.remove('busy');
-    if (a.dead || !a.node) return;
-    if (act.err) { setState(a, 'sad'); if (a.node) bubble(a.node, '😖 ' + short(act.sum, 50), { err: true, ms: 1600 }); await sleep(750 * sp); }
-    setState(a, 'carrying'); a.node.querySelector('.hold').textContent = act.err ? '💥' : DISH[act.kind];
-    if (a.node) hideBubble(a.node);
-    await go(a, seatFor(a).seat, 950 * sp, seatJx(a));
-    addPlate(a, act.kind, act.err);
-    a.node && (a.node.dataset.dir = 'r'); restPose(a);
-  },
-  async leave(a, act, sp) {
-    if (a.node) {
-      setState(a, 'happy'); bubble(a.node, '👋 tab closed — bye!', { ms: 1600 });
-      await sleep(900 * sp);
-      setState(a, 'leaving'); await go(a, marks.door, 1300 * sp, 0);
-      a.node.classList.add('gone'); await sleep(550); a.node.remove(); a.node = null;
+function paint(now) {
+  requestAnimationFrame(paint);
+  if (!FROZEN && ART) {
+    for (const a of PEOPLE.values()) {
+      if (!a.hawker) continue;
+      if (a.walk) stepWalk(a, now);
+      if (a.custs) paintCustomers(a, now);
+      const r = clipRect(a, now), k = r[0] + ',' + r[1];
+      if (!a.walking && a.hawker._k !== k) { a.hawker._k = k; a.hawker.style.backgroundPosition = `-${r[0]}px -${r[1]}px`; }
+      for (const f of a.fxEl.querySelectorAll('.fxf')) {
+        const F = f._fx, j = Math.max(0, Math.floor((now - f._t0) / F.ms)), rr = REDUCED.matches ? F.still : F.rects[f._loop ? j % F.rects.length : Math.min(j, F.rects.length - 1)];
+        const fk = rr[0] + ',' + rr[1];
+        if (f._k !== fk) { f._k = fk; f.style.backgroundPosition = `-${rr[0]}px -${rr[1]}px`; }
+      }
     }
-    if (a.seat != null) { const occ = TABLES[a.seat]; occ.splice(occ.indexOf(a.id), 1); tableEls[a.seat].ware.innerHTML = ''; refreshTable(a.seat); }
-    a.dead = true; PEOPLE.delete(a.id);
-  },
-};
-
-function enqueue(a, act) {
-  if (a.dead) return;
-  ensurePerson(a);
-  if (act.t === 'fetch' && !a.seated && !a.q.some(x => x.t === 'order')) a.q.push({ t: 'order' });
-  a.q.push(act); pump(a);
-}
-async function pump(a) {
-  if (a.pumping) return; a.pumping = true;
-  try {
-    while (a.q.length && !a.dead) {
-      const act = a.q.shift(), backlog = a.q.length;
-      const sp = backlog > 4 ? 0.1 : backlog > 2 ? 0.3 : backlog > 0 ? 0.65 : 1;   // catch up when behind
-      a.cur = act; await ACT[act.t](a, act, sp);
-    }
-  } finally { a.pumping = false; a.cur = null; }
+  }
 }
 
-/* Seated pose that matches the tab's status: working = eating, ready = relaxed, attention = waving for you. */
-function restPose(a) {
-  if (!a.node || !a.seated) return;
-  setState(a, a.status === 'working' ? 'thinking' : a.status === 'attention' ? 'attention' : 'idle');
+function showBubble(a, text, o = {}) {
+  const b = a.bubEl; if (!b) return;
+  clearTimeout(a._bt);
+  if (!text) { b.hidden = true; return; }
+  b.textContent = text; b.classList.toggle('att', !!o.att); b.hidden = false;
+  a._bt = o.ms ? setTimeout(() => { b.hidden = true; a._bt = 0; }, o.ms) : 0;
 }
-function settle() { refreshAll(); }
-function relayout() {
-  for (const a of PEOPLE.values()) if (a.node && a.at) jump(a, a.at, a.atJx || 0);
+function removeTab(a) {                                  // tab closed: pack up, walk back out through the door
+  if (a.custs) for (const c of [...a.custs.values()]) if (!c.leaving) retireCustomer(a, c);
+  const pl = a.place;
+  if (pl && pl.slot >= 0 && SLOT_OWNER[pl.slot] === a.id) { SLOT_OWNER[pl.slot] = null; const s = slotEls[pl.slot]; s.hit.tabIndex = -1; s.hit.removeAttribute('aria-label'); }
+  setBadge(a, 'stopping'); setLoopFx(a, null); showBubble(a, '👋 tab closed');
+  const out = () => {
+    a.hud && a.hud.classList.add('gone'); a.fxEl && a.fxEl.classList.remove('show');
+    const gone = () => { a.hawker && a.hawker.classList.add('gone'); setTimeout(() => {
+      for (const n of [a.hawker, a.hud, a.fxEl]) n && n.remove();
+      a.hawker = null; a.dead = true; if (PEOPLE.get(a.id) === a) PEOPLE.delete(a.id);
+    }, 500); };
+    if (a.hawker && !a.hawker.hidden && !REDUCED.matches) {
+      walkTo(a, ...DOOR).then(gone);
+    } else gone();
+  };
+  if (a.arrived) { setClip(a, 'stopping'); setTimeout(out, 700); } else out();
+}
+function signTick() {                                    // headcount in the shop's title bar
+  const hc = headcount(), t = hc.total ? hc.text : 'buka 24 jam';
+  if ($('#signCount').textContent !== t) $('#signCount').textContent = t;
+  const extra = [...PEOPLE.values()].filter(p => !p.leaving && p.place && p.place.slot < 0 && p.place.q >= DOOR_Q.length).length;
+  const dq = $('#doorMore'); dq.hidden = !extra; dq.textContent = `+${extra} more`;
 }
 
-/* ───────────────────────── uncle (orchestrator) ───────────────────────── */
-function uncleSays(text, ms = 3000) {
-  uncleBubble.textContent = text; uncleBubble.hidden = false;
-  clearTimeout(S.uncleTimer); S.uncleTimer = setTimeout(() => { uncleBubble.hidden = true; }, ms);
+/* ───────────────────────── markdown ─────────────────────────
+ * Replies and prompts are Markdown (vendor/marked). Session logs also carry tool output and fetched web text, so the
+ * HTML is always sanitized (vendor/purify): no scripts, styles, forms or embeds, and no images (a remote image would
+ * make this page call out to that server). Links open in a new tab. Without the libraries, text is shown as-is. */
+const MD_OK = typeof marked !== 'undefined' && typeof DOMPurify !== 'undefined';
+const PURIFY = { FORBID_TAGS: ['img', 'svg', 'math', 'style', 'form', 'button', 'textarea', 'select', 'iframe', 'object', 'embed', 'video', 'audio', 'source', 'picture'],
+                 FORBID_ATTR: ['style', 'class', 'id'] };
+if (MD_OK) DOMPurify.addHook('afterSanitizeAttributes', n => {
+  if (n.tagName === 'A') { n.setAttribute('target', '_blank'); n.setAttribute('rel', 'noopener noreferrer'); }
+  if (n.tagName === 'INPUT') { if (n.getAttribute('type') !== 'checkbox') n.remove(); else n.setAttribute('disabled', ''); }   // task lists only
+});
+function md(text) {
+  if (!MD_OK) return `<p class="plain">${esc(text)}</p>`;
+  try { return DOMPurify.sanitize(marked.parse(String(text || ''), { gfm: true, breaks: true }), PURIFY); }
+  catch { return `<p class="plain">${esc(text)}</p>`; }
 }
-function uncleTick() {                                  // purely cosmetic
-  const people = [...PEOPLE.values()].filter(p => !p.leaving), busy = people.filter(p => p.status === 'working').length;
-  uncleEl.dataset.state = busy ? 'waiting' : 'idle';
-  uncleStatus.textContent = people.length ? `☕ ${headcount().text}` : '☕ sipping kopi';
-}
-
-/* ───────────────────────── order rail ───────────────────────── */
-function renderRail() {                                 // one order chit per open tab: what you last asked it
-  const no = t => (PEOPLE.get(tabPersonId(t)) || {}).tabNo || 1e9;
-  const tabs = [...(FL.tabs || [])].sort((x, y) => no(x) - no(y));   // same order as the tab numbers
-  const have = railEl._chits || (railEl._chits = new Map()), keep = new Set();
-  tabs.forEach((t, i) => {
-    const pid = tabPersonId(t), s = FL.byKey.get(t.src + ':' + t.sid), p = PEOPLE.get(pid);
-    const st = !s ? 'queued' : s.status === 'working' ? 'cooking' : s.status === 'attention' ? 'attention' : 'served';
-    const what = (s && (s.last_prompt || s.title)) || 'new tab — nothing ordered yet';
-    const lbl = { queued: 'new', cooking: 'cooking…', attention: '⚠ needs you', served: '✓ served' }[st];
-    let c = have.get(pid);
-    if (!c) {                                            // only a NEW tab's chit is created (and drops in once)
-      c = el('div', 'chit'); c.dataset.pid = pid; have.set(pid, c);
-      c.addEventListener('click', e => { e.stopPropagation(); const q = PEOPLE.get(c.dataset.pid); if (q && q.onClick) q.onClick(); });
-    }
-    keep.add(pid);
-    if (c.dataset.s !== st) c.dataset.s = st;
-    setHTML(c, `<b title="${esc(what)}">${esc(short(what, 60))}</b><small><span>Tab ${p ? p.tabNo + ' · ' + esc(p.name) : i + 1}</span><span class="st">${lbl}</span></small>`);
-    if (railEl.children[i] !== c) railEl.insertBefore(c, railEl.children[i] || null);
-  });
-  for (const [pid, c] of have) if (!keep.has(pid)) { c.remove(); have.delete(pid); }
-  const cnt = `${tabs.length} tab${tabs.length === 1 ? '' : 's'}`;
-  if ($('#railCount').textContent !== cnt) $('#railCount').textContent = cnt;
-}
+// one-line snippets (kitchen log, cards, notifications): the words without the Markdown markup
+const mdPlain = s => String(s || '')
+  .replace(/```[^\n]*\n?/g, '').replace(/`([^`]*)`/g, '$1')
+  .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(/(\*\*|__)(.+?)\1/g, '$2').replace(/(^|[^\w*])[*_]([^*_\n]+)[*_](?=[^\w*]|$)/g, '$1$2')
+  .replace(/^\s{0,3}(#{1,6}|>)\s*/gm, '').replace(/^\s*\|?[\s:|-]*-{3,}[\s:|-]*\|?\s*$/gm, '')
+  .replace(/^\s*[-*+]\s+/gm, '• ').replace(/<\/?[a-z][^>]*>/gi, '');
 
 /* ───────────────────────── workspace: agent tabs + read-only replies ───────────────────────── */
 const chatEl = $('#chat'), MAX_CHAT = 600;
-function chatAdd(kind, text, t) {                       // kind: u = you · a = the agent · t = a tool call
+function chatAdd(kind, text, t, who) {                  // kind: u = you (or a sub-agent's brief) · a = the agent · t = a tool call
   const pinned = chatEl.scrollHeight - chatEl.scrollTop - chatEl.clientHeight < 80;
   const m = el('div', 'msg-' + kind);
   if (kind === 't') m.textContent = text;
-  else { m.appendChild(el('small', '', esc((kind === 'u' ? 'You' : (S.agents.get('main') || {}).name || 'Agent') + ' · ' + fmtT(t)))); m.appendChild(document.createTextNode(text)); }
+  else {
+    const me = S.agents.get(S.chatFor) || {};
+    who = who || (kind === 'u' ? 'You' : me.main ? me.name || 'Agent' : me.label || me.name || 'Sub-agent');
+    m.appendChild(el('small', '', esc(who + ' · ' + fmtT(t)))); m.appendChild(el('div', 'md', md(text)));
+  }
   chatEl.appendChild(m);
   while (chatEl.children.length > MAX_CHAT) chatEl.firstChild.remove();
   if (pinned && !S.replaying) chatEl.scrollTop = chatEl.scrollHeight;
   return m;
 }
-const PORTRAIT = (p, w, h) => avatarSVG(p.color, p.hair, { vb: '6 2 36 40', w, h });
+// the transcript keeps only how long the agent thought, not what it thought: the same "Thinking…" the terminal shows
+const thinkText = ev => `💭 thinking…${ev.n ? ` (${fmtN(ev.n)} tokens)` : ''}`;
+// a tool call's outcome: ✗ on its row, and the file changes it made, like the terminal shows them under the call
+const DIFF_SHOWN = 10;
+function chatResult(ev) {
+  const ct = S.chatTools.get(ev.id); if (!ct) return;
+  S.chatTools.delete(ev.id);
+  if (ev.err) { ct.classList.add('err'); ct.textContent += '  ✗'; }
+  if (!ev.diff) return;
+  const box = el('div', 'msg-diff');
+  for (const f of ev.diff.files) {
+    const add = f.l.filter(x => x[0] === '+').length, del = f.l.filter(x => x[0] === '-').length;
+    box.appendChild(el('div', 'df-h', `${esc(f.f.replace(/^\/home\/[^/]+/, '~'))} <span class="df-add">+${add}</span> <span class="df-del">−${del}</span>`));
+    const line = x => el('div', x[0] === '+' ? 'df-add' : x[0] === '-' ? 'df-del' : 'df-ctx', esc(x) || '&nbsp;');
+    const pre = el('div', 'df-body'); f.l.slice(0, DIFF_SHOWN).forEach(x => pre.appendChild(line(x)));
+    const hidden = f.l.length - DIFF_SHOWN + f.more;
+    if (hidden > 0) {
+      const more = el('div', 'df-more', `… ${hidden} more lines`);
+      if (f.l.length > DIFF_SHOWN) {
+        more.classList.add('open');
+        more.onclick = () => { f.l.slice(DIFF_SHOWN).forEach(x => pre.insertBefore(line(x), more)); more.textContent = f.more ? `… ${f.more} more lines not kept` : ''; more.onclick = null; more.classList.remove('open'); };
+      }
+      pre.appendChild(more);
+    }
+    box.appendChild(pre);
+  }
+  if (ev.diff.more) box.appendChild(el('div', 'df-more', `… ${ev.diff.more} more files changed`));
+  ct.after(box);
+}
+/* The chat shows one agent's conversation: the tab's main agent, or one sub-agent (its brief, replies and tool calls). */
+function showChatFor(id) {
+  if (!S || !S.agents.has(id)) id = 'main';
+  S.chatFor = id; S.chatTools.clear(); chatEl.innerHTML = '';
+  const was = S.replaying; S.replaying = true;                      // no auto-scroll per message while rebuilding
+  for (const ev of conn.events) {
+    if (ev.k === 'prompt' && id === 'main') chatAdd('u', ev.text, ev.t);
+    else if (ev.a !== id) continue;
+    else if (ev.k === 'brief') chatAdd('u', ev.text, ev.t, 'Brief from ' + ((S.agents.get((S.agents.get(id) || {}).parent) || {}).name || 'main'));
+    else if (ev.k === 'say') chatAdd('a', ev.text, ev.t);
+    else if (ev.k === 'think') chatAdd('t', thinkText(ev), ev.t).classList.add('think');
+    else if (ev.k === 'tool') S.chatTools.set(ev.id, chatAdd('t', `${DISH[stallKind(ev.kind)] || '🍽️'} ${ev.sum}`, ev.t));
+    else if (ev.k === 'result') chatResult(ev);
+  }
+  S.replaying = was; chatEl.scrollTop = chatEl.scrollHeight;
+  renderWork(); syncCustomerSel();
+}
 function renderWork() {
+  const sub = S && S.chatFor !== 'main' && S.agents.get(S.chatFor), sb = $('#subbar');
+  sb.hidden = !sub;
+  if (sub) setHTML(sb, `👤 Viewing sub-agent <b>${esc(sub.label || sub.name)}</b>${sub.atype ? ` <small>[${esc(sub.atype)}]</small>` : ''} · ${sub.done ? '✅ done' : 'working'} <button type="button" data-main>← back to main</button>`);
   const strip = $('#wtabs'), have = strip._tabs || (strip._tabs = new Map()), keep = new Set();
   const people = [...PEOPLE.values()].filter(p => p.tabNo && !p.leaving).sort((x, y) => x.tabNo - y.tabNo);
   people.forEach((p, i) => {
@@ -495,7 +749,7 @@ function renderComposer() {
   btn.disabled = !ok || WS.sending;
   $$('#ckeys button').forEach(b => { b.disabled = !ok; });
   $('#wnew').hidden = !CFG.control;
-  $('.chat').dataset.hint = p && !p.sess ? `${who} has no messages yet. Say hi below.` : 'Click a customer, a card or a tab to open that agent here.';
+  $('.chat').dataset.hint = p && !p.sess ? `${who} has no messages yet. Say hi below.` : 'Click a hawker, a card or a tab to open that agent here.';
   // show the live terminal when it waits on you, and always for agents started here (it is their only screen)
   if (ok && (p.status === 'attention' || t.detached) && WS.autoScreen !== p.id && !WS.screenOn) { WS.autoScreen = p.id; setScreen(true); }
   if (!ok && WS.screenOn) setScreen(false);
@@ -665,7 +919,7 @@ function renderBill() {
 }
 function renderTicket() {
   const a = S.selected && S.agents.get(S.selected), pane = $('#pane-ticket');
-  if (!a) { setHTML(pane, '<div class="empty"><big>🎫</big>Click a customer, a table, an order chit or a log line to see its ticket.</div>'); return; }
+  if (!a) { setHTML(pane, '<div class="empty"><big>🎫</big>Click a log line or a sub-agent in the sidebar to see its ticket.</div>'); return; }
   const u = a.usage, end = a.endT || Date.now();
   const status = a.main ? 'running the shop' : a.done ? 'finished' : a.pending.size ? 'waiting on ' + [...a.pending.values()].map(r => r.name).join(', ') : 'thinking';
   const before = pane._h;
@@ -675,7 +929,7 @@ function renderTicket() {
     <a href="#" id="tkFilter">show only their log lines →</a>
     <h4>Tokens · ${costText(a)}</h4>${meter(u)}
     <div class="det" style="font:11.5px var(--mono);color:var(--ink-2)">♻️ cache read ${fmtN(u.cr)} · ✍️ write ${fmtN(u.cw)} · new ${fmtN(u.i)} · out ${fmtN(u.o)}${u.th ? ' · 🧠 ' + fmtN(u.th) : ''}</div>
-    ${a.brief ? `<h4>The order (what they were told)</h4><pre>${esc(a.brief)}</pre>` : ''}
+    ${a.brief ? `<h4>The order (what they were told)</h4><div class="md brief">${md(a.brief)}</div>` : ''}
     <h4>Trips to the stalls · ${a.tools.length}</h4>
     <ul class="tl">${a.tools.slice(-60).reverse().map(t => `<li class="${t.err ? 'err' : ''}" title="${esc(t.inp || '')}"><span>${DISH[stallKind(t.kind)] || '🍽️'}</span><span>${esc(short(t.sum, 70))}</span><span class="dur">${t.pending ? '⏳' : (t.err ? '✗ ' : '') + (t.dur != null ? fmtD(t.dur) : '')}</span></li>`).join('') || '<li><span></span><span>none yet</span></li>'}</ul>
   </div>`);
@@ -685,11 +939,7 @@ function renderTicket() {
 /* ───────────────────────── selection, tabs, filter ───────────────────────── */
 function select(id, openTicket) {
   S.selected = id;
-  $$('.person.sel').forEach(n => n.classList.remove('sel'));
-  tableEls.forEach(t => t.root.classList.remove('sel'));
-  const a = S.agents.get(id);
-  if (a && a.node) a.node.classList.add('sel');
-  if (a && a.seat != null) tableEls[a.seat].root.classList.add('sel');
+  if (S.agents.has(id)) showChatFor(id);                // a sub-agent (a customer, or its row in the card): show its conversation
   renderTicket();
   if (openTicket) tab('ticket');
 }
@@ -706,6 +956,7 @@ function tab(name) {
   if (name === 'bill') renderBill(); if (name === 'ticket') renderTicket();
 }
 $$('.tabs button').forEach(b => b.addEventListener('click', () => tab(b.dataset.tab)));
+$('#subbar').addEventListener('click', e => { if (e.target.closest('[data-main]')) showChatFor('main'); });
 sceneEl.addEventListener('click', () => { if (S) select(null, false); });
 
 /* ───────────────────────── chips / status / tick ───────────────────────── */
@@ -723,18 +974,12 @@ function updateChips() {
 }
 setInterval(() => {
   if (!S) return;
-  uncleTick(); updateChips();
-  const now = Date.now();
-  for (const a of PEOPLE.values()) {
-    if (a.waitInfo && a.node) {
-      const s = Math.round((now - a.waitInfo.since) / 1000);
-      if (s >= 3) bubble(a.node, `${a.waitInfo.base} · ${s}s`);
-    }
-  }
+  signTick(); updateChips();
+  for (const a of PEOPLE.values()) if (a.status === 'working') refreshBubble(a);   // tick the "· 12s" timers
   if (!$('#pane-bill').hidden) renderBill();
   if (!$('#pane-ticket').hidden) renderTicket();
 }, 700);
-window.addEventListener('resize', () => { fitScene(); if (S) relayout(); });
+window.addEventListener('resize', fitScene);
 
 /* ───────────────────────── connection: real sessions ───────────────────────── */
 function stopAll() {
@@ -764,7 +1009,7 @@ function connect(src, id, live) {
   es.onmessage = e => {
     const m = JSON.parse(e.data);
     if (m.replay) { S.replaying = true; conn.events.push(...m.events); m.events.forEach(ev => apply(ev, true)); }
-    else if (m.replayDone) { S.replaying = false; settle(); chatEl.scrollTop = chatEl.scrollHeight; if (FL.pendingSelect && S.agents.has(FL.pendingSelect)) { select(FL.pendingSelect, true); } FL.pendingSelect = null; tab($$('.tabs .on')[0]?.dataset.tab || 'log'); const p = $('#pane-log'); p.scrollTop = p.scrollHeight; }
+    else if (m.replayDone) { S.replaying = false; refreshAll(); chatEl.scrollTop = chatEl.scrollHeight; if (FL.pendingSelect && S.agents.has(FL.pendingSelect)) { select(FL.pendingSelect, true); } FL.pendingSelect = null; tab($$('.tabs .on')[0]?.dataset.tab || 'log'); const p = $('#pane-log'); p.scrollTop = p.scrollHeight; }
     else if (m.events) { conn.events.push(...m.events); m.events.forEach(ev => apply(ev, true)); }
   };
   es.onerror = () => setStatus('offline', 'server disconnected — retrying');
@@ -829,9 +1074,9 @@ function updateCard(c, s, tab, n) {
   c.className = 'card s-' + s.status + (s.id && selKey() === keyOf(s) ? ' sel' : '') + (c.classList.contains('flash') ? ' flash' : '') + (tab ? ' is-tab' : '');
   const tb = $('.c-tab', c); tb.hidden = !tab;
   const who = tab && PEOPLE.get(tabPersonId(tab));
-  const av = $('.c-av', c);                                  // portrait = the same customer as in the scene
+  const av = $('.c-av', c);                                  // portrait = the same hawker as in the scene
   av.dataset.src = (tab && tab.src) || s.src || '';
-  setHTML(av, who ? avatarSVG(who.color, who.hair, { vb: '6 2 36 40', w: 44, h: 49 }) : avatarSVG('#b8a98a', '#8c8c8c', { vb: '6 2 36 40', w: 44, h: 49 }));
+  setHTML(av, who ? PORTRAIT(who, 40) : '');
   if (tab) setHTML(tb, `<b>Tab ${n} · ${SRC_NAME[tab.src] || tab.src}</b>${who ? `<span class="ag-name" style="--c:${who.color}">${esc(who.name)}</span>` : ''}<span>${esc(tab.name || (tab.src === 'codex' ? 'codex' : 'claude'))} · pid ${tab.pid}</span><span class="c-tab-age">${ago(tab.startedAt)}</span>`);
   const pill = $('.pill', c); pill.className = 'pill ' + s.status; pill.textContent = PILL[s.status] + (s.evidence === 'guessed' ? ' (guessed)' : '');
   pill.title = s.evidence === 'guessed' ? 'Codex publishes no status: this is inferred from its session log' : '';
@@ -845,7 +1090,7 @@ function updateCard(c, s, tab, n) {
   now.hidden = !busy;
   if (now._k === dk && $('.d-t', now)) $('.d-t', now).textContent = elapsed(d.since);   // same activity: just tick the timer
   else { now._k = dk; setHTML(now, busy ? '<span class="d-who">main</span>' + doingHTML(d, true) : ''); }
-  const say = $('.c-say', c); say.hidden = busy; say.textContent = busy ? '' : (s.last_say || (s.last_prompt ? '🧑 ' + s.last_prompt : ''));
+  const say = $('.c-say', c); say.hidden = busy; say.textContent = busy ? '' : mdPlain(s.last_say || (s.last_prompt ? '🧑 ' + s.last_prompt : ''));
   const ags = $('.c-agents', c), html = agentRowsHTML(s);
   if (ags.dataset.h !== html) { ags.innerHTML = html; ags.dataset.h = html; }
   ags.hidden = !html;
@@ -912,7 +1157,7 @@ function detectTransitions(list) {
       const c = FL.cards.get(k);
       if (c) { c.classList.add('flash'); setTimeout(() => c.classList.remove('flash'), 3400); }
       if (FL.notifyOn && 'Notification' in window && Notification.permission === 'granted' && (document.hidden || k !== selKey())) {
-        try { new Notification((s.status === 'ready' ? '✅ Done: ' : '⚠ Needs you: ') + (s.title || projectName(s)), { body: s.status === 'ready' ? short(s.last_say, 140) : s.reason, tag: k }); } catch { /* ignore */ }
+        try { new Notification((s.status === 'ready' ? '✅ Done: ' : '⚠ Needs you: ') + (s.title || projectName(s)), { body: s.status === 'ready' ? short(mdPlain(s.last_say), 140) : s.reason, tag: k }); } catch { /* ignore */ }
       }
     }
     if (s.status === 'working') FL.unseen.delete(k);
@@ -926,7 +1171,7 @@ async function pollFleet() {
     if (!r.ok) throw new Error(r.status);
     const data = await r.json();
     FL.byKey = new Map(data.sessions.map(s => [keyOf(s), s]));
-    FL.tabs = data.tabs || []; FL.closedOn = !!data.closed;
+    FL.tabs = data.tabs || []; FL.closedOn = !!data.closed; FROZEN = false;
     detectTransitions(data.sessions);
     syncTabs();
     const cur = curTab();
@@ -939,7 +1184,11 @@ async function pollFleet() {
       const cur = FL.byKey.get(selKey());
       if (cur) { const live = cur.status === 'working'; S.live = live; setStatus(live ? 'live' : 'replay', live ? 'LIVE · working' : cur.status === 'attention' ? 'waiting for you' : 'done · idle'); }
     }
-  } catch { $('#fleetSum').textContent = 'server not reachable…'; }
+  } catch (e) {
+    if (!(e instanceof TypeError && /fetch/i.test(e.message)) && !/^\d+$/.test(e.message)) console.error('fleet update failed:', e);   // a page bug, not the network
+    $('#fleetSum').textContent = 'server not reachable…';
+    FROZEN = true; for (const a of PEOPLE.values()) if (a.badge) { setBadge(a, 'disconnected'); setLoopFx(a, null); }   // last known frame, marked stale
+  }
 }
 $$('#fleetView button').forEach(b => b.addEventListener('click', () => {
   FL.view = b.dataset.v;
@@ -955,70 +1204,70 @@ $('#notifyBtn').addEventListener('click', async () => {
 });
 document.addEventListener('visibilitychange', () => { if (!document.hidden) { FL.unseen.delete(selKey()); renderFleet(); } });
 
-/* ───────────────────────── the scene: one customer per open terminal tab ───────────────────────── */
-const TS = { first: true, seq: 0, bySrc: {} };
-function headcount() {                                   // one open terminal = one customer
+/* ───────────────────────── the scene: one hawker per open terminal tab ───────────────────────── */
+const TS = { first: true };
+function headcount() {                                   // one open terminal = one hawker
   const tabs = FL.tabs || [], claude = tabs.filter(t => t.src === 'claude').length, codex = tabs.filter(t => t.src === 'codex').length;
   const text = `${tabs.length} terminal${tabs.length === 1 ? '' : 's'} · ${claude} Claude · ${codex} Codex`;
   return { total: tabs.length, claude, codex, text };
 }
 const tabPersonId = t => 'tab:' + t.src + ':' + t.pid;
-const PST = { working: '⚙️', ready: '✅', attention: '⚠️' };
 function tabPerson(t) {
   let a = PEOPLE.get(tabPersonId(t));
   if (a) return a;
-  const n = TS.seq++, pal = SRC_SHIRTS[t.src] || SHIRTS, k = TS.bySrc[t.src] = (TS.bySrc[t.src] || 0) + 1;
   const used = new Set([...PEOPLE.values()].filter(p => !p.leaving && p.tabNo).map(p => p.tabNo));
-  let no = 1; while (used.has(no)) no++;                                       // first free number, kept for life
-  a = { id: tabPersonId(t), src: t.src, tabNo: no, name: NAMES[n % NAMES.length], color: pal[(k - 1) % pal.length], hair: HAIRS[n % HAIRS.length],
-        q: [], pumping: false, node: null, seat: null, seatIdx: 0, jx: ((n % 3) - 1) * 16, state: 'queue', dead: false, seated: false,
-        label: '', status: '', lastKey: '', trips: null, curAct: null, leaving: false };
+  let no = 1; while (used.has(no)) no++;                                       // first free number (and stall), kept for life
+  const skin = (no - 1) % SKINS.length, pal = SRC_SHIRTS[t.src] || SHIRTS;
+  a = { id: tabPersonId(t), src: t.src, tabNo: no, skin, name: SKIN_NAMES[skin][Math.floor((no - 1) / SKINS.length) % SKIN_NAMES[skin].length],
+        color: pal[(no - 1) % pal.length], node: null, dead: false, label: '', status: '', leaving: false, vis: null, prompt: null };
   a.onClick = () => selectTab(a.id);
-  ensurePerson(a);
-  if (TS.first) { a.seated = true; jump(a, seatFor(a).seat, seatJx(a)); }   // page load: everyone is already seated
-  else enqueue(a, { t: 'order' });                                            // a new tab walks in and takes a seat
+  PEOPLE.set(a.id, a);
+  mountTab(a, !TS.first);                                                     // page load: everyone is already at work
   return a;
 }
 function syncTabs() {
+  if (!ART) return;
   const alive = new Set();
-  (FL.tabs || []).forEach((t, i) => {
+  (FL.tabs || []).forEach(t => {
     const a = tabPerson(t), s = FL.byKey.get(t.src + ':' + t.sid) || placeholderFor(t);
     alive.add(a.id);
     a.sess = FL.byKey.get(t.src + ':' + t.sid) || null; a.label = s.title; a.lastSay = s.last_say;
-    if (a.node) {
-      const tag = $('.tag', a.node); tag.textContent = `${a.tabNo} · ${a.name}`; tag.title = `Tab ${a.tabNo} · ${SRC_NAME[t.src] || t.src} · pid ${t.pid}`;
-      const b = $('.pst', a.node); b.textContent = PST[s.status] || ''; b.dataset.s = s.status;
-      a.node.classList.toggle('sel', !!a.sess && selKey() === keyOf(a.sess));
-    }
-    if (a.seat != null) {
-      refreshTable(a.seat);
-      if (TABLES[a.seat][0] === a.id) tableEls[a.seat].bill.textContent = s.tokens && s.tokens.total ? '🪙 ' + fmtN(s.tokens.total) : '';
-    }
-    // tool calls -> stall trips.  The current call waits at its stall; calls that started and finished between polls get a quick trip.
-    const d = s.now_doing, kind = s.status === 'working' && d && STALLS[d.kind] ? d.kind : null, key = kind ? d.since + '|' + d.text : '';
-    if (a.curAct && a.curAct.key !== key) { a.curAct.resolved = true; a.curAct.resolve && a.curAct.resolve(); a.curAct = null; }
-    const trips = s.main_trips || 0;
-    if (a.trips != null) {
-      const fresh = key && key !== a.lastKey ? 1 : 0, missed = Math.min(trips - a.trips - fresh, 2), kinds = s.last_kinds || [];
-      for (let m = missed; m > 0; m--) enqueue(a, { t: 'fetch', kind: stallKind(kinds[kinds.length - fresh - m]), sum: 'quick trip', resolved: true });
-    }
-    if (key && key !== a.lastKey) { a.curAct = { t: 'fetch', kind, sum: d.text, key, resolved: false }; enqueue(a, a.curAct); }
-    a.lastKey = key; a.trips = trips;
-    // status
     const was = a.status; a.status = s.status;
-    if (!a.pumping && !a.q.length) restPose(a);
-    if (a.node && s.status === 'attention' && !a.waitInfo) bubble(a.node, '⚠ ' + short(s.reason || 'needs you', 60), { err: true });
-    else if (a.node && was === 'attention' && s.status !== 'attention') hideBubble(a.node);
-    if (a.node && was === 'working' && s.status === 'ready' && !TS.first) bubble(a.node, '✅ done — your turn', { ms: 4000 });
+    const v = visualFor(a, s);
+    if (t.proc_status === 'starting' && !a.sess) Object.assign(v, { clip: 'asking', badge: 'starting', text: '… starting' });
+    // one-shots only for real transitions seen live, never on the first load
+    if (!TS.first && was === 'working' && s.status === 'ready' && v.clip === 'review_hold') { v.clip = 'review'; oneShot(a, 'dish_placement', 'dish_output'); }
+    if (v.clip === 'review_hold' && a.clip === 'review') v.clip = 'review';                        // let it finish, then it holds
+    setClip(a, v.clip); setBadge(a, v.badge);
+    setLoopFx(a, !WORK_CLIPS.has(v.clip) ? null : a.kit && a.kit.id === 'noodle' ? 'stove_glow' : 'steam');   // cooking while it works
+    const prompt = s.last_prompt || '';
+    if (a.prompt != null && prompt && prompt !== a.prompt) oneShot(a, 'ticket_arrival', 'ticket_rail');
+    a.prompt = prompt; a.vis = v;
+    refreshBubble(a);
+    if (!TS.first && was === 'working' && s.status === 'ready') showBubble(a, v.text, { ms: 4000 });
+    // HUD text
+    setHTML(a.tagEl, `${a.tabNo}<span> · ${esc(a.name)}</span>`);            // the mini-map shows just the number
+    a.tagEl.title = `Tab ${a.tabNo} · ${SRC_NAME[t.src] || t.src} · pid ${t.pid}${s.tokens && s.tokens.total ? ' · ' + fmtN(s.tokens.total) + ' tokens' : ''}`;
+    const what = prompt || s.title || 'nothing ordered yet';
+    setHTML(a.chitEl, `<b>${esc(short(what, 44))}</b>`); a.chitEl.title = what;
+    a.chitEl.dataset.s = s.status || '';
+    const sel = !!a.sess && selKey() === keyOf(a.sess);
+    a.hawker && a.hawker.classList.toggle('sel', sel); a.hud.classList.toggle('sel', sel);
+    syncCustomers(a, a.sess ? s : null);
   });
   for (const a of PEOPLE.values()) {
     if (alive.has(a.id) || a.leaving) continue;
-    a.leaving = true;
-    if (a.curAct) { a.curAct.resolved = true; a.curAct.resolve && a.curAct.resolve(); }
-    a.q.length = 0; enqueue(a, { t: 'leave' });
+    a.leaving = true; removeTab(a);
   }
+  syncCustomerSel();
   TS.first = false;
-  renderRail();
+  signTick();
+}
+function refreshBubble(a) {                              // working: what it is doing right now (+ timer); attention: why
+  const v = a.vis; if (!v || a.leaving) return;
+  if (v.att) showBubble(a, short(v.text, 60), { att: true });
+  else if (v.since && a.status === 'working') { const s = Math.round((Date.now() - v.since) / 1000); showBubble(a, v.text + (s >= 3 ? ` · ${fmtD(s * 1000)}` : '')); }
+  else if (!a._bt) showBubble(a, '');                    // keep a "done" bubble until it times out
 }
 
 /* ───────────────────────── session picker & boot ───────────────────────── */
@@ -1055,7 +1304,9 @@ async function followTick() {
 }
 
 async function boot() {
-  fitScene(); buildStalls(); buildTables(); buildFleet(); reset();
+  fitScene(); buildFleet(); reset(); requestAnimationFrame(paint);
+  try { const m = await fetch(SP + 'manifest.json'); if (m.ok) { loadArt(await m.json()); buildRoom(); } } catch { /* no sprites: the scene stays empty */ }
+  try { const m = await fetch(SP + 'customers/manifest.json'); if (m.ok) loadCustomers(await m.json()); } catch { /* no customers: sub-agents stay in the cards */ }
   try { const p = await fetch('prices.json', { cache: 'no-store' }); if (p.ok) PRICES = await p.json(); } catch { /* prices are optional */ }
   try { const c = await fetch('/api/config', { cache: 'no-store' }); if (c.ok) CFG = await c.json(); } catch { /* read-only */ }
   renderComposer();

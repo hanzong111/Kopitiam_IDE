@@ -1,0 +1,2642 @@
+{
+  "version": "1.0.0",
+  "title": "Kopitiam Subagent Customers",
+  "characterCount": 5,
+  "uniqueCharacterFrames": 80,
+  "frameSize": [
+    32,
+    40
+  ],
+  "groundAnchor": [
+    16,
+    36
+  ],
+  "orientation": "Back facing; north toward stalls",
+  "rendering": {
+    "sampling": "nearest-neighbor",
+    "integerScale": true,
+    "alpha": "binary",
+    "atlasPadding": 0
+  },
+  "customers": [
+    {
+      "id": "customer01",
+      "name": "Jade T-shirt",
+      "accent": "#38704b",
+      "direction": "north/back",
+      "frameSize": [
+        32,
+        40
+      ],
+      "groundAnchor": [
+        16,
+        36
+      ],
+      "seatSurface": [
+        16,
+        27
+      ],
+      "hitArea": [
+        2,
+        3,
+        28,
+        35
+      ],
+      "source": "sources/customer01_source.png",
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "scale": 0.11914893617021277,
+      "atlas": {
+        "file": "atlases/customer01.png",
+        "size": [
+          128,
+          160
+        ],
+        "columns": 4,
+        "rows": 4,
+        "padding": 0
+      },
+      "frames": [
+        {
+          "index": 0,
+          "file": "customers/customer01/walk_north/00.png",
+          "sourceRect": [
+            106,
+            69,
+            137,
+            235
+          ],
+          "contentRect": [
+            7,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 1,
+          "file": "customers/customer01/walk_north/01.png",
+          "sourceRect": [
+            414,
+            69,
+            133,
+            235
+          ],
+          "contentRect": [
+            9,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            32,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 2,
+          "file": "customers/customer01/walk_north/02.png",
+          "sourceRect": [
+            707,
+            69,
+            133,
+            235
+          ],
+          "contentRect": [
+            9,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            64,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 3,
+          "file": "customers/customer01/walk_north/03.png",
+          "sourceRect": [
+            1018,
+            69,
+            130,
+            235
+          ],
+          "contentRect": [
+            8,
+            8,
+            15,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            96,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 4,
+          "file": "customers/customer01/sit_down/00.png",
+          "sourceRect": [
+            110,
+            366,
+            134,
+            250
+          ],
+          "contentRect": [
+            8,
+            6,
+            16,
+            30
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 5,
+          "file": "customers/customer01/sit_down/01.png",
+          "sourceRect": [
+            414,
+            379,
+            131,
+            237
+          ],
+          "contentRect": [
+            8,
+            7,
+            16,
+            28
+          ],
+          "seatLift": 1,
+          "atlasRect": [
+            32,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 6,
+          "file": "customers/customer01/sit_down/02.png",
+          "sourceRect": [
+            709,
+            396,
+            143,
+            220
+          ],
+          "contentRect": [
+            8,
+            8,
+            17,
+            26
+          ],
+          "seatLift": 2,
+          "atlasRect": [
+            64,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 7,
+          "file": "customers/customer01/sit_down/03.png",
+          "sourceRect": [
+            1017,
+            421,
+            139,
+            195
+          ],
+          "contentRect": [
+            8,
+            9,
+            17,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 8,
+          "file": "customers/customer01/seated_idle/00.png",
+          "sourceRect": [
+            107,
+            718,
+            140,
+            193
+          ],
+          "contentRect": [
+            8,
+            9,
+            17,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 9,
+          "file": "customers/customer01/seated_idle/01.png",
+          "sourceRect": [
+            410,
+            712,
+            140,
+            197
+          ],
+          "contentRect": [
+            8,
+            9,
+            17,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 10,
+          "file": "customers/customer01/seated_idle/02.png",
+          "sourceRect": [
+            707,
+            715,
+            137,
+            194
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 11,
+          "file": "customers/customer01/seated_idle/03.png",
+          "sourceRect": [
+            1017,
+            713,
+            138,
+            197
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 12,
+          "file": "customers/customer01/raise_hand/00.png",
+          "sourceRect": [
+            109,
+            990,
+            163,
+            203
+          ],
+          "contentRect": [
+            8,
+            8,
+            19,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 13,
+          "file": "customers/customer01/raise_hand/01.png",
+          "sourceRect": [
+            410,
+            985,
+            159,
+            208
+          ],
+          "contentRect": [
+            7,
+            7,
+            19,
+            25
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 14,
+          "file": "customers/customer01/raise_hand/02.png",
+          "sourceRect": [
+            706,
+            984,
+            167,
+            209
+          ],
+          "contentRect": [
+            7,
+            7,
+            20,
+            25
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 15,
+          "file": "customers/customer01/raise_hand/03.png",
+          "sourceRect": [
+            1010,
+            984,
+            166,
+            209
+          ],
+          "contentRect": [
+            7,
+            7,
+            20,
+            25
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            120,
+            32,
+            40
+          ]
+        }
+      ],
+      "clips": {
+        "walk_north": {
+          "frameIndices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationMs": 130,
+          "playback": "loop"
+        },
+        "sit_down": {
+          "frameIndices": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationMs": 120,
+          "playback": "once_hold"
+        },
+        "seated_idle": {
+          "frameIndices": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "durationMs": 280,
+          "playback": "loop"
+        },
+        "raise_hand": {
+          "frameIndices": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "durationMs": 140,
+          "playback": "once_hold"
+        },
+        "stand_up": {
+          "frameIndices": [
+            7,
+            6,
+            5,
+            4
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "sit_down in reverse"
+        },
+        "lower_hand": {
+          "frameIndices": [
+            15,
+            14,
+            13,
+            12,
+            8
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "raise_hand in reverse, then seated rest"
+        },
+        "standing_hold": {
+          "frameIndices": [
+            4
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "seated_hold": {
+          "frameIndices": [
+            8
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "attention_hold": {
+          "frameIndices": [
+            15
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        }
+      }
+    },
+    {
+      "id": "customer02",
+      "name": "Coral Ponytail",
+      "accent": "#c66e50",
+      "direction": "north/back",
+      "frameSize": [
+        32,
+        40
+      ],
+      "groundAnchor": [
+        16,
+        36
+      ],
+      "seatSurface": [
+        16,
+        27
+      ],
+      "hitArea": [
+        2,
+        3,
+        28,
+        35
+      ],
+      "source": "sources/customer02_source.png",
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "scale": 0.11740041928721175,
+      "atlas": {
+        "file": "atlases/customer02.png",
+        "size": [
+          128,
+          160
+        ],
+        "columns": 4,
+        "rows": 4,
+        "padding": 0
+      },
+      "frames": [
+        {
+          "index": 0,
+          "file": "customers/customer02/walk_north/00.png",
+          "sourceRect": [
+            103,
+            62,
+            155,
+            240
+          ],
+          "contentRect": [
+            7,
+            8,
+            18,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 1,
+          "file": "customers/customer02/walk_north/01.png",
+          "sourceRect": [
+            411,
+            62,
+            149,
+            237
+          ],
+          "contentRect": [
+            9,
+            8,
+            17,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            32,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 2,
+          "file": "customers/customer02/walk_north/02.png",
+          "sourceRect": [
+            704,
+            62,
+            155,
+            240
+          ],
+          "contentRect": [
+            9,
+            8,
+            18,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            64,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 3,
+          "file": "customers/customer02/walk_north/03.png",
+          "sourceRect": [
+            1017,
+            62,
+            151,
+            237
+          ],
+          "contentRect": [
+            8,
+            8,
+            18,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            96,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 4,
+          "file": "customers/customer02/sit_down/00.png",
+          "sourceRect": [
+            109,
+            366,
+            149,
+            248
+          ],
+          "contentRect": [
+            8,
+            7,
+            17,
+            29
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 5,
+          "file": "customers/customer02/sit_down/01.png",
+          "sourceRect": [
+            412,
+            374,
+            149,
+            240
+          ],
+          "contentRect": [
+            8,
+            7,
+            17,
+            28
+          ],
+          "seatLift": 1,
+          "atlasRect": [
+            32,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 6,
+          "file": "customers/customer02/sit_down/02.png",
+          "sourceRect": [
+            708,
+            392,
+            151,
+            222
+          ],
+          "contentRect": [
+            8,
+            8,
+            18,
+            26
+          ],
+          "seatLift": 2,
+          "atlasRect": [
+            64,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 7,
+          "file": "customers/customer02/sit_down/03.png",
+          "sourceRect": [
+            1015,
+            418,
+            154,
+            196
+          ],
+          "contentRect": [
+            8,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 8,
+          "file": "customers/customer02/seated_idle/00.png",
+          "sourceRect": [
+            105,
+            713,
+            153,
+            198
+          ],
+          "contentRect": [
+            8,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 9,
+          "file": "customers/customer02/seated_idle/01.png",
+          "sourceRect": [
+            406,
+            712,
+            154,
+            198
+          ],
+          "contentRect": [
+            8,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 10,
+          "file": "customers/customer02/seated_idle/02.png",
+          "sourceRect": [
+            705,
+            712,
+            153,
+            197
+          ],
+          "contentRect": [
+            8,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 11,
+          "file": "customers/customer02/seated_idle/03.png",
+          "sourceRect": [
+            1017,
+            713,
+            154,
+            198
+          ],
+          "contentRect": [
+            8,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 12,
+          "file": "customers/customer02/raise_hand/00.png",
+          "sourceRect": [
+            104,
+            984,
+            170,
+            206
+          ],
+          "contentRect": [
+            8,
+            8,
+            20,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 13,
+          "file": "customers/customer02/raise_hand/01.png",
+          "sourceRect": [
+            410,
+            982,
+            166,
+            209
+          ],
+          "contentRect": [
+            8,
+            7,
+            19,
+            25
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 14,
+          "file": "customers/customer02/raise_hand/02.png",
+          "sourceRect": [
+            703,
+            979,
+            178,
+            212
+          ],
+          "contentRect": [
+            8,
+            7,
+            21,
+            25
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 15,
+          "file": "customers/customer02/raise_hand/03.png",
+          "sourceRect": [
+            1015,
+            982,
+            179,
+            207
+          ],
+          "contentRect": [
+            8,
+            8,
+            21,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            120,
+            32,
+            40
+          ]
+        }
+      ],
+      "clips": {
+        "walk_north": {
+          "frameIndices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationMs": 130,
+          "playback": "loop"
+        },
+        "sit_down": {
+          "frameIndices": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationMs": 120,
+          "playback": "once_hold"
+        },
+        "seated_idle": {
+          "frameIndices": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "durationMs": 280,
+          "playback": "loop"
+        },
+        "raise_hand": {
+          "frameIndices": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "durationMs": 140,
+          "playback": "once_hold"
+        },
+        "stand_up": {
+          "frameIndices": [
+            7,
+            6,
+            5,
+            4
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "sit_down in reverse"
+        },
+        "lower_hand": {
+          "frameIndices": [
+            15,
+            14,
+            13,
+            12,
+            8
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "raise_hand in reverse, then seated rest"
+        },
+        "standing_hold": {
+          "frameIndices": [
+            4
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "seated_hold": {
+          "frameIndices": [
+            8
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "attention_hold": {
+          "frameIndices": [
+            15
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        }
+      }
+    },
+    {
+      "id": "customer03",
+      "name": "Mustard Headscarf",
+      "accent": "#cba039",
+      "direction": "north/back",
+      "frameSize": [
+        32,
+        40
+      ],
+      "groundAnchor": [
+        16,
+        36
+      ],
+      "seatSurface": [
+        16,
+        27
+      ],
+      "hitArea": [
+        2,
+        3,
+        28,
+        35
+      ],
+      "source": "sources/customer03_source.png",
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "scale": 0.11864406779661017,
+      "atlas": {
+        "file": "atlases/customer03.png",
+        "size": [
+          128,
+          160
+        ],
+        "columns": 4,
+        "rows": 4,
+        "padding": 0
+      },
+      "frames": [
+        {
+          "index": 0,
+          "file": "customers/customer03/walk_north/00.png",
+          "sourceRect": [
+            97,
+            70,
+            148,
+            236
+          ],
+          "contentRect": [
+            6,
+            8,
+            18,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 1,
+          "file": "customers/customer03/walk_north/01.png",
+          "sourceRect": [
+            412,
+            70,
+            138,
+            236
+          ],
+          "contentRect": [
+            8,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            32,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 2,
+          "file": "customers/customer03/walk_north/02.png",
+          "sourceRect": [
+            699,
+            70,
+            146,
+            236
+          ],
+          "contentRect": [
+            8,
+            8,
+            17,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            64,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 3,
+          "file": "customers/customer03/walk_north/03.png",
+          "sourceRect": [
+            1017,
+            70,
+            136,
+            236
+          ],
+          "contentRect": [
+            8,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            96,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 4,
+          "file": "customers/customer03/sit_down/00.png",
+          "sourceRect": [
+            105,
+            369,
+            141,
+            246
+          ],
+          "contentRect": [
+            8,
+            7,
+            17,
+            29
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 5,
+          "file": "customers/customer03/sit_down/01.png",
+          "sourceRect": [
+            408,
+            380,
+            143,
+            235
+          ],
+          "contentRect": [
+            8,
+            7,
+            17,
+            28
+          ],
+          "seatLift": 1,
+          "atlasRect": [
+            32,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 6,
+          "file": "customers/customer03/sit_down/02.png",
+          "sourceRect": [
+            700,
+            398,
+            155,
+            216
+          ],
+          "contentRect": [
+            7,
+            8,
+            18,
+            26
+          ],
+          "seatLift": 2,
+          "atlasRect": [
+            64,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 7,
+          "file": "customers/customer03/sit_down/03.png",
+          "sourceRect": [
+            1013,
+            418,
+            149,
+            197
+          ],
+          "contentRect": [
+            7,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 8,
+          "file": "customers/customer03/seated_idle/00.png",
+          "sourceRect": [
+            98,
+            717,
+            152,
+            193
+          ],
+          "contentRect": [
+            7,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 9,
+          "file": "customers/customer03/seated_idle/01.png",
+          "sourceRect": [
+            403,
+            718,
+            151,
+            192
+          ],
+          "contentRect": [
+            7,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 10,
+          "file": "customers/customer03/seated_idle/02.png",
+          "sourceRect": [
+            700,
+            715,
+            151,
+            195
+          ],
+          "contentRect": [
+            7,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 11,
+          "file": "customers/customer03/seated_idle/03.png",
+          "sourceRect": [
+            1010,
+            714,
+            152,
+            196
+          ],
+          "contentRect": [
+            7,
+            9,
+            18,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 12,
+          "file": "customers/customer03/raise_hand/00.png",
+          "sourceRect": [
+            100,
+            990,
+            171,
+            203
+          ],
+          "contentRect": [
+            7,
+            8,
+            20,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 13,
+          "file": "customers/customer03/raise_hand/01.png",
+          "sourceRect": [
+            406,
+            987,
+            173,
+            206
+          ],
+          "contentRect": [
+            7,
+            8,
+            21,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 14,
+          "file": "customers/customer03/raise_hand/02.png",
+          "sourceRect": [
+            700,
+            987,
+            173,
+            206
+          ],
+          "contentRect": [
+            7,
+            8,
+            21,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 15,
+          "file": "customers/customer03/raise_hand/03.png",
+          "sourceRect": [
+            1008,
+            987,
+            169,
+            206
+          ],
+          "contentRect": [
+            7,
+            8,
+            20,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            120,
+            32,
+            40
+          ]
+        }
+      ],
+      "clips": {
+        "walk_north": {
+          "frameIndices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationMs": 130,
+          "playback": "loop"
+        },
+        "sit_down": {
+          "frameIndices": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationMs": 120,
+          "playback": "once_hold"
+        },
+        "seated_idle": {
+          "frameIndices": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "durationMs": 280,
+          "playback": "loop"
+        },
+        "raise_hand": {
+          "frameIndices": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "durationMs": 140,
+          "playback": "once_hold"
+        },
+        "stand_up": {
+          "frameIndices": [
+            7,
+            6,
+            5,
+            4
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "sit_down in reverse"
+        },
+        "lower_hand": {
+          "frameIndices": [
+            15,
+            14,
+            13,
+            12,
+            8
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "raise_hand in reverse, then seated rest"
+        },
+        "standing_hold": {
+          "frameIndices": [
+            4
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "seated_hold": {
+          "frameIndices": [
+            8
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "attention_hold": {
+          "frameIndices": [
+            15
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        }
+      }
+    },
+    {
+      "id": "customer04",
+      "name": "Teal Cap",
+      "accent": "#377781",
+      "direction": "north/back",
+      "frameSize": [
+        32,
+        40
+      ],
+      "groundAnchor": [
+        16,
+        36
+      ],
+      "seatSurface": [
+        16,
+        27
+      ],
+      "hitArea": [
+        2,
+        3,
+        28,
+        35
+      ],
+      "source": "sources/customer04_source.png",
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "scale": 0.11666666666666667,
+      "atlas": {
+        "file": "atlases/customer04.png",
+        "size": [
+          128,
+          160
+        ],
+        "columns": 4,
+        "rows": 4,
+        "padding": 0
+      },
+      "frames": [
+        {
+          "index": 0,
+          "file": "customers/customer04/walk_north/00.png",
+          "sourceRect": [
+            103,
+            68,
+            141,
+            241
+          ],
+          "contentRect": [
+            7,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 1,
+          "file": "customers/customer04/walk_north/01.png",
+          "sourceRect": [
+            413,
+            68,
+            136,
+            237
+          ],
+          "contentRect": [
+            9,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            32,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 2,
+          "file": "customers/customer04/walk_north/02.png",
+          "sourceRect": [
+            706,
+            68,
+            135,
+            241
+          ],
+          "contentRect": [
+            9,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            64,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 3,
+          "file": "customers/customer04/walk_north/03.png",
+          "sourceRect": [
+            1012,
+            68,
+            138,
+            239
+          ],
+          "contentRect": [
+            8,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            96,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 4,
+          "file": "customers/customer04/sit_down/00.png",
+          "sourceRect": [
+            108,
+            374,
+            136,
+            245
+          ],
+          "contentRect": [
+            8,
+            7,
+            16,
+            29
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 5,
+          "file": "customers/customer04/sit_down/01.png",
+          "sourceRect": [
+            412,
+            384,
+            138,
+            235
+          ],
+          "contentRect": [
+            8,
+            8,
+            16,
+            27
+          ],
+          "seatLift": 1,
+          "atlasRect": [
+            32,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 6,
+          "file": "customers/customer04/sit_down/02.png",
+          "sourceRect": [
+            707,
+            395,
+            145,
+            223
+          ],
+          "contentRect": [
+            8,
+            8,
+            17,
+            26
+          ],
+          "seatLift": 2,
+          "atlasRect": [
+            64,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 7,
+          "file": "customers/customer04/sit_down/03.png",
+          "sourceRect": [
+            1014,
+            422,
+            137,
+            196
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 8,
+          "file": "customers/customer04/seated_idle/00.png",
+          "sourceRect": [
+            107,
+            715,
+            139,
+            197
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 9,
+          "file": "customers/customer04/seated_idle/01.png",
+          "sourceRect": [
+            411,
+            715,
+            141,
+            196
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 10,
+          "file": "customers/customer04/seated_idle/02.png",
+          "sourceRect": [
+            704,
+            715,
+            139,
+            197
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 11,
+          "file": "customers/customer04/seated_idle/03.png",
+          "sourceRect": [
+            1012,
+            715,
+            140,
+            196
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 12,
+          "file": "customers/customer04/raise_hand/00.png",
+          "sourceRect": [
+            106,
+            989,
+            168,
+            204
+          ],
+          "contentRect": [
+            8,
+            8,
+            20,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 13,
+          "file": "customers/customer04/raise_hand/01.png",
+          "sourceRect": [
+            410,
+            989,
+            167,
+            204
+          ],
+          "contentRect": [
+            7,
+            8,
+            19,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 14,
+          "file": "customers/customer04/raise_hand/02.png",
+          "sourceRect": [
+            705,
+            989,
+            167,
+            203
+          ],
+          "contentRect": [
+            8,
+            8,
+            19,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 15,
+          "file": "customers/customer04/raise_hand/03.png",
+          "sourceRect": [
+            1007,
+            988,
+            172,
+            205
+          ],
+          "contentRect": [
+            7,
+            8,
+            20,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            120,
+            32,
+            40
+          ]
+        }
+      ],
+      "clips": {
+        "walk_north": {
+          "frameIndices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationMs": 130,
+          "playback": "loop"
+        },
+        "sit_down": {
+          "frameIndices": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationMs": 120,
+          "playback": "once_hold"
+        },
+        "seated_idle": {
+          "frameIndices": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "durationMs": 280,
+          "playback": "loop"
+        },
+        "raise_hand": {
+          "frameIndices": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "durationMs": 140,
+          "playback": "once_hold"
+        },
+        "stand_up": {
+          "frameIndices": [
+            7,
+            6,
+            5,
+            4
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "sit_down in reverse"
+        },
+        "lower_hand": {
+          "frameIndices": [
+            15,
+            14,
+            13,
+            12,
+            8
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "raise_hand in reverse, then seated rest"
+        },
+        "standing_hold": {
+          "frameIndices": [
+            4
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "seated_hold": {
+          "frameIndices": [
+            8
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "attention_hold": {
+          "frameIndices": [
+            15
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        }
+      }
+    },
+    {
+      "id": "customer05",
+      "name": "Plum Cardigan",
+      "accent": "#884963",
+      "direction": "north/back",
+      "frameSize": [
+        32,
+        40
+      ],
+      "groundAnchor": [
+        16,
+        36
+      ],
+      "seatSurface": [
+        16,
+        27
+      ],
+      "hitArea": [
+        2,
+        3,
+        28,
+        35
+      ],
+      "source": "sources/customer05_source.png",
+      "sourceGrid": [
+        4,
+        4
+      ],
+      "scale": 0.11864406779661017,
+      "atlas": {
+        "file": "atlases/customer05.png",
+        "size": [
+          128,
+          160
+        ],
+        "columns": 4,
+        "rows": 4,
+        "padding": 0
+      },
+      "frames": [
+        {
+          "index": 0,
+          "file": "customers/customer05/walk_north/00.png",
+          "sourceRect": [
+            102,
+            69,
+            139,
+            236
+          ],
+          "contentRect": [
+            6,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 1,
+          "file": "customers/customer05/walk_north/01.png",
+          "sourceRect": [
+            413,
+            69,
+            134,
+            236
+          ],
+          "contentRect": [
+            9,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            32,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 2,
+          "file": "customers/customer05/walk_north/02.png",
+          "sourceRect": [
+            707,
+            69,
+            135,
+            236
+          ],
+          "contentRect": [
+            9,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            64,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 3,
+          "file": "customers/customer05/walk_north/03.png",
+          "sourceRect": [
+            1015,
+            69,
+            132,
+            236
+          ],
+          "contentRect": [
+            9,
+            8,
+            16,
+            28
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            96,
+            0,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 4,
+          "file": "customers/customer05/sit_down/00.png",
+          "sourceRect": [
+            107,
+            368,
+            138,
+            248
+          ],
+          "contentRect": [
+            8,
+            7,
+            16,
+            29
+          ],
+          "seatLift": 0,
+          "atlasRect": [
+            0,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 5,
+          "file": "customers/customer05/sit_down/01.png",
+          "sourceRect": [
+            410,
+            377,
+            138,
+            239
+          ],
+          "contentRect": [
+            8,
+            7,
+            16,
+            28
+          ],
+          "seatLift": 1,
+          "atlasRect": [
+            32,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 6,
+          "file": "customers/customer05/sit_down/02.png",
+          "sourceRect": [
+            707,
+            397,
+            148,
+            219
+          ],
+          "contentRect": [
+            8,
+            8,
+            18,
+            26
+          ],
+          "seatLift": 2,
+          "atlasRect": [
+            64,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 7,
+          "file": "customers/customer05/sit_down/03.png",
+          "sourceRect": [
+            1014,
+            422,
+            142,
+            194
+          ],
+          "contentRect": [
+            8,
+            9,
+            17,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            40,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 8,
+          "file": "customers/customer05/seated_idle/00.png",
+          "sourceRect": [
+            104,
+            717,
+            142,
+            197
+          ],
+          "contentRect": [
+            8,
+            9,
+            17,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 9,
+          "file": "customers/customer05/seated_idle/01.png",
+          "sourceRect": [
+            409,
+            717,
+            140,
+            195
+          ],
+          "contentRect": [
+            8,
+            9,
+            17,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 10,
+          "file": "customers/customer05/seated_idle/02.png",
+          "sourceRect": [
+            706,
+            715,
+            139,
+            197
+          ],
+          "contentRect": [
+            8,
+            9,
+            16,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 11,
+          "file": "customers/customer05/seated_idle/03.png",
+          "sourceRect": [
+            1013,
+            714,
+            142,
+            198
+          ],
+          "contentRect": [
+            8,
+            9,
+            17,
+            23
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            80,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 12,
+          "file": "customers/customer05/raise_hand/00.png",
+          "sourceRect": [
+            105,
+            988,
+            163,
+            204
+          ],
+          "contentRect": [
+            8,
+            8,
+            19,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            0,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 13,
+          "file": "customers/customer05/raise_hand/01.png",
+          "sourceRect": [
+            408,
+            988,
+            166,
+            204
+          ],
+          "contentRect": [
+            7,
+            8,
+            20,
+            24
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            32,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 14,
+          "file": "customers/customer05/raise_hand/02.png",
+          "sourceRect": [
+            704,
+            985,
+            176,
+            207
+          ],
+          "contentRect": [
+            7,
+            7,
+            21,
+            25
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            64,
+            120,
+            32,
+            40
+          ]
+        },
+        {
+          "index": 15,
+          "file": "customers/customer05/raise_hand/03.png",
+          "sourceRect": [
+            1004,
+            985,
+            171,
+            207
+          ],
+          "contentRect": [
+            7,
+            7,
+            20,
+            25
+          ],
+          "seatLift": 4,
+          "atlasRect": [
+            96,
+            120,
+            32,
+            40
+          ]
+        }
+      ],
+      "clips": {
+        "walk_north": {
+          "frameIndices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "durationMs": 130,
+          "playback": "loop"
+        },
+        "sit_down": {
+          "frameIndices": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "durationMs": 120,
+          "playback": "once_hold"
+        },
+        "seated_idle": {
+          "frameIndices": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "durationMs": 280,
+          "playback": "loop"
+        },
+        "raise_hand": {
+          "frameIndices": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "durationMs": 140,
+          "playback": "once_hold"
+        },
+        "stand_up": {
+          "frameIndices": [
+            7,
+            6,
+            5,
+            4
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "sit_down in reverse"
+        },
+        "lower_hand": {
+          "frameIndices": [
+            15,
+            14,
+            13,
+            12,
+            8
+          ],
+          "durationMs": 120,
+          "playback": "once_hold",
+          "derivedFrom": "raise_hand in reverse, then seated rest"
+        },
+        "standing_hold": {
+          "frameIndices": [
+            4
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "seated_hold": {
+          "frameIndices": [
+            8
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        },
+        "attention_hold": {
+          "frameIndices": [
+            15
+          ],
+          "durationMs": 1000,
+          "playback": "hold"
+        }
+      }
+    }
+  ],
+  "shared": {
+    "stool": {
+      "file": "shared/stool.png",
+      "frameSize": [
+        32,
+        40
+      ],
+      "groundAnchor": [
+        16,
+        36
+      ],
+      "seatSurface": [
+        16,
+        26
+      ]
+    },
+    "badge": {
+      "frameSize": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        24
+      ],
+      "recommendedWorldOffset": [
+        20,
+        -34
+      ]
+    }
+  },
+  "stateMap": {
+    "starting": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/starting.png",
+      "label": "Starting"
+    },
+    "running": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/tool.png",
+      "label": "Running"
+    },
+    "thinking": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/thinking.png",
+      "label": "Thinking"
+    },
+    "reading": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/reading.png",
+      "label": "Reading"
+    },
+    "editing": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/editing.png",
+      "label": "Editing"
+    },
+    "building": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/building.png",
+      "label": "Building"
+    },
+    "testing": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/testing.png",
+      "label": "Testing"
+    },
+    "idle": {
+      "clip": "seated_idle",
+      "badge": "shared/badges/idle.png",
+      "label": "Waiting for command"
+    },
+    "queued": {
+      "clip": "standing_hold",
+      "badge": "shared/badges/queued.png",
+      "label": "Queued"
+    },
+    "dependency_wait": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/dependency.png",
+      "label": "Waiting for dependency"
+    },
+    "rate_limited": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/retry_clock.png",
+      "label": "Retry scheduled"
+    },
+    "needs_approval": {
+      "clip": "raise_hand",
+      "badge": "shared/badges/approval.png",
+      "label": "Approval needed"
+    },
+    "needs_answer": {
+      "clip": "raise_hand",
+      "badge": "shared/badges/question.png",
+      "label": "Answer needed"
+    },
+    "ready_for_review": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/review.png",
+      "label": "Result ready"
+    },
+    "accepted": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/accepted.png",
+      "label": "Result accepted"
+    },
+    "stopping": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/stopping.png",
+      "label": "Stopping"
+    },
+    "stopped": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/stop.png",
+      "label": "Stopped"
+    },
+    "cancelled": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/cancelled.png",
+      "label": "Cancelled"
+    },
+    "error": {
+      "clip": "raise_hand",
+      "badge": "shared/badges/error.png",
+      "label": "Error"
+    },
+    "disconnected": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/disconnected.png",
+      "label": "Disconnected",
+      "freezeLastReliableFrame": true
+    },
+    "unknown": {
+      "clip": "seated_hold",
+      "badge": "shared/badges/idle.png",
+      "label": "Activity unknown"
+    }
+  }
+}

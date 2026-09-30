@@ -1,0 +1,1284 @@
+{
+  "file": "atlases/world.png",
+  "size": [
+    1024,
+    1024
+  ],
+  "padding": 2,
+  "frames": [
+    {
+      "id": "room.background",
+      "file": "room/background.png",
+      "rect": [
+        2,
+        2,
+        512,
+        432
+      ],
+      "anchor": [
+        256,
+        424
+      ]
+    },
+    {
+      "id": "stall.kopi.back",
+      "file": "stalls/kopi/back.png",
+      "rect": [
+        516,
+        2,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.kopi.equipment",
+      "file": "stalls/kopi/equipment.png",
+      "rect": [
+        614,
+        2,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.kopi.front",
+      "file": "stalls/kopi/front.png",
+      "rect": [
+        712,
+        2,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.kopi.reference",
+      "file": "stalls/kopi/reference.png",
+      "rect": [
+        810,
+        2,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.kopi.counter_shell",
+      "file": "stalls/kopi/counter_shell.png",
+      "rect": [
+        908,
+        2,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.kopi.worktop",
+      "file": "stalls/kopi/worktop.png",
+      "rect": [
+        2,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.noodle.back",
+      "file": "stalls/noodle/back.png",
+      "rect": [
+        100,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.noodle.equipment",
+      "file": "stalls/noodle/equipment.png",
+      "rect": [
+        198,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.noodle.front",
+      "file": "stalls/noodle/front.png",
+      "rect": [
+        296,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.noodle.reference",
+      "file": "stalls/noodle/reference.png",
+      "rect": [
+        394,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.noodle.counter_shell",
+      "file": "stalls/noodle/counter_shell.png",
+      "rect": [
+        492,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.noodle.worktop",
+      "file": "stalls/noodle/worktop.png",
+      "rect": [
+        590,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.rice.back",
+      "file": "stalls/rice/back.png",
+      "rect": [
+        688,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.rice.equipment",
+      "file": "stalls/rice/equipment.png",
+      "rect": [
+        786,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.rice.front",
+      "file": "stalls/rice/front.png",
+      "rect": [
+        884,
+        436,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.rice.reference",
+      "file": "stalls/rice/reference.png",
+      "rect": [
+        2,
+        518,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.rice.counter_shell",
+      "file": "stalls/rice/counter_shell.png",
+      "rect": [
+        100,
+        518,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "stall.rice.worktop",
+      "file": "stalls/rice/worktop.png",
+      "rect": [
+        198,
+        518,
+        96,
+        80
+      ],
+      "anchor": [
+        48,
+        76
+      ]
+    },
+    {
+      "id": "room.modules.wall_left",
+      "file": "room/modules/wall_left.png",
+      "rect": [
+        296,
+        518,
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        60
+      ]
+    },
+    {
+      "id": "room.modules.wall_right",
+      "file": "room/modules/wall_right.png",
+      "rect": [
+        346,
+        518,
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        60
+      ]
+    },
+    {
+      "id": "room.modules.wall_corner",
+      "file": "room/modules/wall_corner.png",
+      "rect": [
+        396,
+        518,
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        60
+      ]
+    },
+    {
+      "id": "room.modules.wall_cap",
+      "file": "room/modules/wall_cap.png",
+      "rect": [
+        446,
+        518,
+        48,
+        64
+      ],
+      "anchor": [
+        24,
+        60
+      ]
+    },
+    {
+      "id": "room.modules.window_closed",
+      "file": "room/modules/window_closed.png",
+      "rect": [
+        496,
+        518,
+        40,
+        56
+      ],
+      "anchor": [
+        20,
+        52
+      ]
+    },
+    {
+      "id": "room.modules.window_open",
+      "file": "room/modules/window_open.png",
+      "rect": [
+        538,
+        518,
+        40,
+        56
+      ],
+      "anchor": [
+        20,
+        52
+      ]
+    },
+    {
+      "id": "room.modules.door_frame",
+      "file": "room/modules/door_frame.png",
+      "rect": [
+        580,
+        518,
+        40,
+        56
+      ],
+      "anchor": [
+        20,
+        52
+      ]
+    },
+    {
+      "id": "room.modules.door_open",
+      "file": "room/modules/door_open.png",
+      "rect": [
+        622,
+        518,
+        40,
+        56
+      ],
+      "anchor": [
+        20,
+        52
+      ]
+    },
+    {
+      "id": "furniture.table",
+      "file": "room/table.png",
+      "rect": [
+        664,
+        518,
+        48,
+        40
+      ],
+      "anchor": [
+        24,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker01.reference.front",
+      "file": "characters/hawker01/reference/front.png",
+      "rect": [
+        714,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker01.reference.se",
+      "file": "characters/hawker01/reference/se.png",
+      "rect": [
+        748,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker01.reference.sw",
+      "file": "characters/hawker01/reference/sw.png",
+      "rect": [
+        782,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker01.reference.ne",
+      "file": "characters/hawker01/reference/ne.png",
+      "rect": [
+        816,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker01.reference.nw",
+      "file": "characters/hawker01/reference/nw.png",
+      "rect": [
+        850,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker02.reference.front",
+      "file": "characters/hawker02/reference/front.png",
+      "rect": [
+        884,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker02.reference.se",
+      "file": "characters/hawker02/reference/se.png",
+      "rect": [
+        918,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker02.reference.sw",
+      "file": "characters/hawker02/reference/sw.png",
+      "rect": [
+        952,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker02.reference.ne",
+      "file": "characters/hawker02/reference/ne.png",
+      "rect": [
+        986,
+        518,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker02.reference.nw",
+      "file": "characters/hawker02/reference/nw.png",
+      "rect": [
+        2,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker03.reference.front",
+      "file": "characters/hawker03/reference/front.png",
+      "rect": [
+        36,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker03.reference.se",
+      "file": "characters/hawker03/reference/se.png",
+      "rect": [
+        70,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker03.reference.sw",
+      "file": "characters/hawker03/reference/sw.png",
+      "rect": [
+        104,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker03.reference.ne",
+      "file": "characters/hawker03/reference/ne.png",
+      "rect": [
+        138,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "char.hawker03.reference.nw",
+      "file": "characters/hawker03/reference/nw.png",
+      "rect": [
+        172,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.stool",
+      "file": "room/decor/stool.png",
+      "rect": [
+        206,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.potted_plant",
+      "file": "room/decor/potted_plant.png",
+      "rect": [
+        240,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.flower_vase",
+      "file": "room/decor/flower_vase.png",
+      "rect": [
+        274,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.condiment_caddy",
+      "file": "room/decor/condiment_caddy.png",
+      "rect": [
+        308,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.utensil_cup",
+      "file": "room/decor/utensil_cup.png",
+      "rect": [
+        342,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.menu_board",
+      "file": "room/decor/menu_board.png",
+      "rect": [
+        376,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.picture_frame",
+      "file": "room/decor/picture_frame.png",
+      "rect": [
+        410,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.clock",
+      "file": "room/decor/clock.png",
+      "rect": [
+        444,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.decor.fan",
+      "file": "room/decor/fan.png",
+      "rect": [
+        478,
+        600,
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ]
+    },
+    {
+      "id": "room.modules.sign_room",
+      "file": "room/modules/sign_room.png",
+      "rect": [
+        512,
+        600,
+        64,
+        32
+      ],
+      "anchor": [
+        32,
+        28
+      ]
+    },
+    {
+      "id": "room.modules.sign_stall",
+      "file": "room/modules/sign_stall.png",
+      "rect": [
+        578,
+        600,
+        64,
+        32
+      ],
+      "anchor": [
+        32,
+        28
+      ]
+    },
+    {
+      "id": "room.modules.threshold",
+      "file": "room/modules/threshold.png",
+      "rect": [
+        644,
+        600,
+        64,
+        32
+      ],
+      "anchor": [
+        32,
+        28
+      ]
+    },
+    {
+      "id": "room.modules.skirting",
+      "file": "room/modules/skirting.png",
+      "rect": [
+        710,
+        600,
+        64,
+        32
+      ],
+      "anchor": [
+        32,
+        28
+      ]
+    },
+    {
+      "id": "props.work.recipe_card",
+      "file": "props/work/recipe_card.png",
+      "rect": [
+        776,
+        600,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.order_slip",
+      "file": "props/work/order_slip.png",
+      "rect": [
+        810,
+        600,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.clipboard",
+      "file": "props/work/clipboard.png",
+      "rect": [
+        844,
+        600,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.pencil",
+      "file": "props/work/pencil.png",
+      "rect": [
+        878,
+        600,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.chopping_board",
+      "file": "props/work/chopping_board.png",
+      "rect": [
+        912,
+        600,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.spatula",
+      "file": "props/work/spatula.png",
+      "rect": [
+        946,
+        600,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.spoon",
+      "file": "props/work/spoon.png",
+      "rect": [
+        980,
+        600,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.ladle",
+      "file": "props/work/ladle.png",
+      "rect": [
+        2,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.tray_empty",
+      "file": "props/work/tray_empty.png",
+      "rect": [
+        36,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.tray_finished",
+      "file": "props/work/tray_finished.png",
+      "rect": [
+        70,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.service_bell",
+      "file": "props/work/service_bell.png",
+      "rect": [
+        104,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.work.ticket_rail",
+      "file": "props/work/ticket_rail.png",
+      "rect": [
+        138,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.kopi_cup",
+      "file": "props/food/kopi_cup.png",
+      "rect": [
+        172,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.kaya_toast",
+      "file": "props/food/kaya_toast.png",
+      "rect": [
+        206,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.noodle_bowl",
+      "file": "props/food/noodle_bowl.png",
+      "rect": [
+        240,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.nasi_lemak",
+      "file": "props/food/nasi_lemak.png",
+      "rect": [
+        274,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.kopi_kettle",
+      "file": "props/food/kopi_kettle.png",
+      "rect": [
+        308,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.wok",
+      "file": "props/food/wok.png",
+      "rect": [
+        342,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.soup_pot",
+      "file": "props/food/soup_pot.png",
+      "rect": [
+        376,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.milk_tin",
+      "file": "props/food/milk_tin.png",
+      "rect": [
+        410,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.condiment_jar",
+      "file": "props/food/condiment_jar.png",
+      "rect": [
+        444,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.chopstick_holder",
+      "file": "props/food/chopstick_holder.png",
+      "rect": [
+        478,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.noodle_strainer",
+      "file": "props/food/noodle_strainer.png",
+      "rect": [
+        512,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.rice_basket",
+      "file": "props/food/rice_basket.png",
+      "rect": [
+        546,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.ingredient_trays",
+      "file": "props/food/ingredient_trays.png",
+      "rect": [
+        580,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.banana_leaf",
+      "file": "props/food/banana_leaf.png",
+      "rect": [
+        614,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.sambal_bowl",
+      "file": "props/food/sambal_bowl.png",
+      "rect": [
+        648,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "props.food.stacked_cups",
+      "file": "props/food/stacked_cups.png",
+      "rect": [
+        682,
+        642,
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        28
+      ]
+    },
+    {
+      "id": "char.hawker01.reference.portrait",
+      "file": "characters/hawker01/reference/portrait.png",
+      "rect": [
+        716,
+        642,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        23
+      ]
+    },
+    {
+      "id": "char.hawker02.reference.portrait",
+      "file": "characters/hawker02/reference/portrait.png",
+      "rect": [
+        742,
+        642,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        23
+      ]
+    },
+    {
+      "id": "char.hawker03.reference.portrait",
+      "file": "characters/hawker03/reference/portrait.png",
+      "rect": [
+        768,
+        642,
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        23
+      ]
+    },
+    {
+      "id": "room.modules.floor_plain",
+      "file": "room/modules/floor_plain.png",
+      "rect": [
+        794,
+        642,
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        9
+      ]
+    },
+    {
+      "id": "room.modules.floor_pattern",
+      "file": "room/modules/floor_pattern.png",
+      "rect": [
+        828,
+        642,
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        9
+      ]
+    },
+    {
+      "id": "room.modules.floor_border",
+      "file": "room/modules/floor_border.png",
+      "rect": [
+        862,
+        642,
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        9
+      ]
+    },
+    {
+      "id": "room.modules.floor_corner",
+      "file": "room/modules/floor_corner.png",
+      "rect": [
+        896,
+        642,
+        32,
+        20
+      ],
+      "anchor": [
+        16,
+        9
+      ]
+    }
+  ]
+}
