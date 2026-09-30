@@ -503,8 +503,8 @@ function syncCustomerSel() {                                 // highlight the cu
 const FX_AT = { steam: [22, 44], stove_glow: [24, 53] };   // over the kettle / pot, under the noodle wok (stall coords)
 function setLoopFx(a, id) {
   if (a.loopFx === id) return; a.loopFx = id;
-  a.fxEl.replaceChildren();
-  if (id && a.kit) a.fxEl.prepend(fxNode(id, ...FX_AT[id], true));
+  a.fxEl.querySelectorAll('.fxf.loop').forEach(n => n.remove());   // only the looping effect: the badge lives here too
+  if (id && a.kit) { const n = fxNode(id, ...FX_AT[id], true); n.classList.add('loop'); a.fxEl.prepend(n); }
 }
 function fxNode(id, ax, ay, loop) {           // effect canvas is 32×32, anchor [16, 28]
   const f = FX[id], n = el('i', 'fxf');
