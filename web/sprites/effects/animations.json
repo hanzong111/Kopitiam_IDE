@@ -1,0 +1,347 @@
+[
+  {
+    "id": "steam",
+    "frames": [
+      "effects/steam/0.png",
+      "effects/steam/1.png",
+      "effects/steam/2.png",
+      "effects/steam/3.png",
+      "effects/steam/4.png",
+      "effects/steam/5.png"
+    ],
+    "durationMs": 125,
+    "playback": "loop",
+    "staticFallback": "effects/steam/0.png",
+    "atlas": {
+      "file": "atlases/fx_steam.png",
+      "size": [
+        192,
+        32
+      ],
+      "frames": [
+        {
+          "file": "effects/steam/0.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/steam/1.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/steam/2.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/steam/3.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/steam/4.png",
+          "rect": [
+            128,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/steam/5.png",
+          "rect": [
+            160,
+            0,
+            32,
+            32
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "stove_glow",
+    "frames": [
+      "effects/stove_glow/0.png",
+      "effects/stove_glow/1.png",
+      "effects/stove_glow/2.png",
+      "effects/stove_glow/3.png"
+    ],
+    "durationMs": 150,
+    "playback": "loop",
+    "staticFallback": "effects/stove_glow/0.png",
+    "atlas": {
+      "file": "atlases/fx_stove_glow.png",
+      "size": [
+        128,
+        32
+      ],
+      "frames": [
+        {
+          "file": "effects/stove_glow/0.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/stove_glow/1.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/stove_glow/2.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/stove_glow/3.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "ticket_arrival",
+    "frames": [
+      "effects/ticket_arrival/0.png",
+      "effects/ticket_arrival/1.png",
+      "effects/ticket_arrival/2.png",
+      "effects/ticket_arrival/3.png"
+    ],
+    "durationMs": 100,
+    "playback": "once_hold",
+    "staticFallback": "effects/ticket_arrival/3.png",
+    "atlas": {
+      "file": "atlases/fx_ticket_arrival.png",
+      "size": [
+        128,
+        32
+      ],
+      "frames": [
+        {
+          "file": "effects/ticket_arrival/0.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/ticket_arrival/1.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/ticket_arrival/2.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/ticket_arrival/3.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "dish_placement",
+    "frames": [
+      "effects/dish_placement/0.png",
+      "effects/dish_placement/1.png",
+      "effects/dish_placement/2.png",
+      "effects/dish_placement/3.png",
+      "effects/dish_placement/4.png",
+      "effects/dish_placement/5.png"
+    ],
+    "durationMs": 100,
+    "playback": "once_hold",
+    "staticFallback": "effects/dish_placement/5.png",
+    "atlas": {
+      "file": "atlases/fx_dish_placement.png",
+      "size": [
+        192,
+        32
+      ],
+      "frames": [
+        {
+          "file": "effects/dish_placement/0.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/dish_placement/1.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/dish_placement/2.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/dish_placement/3.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/dish_placement/4.png",
+          "rect": [
+            128,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/dish_placement/5.png",
+          "rect": [
+            160,
+            0,
+            32,
+            32
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "accepted_sparkle",
+    "frames": [
+      "effects/accepted_sparkle/0.png",
+      "effects/accepted_sparkle/1.png",
+      "effects/accepted_sparkle/2.png",
+      "effects/accepted_sparkle/3.png",
+      "effects/accepted_sparkle/4.png",
+      "effects/accepted_sparkle/5.png"
+    ],
+    "durationMs": 90,
+    "playback": "once",
+    "staticFallback": "effects/accepted_sparkle/0.png",
+    "atlas": {
+      "file": "atlases/fx_accepted_sparkle.png",
+      "size": [
+        192,
+        32
+      ],
+      "frames": [
+        {
+          "file": "effects/accepted_sparkle/0.png",
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/accepted_sparkle/1.png",
+          "rect": [
+            32,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/accepted_sparkle/2.png",
+          "rect": [
+            64,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/accepted_sparkle/3.png",
+          "rect": [
+            96,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/accepted_sparkle/4.png",
+          "rect": [
+            128,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+          "file": "effects/accepted_sparkle/5.png",
+          "rect": [
+            160,
+            0,
+            32,
+            32
+          ]
+        }
+      ]
+    }
+  }
+]

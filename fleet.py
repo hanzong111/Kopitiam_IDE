@@ -249,6 +249,10 @@ class Monitor:
                 g["done"], g["end_t"] = True, e["t"]
                 g["pending"].clear()
             elif k == "tool":
+                if g["done"] and e["name"] != "SubagentHandback":   # a finished sub-agent picked up new work (e.g. resumed)
+                    g["done"], g["end_t"] = False, 0
+                    if a in self.subs:
+                        self.subs[a]["done"] = False
                 g["pending"][e["id"]] = (e["name"], e["kind"], e.get("sum") or e["name"], e["t"])
                 g["trips"] += 1
                 g["last_kind"] = "tool"

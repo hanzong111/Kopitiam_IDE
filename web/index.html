@@ -51,7 +51,8 @@
       Start <b id="newWhat"></b> in folder <input id="newCwd" spellcheck="false" aria-label="Folder"> <button type="submit">Start</button> <button type="button" id="newCancel">Cancel</button>
     </form>
     <div class="whead" id="whead"></div>
-    <div class="chat" id="chat" aria-live="off" data-hint="Click a customer, a card or a tab to open that agent here."></div>
+    <div class="subbar" id="subbar" hidden></div>
+    <div class="chat" id="chat" aria-live="off" data-hint="Click a hawker, a card or a tab to open that agent here."></div>
     <div class="screen" id="screenBox" hidden><div class="scr-head">🖥 Live terminal <small id="scrHint">the agent's own screen: click it and type</small></div><div class="term" id="term"></div></div>
     <form class="composer" id="composer" autocomplete="off">
       <div class="c-keys" id="ckeys">
@@ -68,39 +69,24 @@
 
   <div class="bottom">
     <div class="minimap" id="minimap">
-      <div class="mm-head"><span>🏪 Kopitiam</span><button type="button" id="mmToggle" title="Expand the shop (Esc to shrink)">⤢ expand</button></div>
+      <div class="split" id="split" role="separator" aria-orientation="horizontal" aria-label="Resize the shop" aria-valuemin="0.75" aria-valuemax="3" tabindex="0"></div>
+      <div class="mm-head"><span>🏪 Kopitiam <small id="signCount">opening shop…</small></span></div>
       <div class="mm-view" id="mmView">
-      <section class="scene" id="scene" aria-label="Kopitiam scene showing what each agent is doing">
-        <div class="ceiling" aria-hidden="true">
-          <div class="tube"></div><div class="tube t2"></div>
+      <section class="scene" id="scene" aria-label="Kopitiam scene: one hawker per open agent terminal">
+        <div class="world" id="world">
+          <div id="room" aria-hidden="true"></div>
+          <div id="backs"></div>
+          <div id="actors"></div>
+          <div id="fronts"></div>
+          <div id="custs"></div>
         </div>
-
-        <div class="wall" id="wall">
-          <div class="signboard"><span class="zh">咖啡店</span><span class="en">KOPITIAM AGENTS</span><span class="est">BUKA 24 JAM · KOPI · TEH · ROTI</span></div>
-          <div class="stalls" id="stalls"></div>
+        <div class="hud" id="hud">
+          <div class="doormore" id="doorMore" hidden></div>
         </div>
-
-        <div class="counter" id="counter">
-          <div class="uncle" id="uncle" data-state="idle">
-            <div class="bubble" id="uncleBubble" hidden></div>
-            <div class="uncle-tag">Uncle Lim · <em>tauke</em></div>
-            <div id="uncleAv"></div>
-            <div class="uncle-status" id="uncleStatus">opening shop…</div>
-          </div>
-          <div class="bar" aria-hidden="true"><span class="kopi">☕</span><span class="till">🧮</span></div>
-          <div class="rail-head">🧾 orders <small id="railCount"></small></div>
-          <div class="rail" id="rail"></div>
-          <div class="case" aria-hidden="true"><span>🍡</span><span>🥮</span><span>🍰</span><span>🥟</span></div>
-          <i class="mark" id="counterFront"></i>
-        </div>
-
-        <div class="floor" id="floor"><div class="fan" aria-hidden="true"><i></i><i></i></div><div class="tables" id="tables"></div></div>
-        <div class="door" id="door"><span>MASUK · 入</span><i class="mark" id="doorMark"></i></div>
-        <div class="people" id="people"></div>
       </section>
       </div>
     </div>
-    <aside class="side" aria-label="Behind the hood">
+    <aside class="side" aria-label="Behind the hood" hidden>  <!-- kitchen log / bill / ticket: parked for now -->
       <nav class="tabs" role="tablist">
         <button role="tab" data-tab="log" class="on">📜 Kitchen log</button>
         <button role="tab" data-tab="bill">🧾 Bill</button>
@@ -117,7 +103,7 @@
 
   <aside class="fleet" id="fleet" aria-label="Agents">
     <div class="fleet-head">
-      <b>Agent Customers</b>
+      <b>Agent Hawkers</b>
       <span class="fleet-sum" id="fleetSum">loading…</span>
       <button id="notifyBtn" type="button" title="Desktop notification when an agent finishes or needs you">🔔</button>
     </div>
@@ -131,6 +117,8 @@
 </main>
 
 <script src="vendor/xterm.js"></script>
+<script src="vendor/marked.umd.js"></script>
+<script src="vendor/purify.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,3071 @@
+{
+  "id": "hawker02",
+  "kind": "character",
+  "direction": "front",
+  "frameSize": [
+    32,
+    40
+  ],
+  "anchor": [
+    16,
+    36
+  ],
+  "handProp": [
+    16,
+    24
+  ],
+  "hitArea": [
+    2,
+    2,
+    28,
+    36
+  ],
+  "source": "sources/hawker02_animation_source.png",
+  "sourceGrid": [
+    13,
+    7
+  ],
+  "sourceFrames": 91,
+  "exportedFrames": 84,
+  "selectedSourceIndices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    89,
+    90
+  ],
+  "clips": {
+    "idle": {
+      "frames": [
+        "characters/hawker02/idle/00.png",
+        "characters/hawker02/idle/01.png",
+        "characters/hawker02/idle/02.png",
+        "characters/hawker02/idle/03.png",
+        "characters/hawker02/idle/04.png",
+        "characters/hawker02/idle/05.png"
+      ],
+      "durationMs": 167,
+      "playback": "loop"
+    },
+    "thinking": {
+      "frames": [
+        "characters/hawker02/thinking/00.png",
+        "characters/hawker02/thinking/01.png",
+        "characters/hawker02/thinking/02.png",
+        "characters/hawker02/thinking/03.png",
+        "characters/hawker02/thinking/04.png",
+        "characters/hawker02/thinking/05.png",
+        "characters/hawker02/thinking/06.png",
+        "characters/hawker02/thinking/07.png"
+      ],
+      "durationMs": 125,
+      "playback": "loop"
+    },
+    "reading": {
+      "frames": [
+        "characters/hawker02/reading/00.png",
+        "characters/hawker02/reading/01.png",
+        "characters/hawker02/reading/02.png",
+        "characters/hawker02/reading/03.png",
+        "characters/hawker02/reading/04.png",
+        "characters/hawker02/reading/05.png"
+      ],
+      "durationMs": 167,
+      "playback": "loop"
+    },
+    "editing": {
+      "frames": [
+        "characters/hawker02/editing/00.png",
+        "characters/hawker02/editing/01.png",
+        "characters/hawker02/editing/02.png",
+        "characters/hawker02/editing/03.png",
+        "characters/hawker02/editing/04.png",
+        "characters/hawker02/editing/05.png",
+        "characters/hawker02/editing/06.png",
+        "characters/hawker02/editing/07.png"
+      ],
+      "durationMs": 100,
+      "playback": "loop"
+    },
+    "building": {
+      "frames": [
+        "characters/hawker02/building/00.png",
+        "characters/hawker02/building/01.png",
+        "characters/hawker02/building/02.png",
+        "characters/hawker02/building/03.png",
+        "characters/hawker02/building/04.png",
+        "characters/hawker02/building/05.png",
+        "characters/hawker02/building/06.png",
+        "characters/hawker02/building/07.png",
+        "characters/hawker02/building/08.png",
+        "characters/hawker02/building/09.png",
+        "characters/hawker02/building/10.png",
+        "characters/hawker02/building/11.png"
+      ],
+      "durationMs": 100,
+      "playback": "loop"
+    },
+    "testing": {
+      "frames": [
+        "characters/hawker02/testing/00.png",
+        "characters/hawker02/testing/01.png",
+        "characters/hawker02/testing/02.png",
+        "characters/hawker02/testing/03.png",
+        "characters/hawker02/testing/04.png",
+        "characters/hawker02/testing/05.png",
+        "characters/hawker02/testing/06.png",
+        "characters/hawker02/testing/07.png"
+      ],
+      "durationMs": 125,
+      "playback": "loop"
+    },
+    "asking": {
+      "frames": [
+        "characters/hawker02/asking/00.png",
+        "characters/hawker02/asking/01.png",
+        "characters/hawker02/asking/02.png",
+        "characters/hawker02/asking/03.png",
+        "characters/hawker02/asking/04.png",
+        "characters/hawker02/asking/05.png",
+        "characters/hawker02/asking/06.png",
+        "characters/hawker02/asking/07.png"
+      ],
+      "durationMs": 125,
+      "playback": "once_hold"
+    },
+    "review": {
+      "frames": [
+        "characters/hawker02/review/00.png",
+        "characters/hawker02/review/01.png",
+        "characters/hawker02/review/02.png",
+        "characters/hawker02/review/03.png",
+        "characters/hawker02/review/04.png",
+        "characters/hawker02/review/05.png",
+        "characters/hawker02/review/06.png",
+        "characters/hawker02/review/07.png"
+      ],
+      "durationMs": 125,
+      "playback": "once_hold"
+    },
+    "accepted": {
+      "frames": [
+        "characters/hawker02/accepted/00.png",
+        "characters/hawker02/accepted/01.png",
+        "characters/hawker02/accepted/02.png",
+        "characters/hawker02/accepted/03.png",
+        "characters/hawker02/accepted/04.png",
+        "characters/hawker02/accepted/05.png",
+        "characters/hawker02/accepted/06.png",
+        "characters/hawker02/accepted/07.png"
+      ],
+      "durationMs": 100,
+      "playback": "once_idle"
+    },
+    "stopping": {
+      "frames": [
+        "characters/hawker02/stopping/00.png",
+        "characters/hawker02/stopping/01.png",
+        "characters/hawker02/stopping/02.png",
+        "characters/hawker02/stopping/03.png"
+      ],
+      "durationMs": 125,
+      "playback": "once_hold"
+    },
+    "error": {
+      "frames": [
+        "characters/hawker02/error/00.png",
+        "characters/hawker02/error/01.png",
+        "characters/hawker02/error/02.png",
+        "characters/hawker02/error/03.png",
+        "characters/hawker02/error/04.png",
+        "characters/hawker02/error/05.png"
+      ],
+      "durationMs": 125,
+      "playback": "once_hold"
+    },
+    "review_hold": {
+      "frames": [
+        "characters/hawker02/review_hold/00.png"
+      ],
+      "durationMs": 1000,
+      "playback": "hold"
+    },
+    "stopped": {
+      "frames": [
+        "characters/hawker02/stopped/00.png"
+      ],
+      "durationMs": 1000,
+      "playback": "hold"
+    }
+  },
+  "atlas": {
+    "file": "atlases/hawker02.png",
+    "size": [
+      384,
+      280
+    ],
+    "frames": [
+      {
+        "file": "characters/hawker02/idle/00.png",
+        "rect": [
+          0,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/idle/01.png",
+        "rect": [
+          32,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/idle/02.png",
+        "rect": [
+          64,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/idle/03.png",
+        "rect": [
+          96,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/idle/04.png",
+        "rect": [
+          128,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/idle/05.png",
+        "rect": [
+          160,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/00.png",
+        "rect": [
+          192,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/01.png",
+        "rect": [
+          224,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/02.png",
+        "rect": [
+          256,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/03.png",
+        "rect": [
+          288,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/04.png",
+        "rect": [
+          320,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/05.png",
+        "rect": [
+          352,
+          0,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/06.png",
+        "rect": [
+          0,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/thinking/07.png",
+        "rect": [
+          32,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/reading/00.png",
+        "rect": [
+          64,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/reading/01.png",
+        "rect": [
+          96,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/reading/02.png",
+        "rect": [
+          128,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/reading/03.png",
+        "rect": [
+          160,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/reading/04.png",
+        "rect": [
+          192,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/reading/05.png",
+        "rect": [
+          224,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/00.png",
+        "rect": [
+          256,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/01.png",
+        "rect": [
+          288,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/02.png",
+        "rect": [
+          320,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/03.png",
+        "rect": [
+          352,
+          40,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/04.png",
+        "rect": [
+          0,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/05.png",
+        "rect": [
+          32,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/06.png",
+        "rect": [
+          64,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/editing/07.png",
+        "rect": [
+          96,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/00.png",
+        "rect": [
+          128,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/01.png",
+        "rect": [
+          160,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/02.png",
+        "rect": [
+          192,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/03.png",
+        "rect": [
+          224,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/04.png",
+        "rect": [
+          256,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/05.png",
+        "rect": [
+          288,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/06.png",
+        "rect": [
+          320,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/07.png",
+        "rect": [
+          352,
+          80,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/08.png",
+        "rect": [
+          0,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/09.png",
+        "rect": [
+          32,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/10.png",
+        "rect": [
+          64,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/building/11.png",
+        "rect": [
+          96,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/00.png",
+        "rect": [
+          128,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/01.png",
+        "rect": [
+          160,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/02.png",
+        "rect": [
+          192,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/03.png",
+        "rect": [
+          224,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/04.png",
+        "rect": [
+          256,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/05.png",
+        "rect": [
+          288,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/06.png",
+        "rect": [
+          320,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/testing/07.png",
+        "rect": [
+          352,
+          120,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/00.png",
+        "rect": [
+          0,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/01.png",
+        "rect": [
+          32,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/02.png",
+        "rect": [
+          64,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/03.png",
+        "rect": [
+          96,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/04.png",
+        "rect": [
+          128,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/05.png",
+        "rect": [
+          160,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/06.png",
+        "rect": [
+          192,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/asking/07.png",
+        "rect": [
+          224,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/00.png",
+        "rect": [
+          256,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/01.png",
+        "rect": [
+          288,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/02.png",
+        "rect": [
+          320,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/03.png",
+        "rect": [
+          352,
+          160,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/04.png",
+        "rect": [
+          0,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/05.png",
+        "rect": [
+          32,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/06.png",
+        "rect": [
+          64,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review/07.png",
+        "rect": [
+          96,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/00.png",
+        "rect": [
+          128,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/01.png",
+        "rect": [
+          160,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/02.png",
+        "rect": [
+          192,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/03.png",
+        "rect": [
+          224,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/04.png",
+        "rect": [
+          256,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/05.png",
+        "rect": [
+          288,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/06.png",
+        "rect": [
+          320,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/accepted/07.png",
+        "rect": [
+          352,
+          200,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/stopping/00.png",
+        "rect": [
+          0,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/stopping/01.png",
+        "rect": [
+          32,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/stopping/02.png",
+        "rect": [
+          64,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/stopping/03.png",
+        "rect": [
+          96,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/error/00.png",
+        "rect": [
+          128,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/error/01.png",
+        "rect": [
+          160,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/error/02.png",
+        "rect": [
+          192,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/error/03.png",
+        "rect": [
+          224,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/error/04.png",
+        "rect": [
+          256,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/error/05.png",
+        "rect": [
+          288,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/review_hold/00.png",
+        "rect": [
+          320,
+          240,
+          32,
+          40
+        ]
+      },
+      {
+        "file": "characters/hawker02/stopped/00.png",
+        "rect": [
+          352,
+          240,
+          32,
+          40
+        ]
+      }
+    ]
+  },
+  "frames": [
+    {
+      "file": "characters/hawker02/idle/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        36,
+        44,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 0
+    },
+    {
+      "file": "characters/hawker02/idle/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        148,
+        44,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 1
+    },
+    {
+      "file": "characters/hawker02/idle/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        260,
+        44,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 2
+    },
+    {
+      "file": "characters/hawker02/idle/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        373,
+        44,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 3
+    },
+    {
+      "file": "characters/hawker02/idle/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        485,
+        44,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 4
+    },
+    {
+      "file": "characters/hawker02/idle/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        598,
+        44,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 5
+    },
+    {
+      "file": "characters/hawker02/thinking/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        711,
+        44,
+        80,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 6
+    },
+    {
+      "file": "characters/hawker02/thinking/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        824,
+        44,
+        80,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 7
+    },
+    {
+      "file": "characters/hawker02/thinking/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        937,
+        44,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 8
+    },
+    {
+      "file": "characters/hawker02/thinking/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1050,
+        44,
+        78,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 9
+    },
+    {
+      "file": "characters/hawker02/thinking/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1163,
+        44,
+        78,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 10
+    },
+    {
+      "file": "characters/hawker02/thinking/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1276,
+        44,
+        77,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 11
+    },
+    {
+      "file": "characters/hawker02/thinking/06.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        36,
+        189,
+        78,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 13
+    },
+    {
+      "file": "characters/hawker02/thinking/07.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        148,
+        189,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 14
+    },
+    {
+      "file": "characters/hawker02/reading/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        260,
+        189,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 15
+    },
+    {
+      "file": "characters/hawker02/reading/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        373,
+        189,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 16
+    },
+    {
+      "file": "characters/hawker02/reading/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        485,
+        189,
+        80,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 17
+    },
+    {
+      "file": "characters/hawker02/reading/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        598,
+        189,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 18
+    },
+    {
+      "file": "characters/hawker02/reading/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        711,
+        189,
+        80,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 19
+    },
+    {
+      "file": "characters/hawker02/reading/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        825,
+        189,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 20
+    },
+    {
+      "file": "characters/hawker02/editing/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1050,
+        189,
+        78,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 22
+    },
+    {
+      "file": "characters/hawker02/editing/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1163,
+        189,
+        78,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 23
+    },
+    {
+      "file": "characters/hawker02/editing/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1276,
+        189,
+        78,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 24
+    },
+    {
+      "file": "characters/hawker02/editing/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1387,
+        189,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 25
+    },
+    {
+      "file": "characters/hawker02/editing/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        36,
+        336,
+        78,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 26
+    },
+    {
+      "file": "characters/hawker02/editing/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        148,
+        336,
+        79,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 27
+    },
+    {
+      "file": "characters/hawker02/editing/06.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        260,
+        336,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 28
+    },
+    {
+      "file": "characters/hawker02/editing/07.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        373,
+        336,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 29
+    },
+    {
+      "file": "characters/hawker02/building/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        485,
+        336,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 30
+    },
+    {
+      "file": "characters/hawker02/building/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        598,
+        336,
+        80,
+        127
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 31
+    },
+    {
+      "file": "characters/hawker02/building/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        711,
+        336,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 32
+    },
+    {
+      "file": "characters/hawker02/building/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        825,
+        336,
+        79,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 33
+    },
+    {
+      "file": "characters/hawker02/building/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        937,
+        336,
+        80,
+        127
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 34
+    },
+    {
+      "file": "characters/hawker02/building/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1050,
+        336,
+        79,
+        127
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 35
+    },
+    {
+      "file": "characters/hawker02/building/06.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1163,
+        336,
+        78,
+        127
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 36
+    },
+    {
+      "file": "characters/hawker02/building/07.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1276,
+        336,
+        77,
+        127
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 37
+    },
+    {
+      "file": "characters/hawker02/building/08.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        36,
+        493,
+        79,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 39
+    },
+    {
+      "file": "characters/hawker02/building/09.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        148,
+        492,
+        79,
+        127
+      ],
+      "contentRect": [
+        6,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 40
+    },
+    {
+      "file": "characters/hawker02/building/10.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        260,
+        493,
+        79,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 41
+    },
+    {
+      "file": "characters/hawker02/building/11.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        372,
+        493,
+        81,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        19,
+        29
+      ],
+      "sourceIndex": 42
+    },
+    {
+      "file": "characters/hawker02/testing/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        485,
+        493,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 43
+    },
+    {
+      "file": "characters/hawker02/testing/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        598,
+        492,
+        79,
+        127
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 44
+    },
+    {
+      "file": "characters/hawker02/testing/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        711,
+        493,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 45
+    },
+    {
+      "file": "characters/hawker02/testing/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        824,
+        492,
+        80,
+        127
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 46
+    },
+    {
+      "file": "characters/hawker02/testing/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        937,
+        493,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 47
+    },
+    {
+      "file": "characters/hawker02/testing/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1049,
+        493,
+        80,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 48
+    },
+    {
+      "file": "characters/hawker02/testing/06.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1163,
+        493,
+        78,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 49
+    },
+    {
+      "file": "characters/hawker02/testing/07.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1276,
+        493,
+        77,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 50
+    },
+    {
+      "file": "characters/hawker02/asking/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        36,
+        648,
+        79,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 52
+    },
+    {
+      "file": "characters/hawker02/asking/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        148,
+        648,
+        79,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 53
+    },
+    {
+      "file": "characters/hawker02/asking/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        260,
+        648,
+        79,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 54
+    },
+    {
+      "file": "characters/hawker02/asking/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        369,
+        648,
+        83,
+        124
+      ],
+      "contentRect": [
+        6,
+        8,
+        19,
+        28
+      ],
+      "sourceIndex": 55
+    },
+    {
+      "file": "characters/hawker02/asking/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        483,
+        648,
+        82,
+        124
+      ],
+      "contentRect": [
+        6,
+        8,
+        19,
+        28
+      ],
+      "sourceIndex": 56
+    },
+    {
+      "file": "characters/hawker02/asking/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        595,
+        648,
+        82,
+        124
+      ],
+      "contentRect": [
+        6,
+        8,
+        19,
+        28
+      ],
+      "sourceIndex": 57
+    },
+    {
+      "file": "characters/hawker02/asking/06.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        707,
+        648,
+        84,
+        124
+      ],
+      "contentRect": [
+        6,
+        8,
+        19,
+        28
+      ],
+      "sourceIndex": 58
+    },
+    {
+      "file": "characters/hawker02/asking/07.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        820,
+        648,
+        84,
+        124
+      ],
+      "contentRect": [
+        6,
+        8,
+        19,
+        28
+      ],
+      "sourceIndex": 59
+    },
+    {
+      "file": "characters/hawker02/review/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        937,
+        648,
+        79,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 60
+    },
+    {
+      "file": "characters/hawker02/review/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1049,
+        648,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 61
+    },
+    {
+      "file": "characters/hawker02/review/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1163,
+        648,
+        78,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 62
+    },
+    {
+      "file": "characters/hawker02/review/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1276,
+        648,
+        77,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 63
+    },
+    {
+      "file": "characters/hawker02/review/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        36,
+        796,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 65
+    },
+    {
+      "file": "characters/hawker02/review/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        148,
+        796,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 66
+    },
+    {
+      "file": "characters/hawker02/review/06.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        260,
+        796,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 67
+    },
+    {
+      "file": "characters/hawker02/review/07.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        373,
+        796,
+        79,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 68
+    },
+    {
+      "file": "characters/hawker02/accepted/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        485,
+        796,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 69
+    },
+    {
+      "file": "characters/hawker02/accepted/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        598,
+        797,
+        79,
+        121
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 70
+    },
+    {
+      "file": "characters/hawker02/accepted/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        711,
+        797,
+        79,
+        121
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 71
+    },
+    {
+      "file": "characters/hawker02/accepted/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        824,
+        797,
+        80,
+        121
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 72
+    },
+    {
+      "file": "characters/hawker02/accepted/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        937,
+        797,
+        79,
+        121
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 73
+    },
+    {
+      "file": "characters/hawker02/accepted/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1049,
+        798,
+        78,
+        120
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 74
+    },
+    {
+      "file": "characters/hawker02/accepted/06.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1162,
+        797,
+        81,
+        121
+      ],
+      "contentRect": [
+        7,
+        8,
+        19,
+        28
+      ],
+      "sourceIndex": 75
+    },
+    {
+      "file": "characters/hawker02/accepted/07.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1275,
+        796,
+        78,
+        122
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 76
+    },
+    {
+      "file": "characters/hawker02/stopping/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        36,
+        940,
+        79,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 78
+    },
+    {
+      "file": "characters/hawker02/stopping/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        148,
+        940,
+        79,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 79
+    },
+    {
+      "file": "characters/hawker02/stopping/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        260,
+        940,
+        79,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 80
+    },
+    {
+      "file": "characters/hawker02/stopping/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        373,
+        940,
+        80,
+        123
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 81
+    },
+    {
+      "file": "characters/hawker02/error/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        485,
+        938,
+        79,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 82
+    },
+    {
+      "file": "characters/hawker02/error/01.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        597,
+        938,
+        79,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 83
+    },
+    {
+      "file": "characters/hawker02/error/02.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        709,
+        938,
+        79,
+        126
+      ],
+      "contentRect": [
+        6,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 84
+    },
+    {
+      "file": "characters/hawker02/error/03.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        823,
+        938,
+        77,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 85
+    },
+    {
+      "file": "characters/hawker02/error/04.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        938,
+        938,
+        76,
+        125
+      ],
+      "contentRect": [
+        7,
+        7,
+        17,
+        29
+      ],
+      "sourceIndex": 86
+    },
+    {
+      "file": "characters/hawker02/error/05.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1049,
+        938,
+        79,
+        126
+      ],
+      "contentRect": [
+        7,
+        7,
+        18,
+        29
+      ],
+      "sourceIndex": 87
+    },
+    {
+      "file": "characters/hawker02/review_hold/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1275,
+        940,
+        78,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 89
+    },
+    {
+      "file": "characters/hawker02/stopped/00.png",
+      "size": [
+        32,
+        40
+      ],
+      "anchor": [
+        16,
+        36
+      ],
+      "sourceRect": [
+        1387,
+        940,
+        78,
+        124
+      ],
+      "contentRect": [
+        7,
+        8,
+        18,
+        28
+      ],
+      "sourceIndex": 90
+    }
+  ],
+  "references": {
+    "front": "characters/hawker02/reference/front.png",
+    "se": "characters/hawker02/reference/se.png",
+    "sw": "characters/hawker02/reference/sw.png",
+    "ne": "characters/hawker02/reference/ne.png",
+    "nw": "characters/hawker02/reference/nw.png",
+    "portrait": "characters/hawker02/reference/portrait.png"
+  }
+}

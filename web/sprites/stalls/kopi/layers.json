@@ -1,0 +1,65 @@
+{
+  "id": "kopi",
+  "canvas": [
+    96,
+    80
+  ],
+  "layers": {
+    "back": "stalls/kopi/back.png",
+    "equipment": "stalls/kopi/equipment.png",
+    "front": "stalls/kopi/front.png",
+    "reference": "stalls/kopi/reference.png",
+    "worktop": "stalls/kopi/worktop.png"
+  },
+  "anchors": {
+    "agent_feet": [
+      48,
+      52
+    ],
+    "work_surface": [
+      48,
+      49
+    ],
+    "hand_prop": [
+      48,
+      40
+    ],
+    "dish_output": [
+      76,
+      49
+    ],
+    "ticket_rail": [
+      48,
+      22
+    ],
+    "status_badge": [
+      92,
+      40
+    ]
+  },
+  "drawOrder": [
+    "back",
+    "agent",
+    "worktop",
+    "front",
+    "equipment"
+  ],
+  "hitPolygon": [
+    [
+      2,
+      2
+    ],
+    [
+      94,
+      2
+    ],
+    [
+      94,
+      78
+    ],
+    [
+      2,
+      78
+    ]
+  ]
+}

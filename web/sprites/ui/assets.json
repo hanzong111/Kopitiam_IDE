@@ -1,0 +1,825 @@
+[
+  {
+    "id": "icons.add",
+    "kind": "ui",
+    "file": "ui/icons/add.png",
+    "vector": "ui/icons/add.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.conversation",
+    "kind": "ui",
+    "file": "ui/icons/conversation.png",
+    "vector": "ui/icons/conversation.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.terminal",
+    "kind": "ui",
+    "file": "ui/icons/terminal.png",
+    "vector": "ui/icons/terminal.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.changes",
+    "kind": "ui",
+    "file": "ui/icons/changes.png",
+    "vector": "ui/icons/changes.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.queue",
+    "kind": "ui",
+    "file": "ui/icons/queue.png",
+    "vector": "ui/icons/queue.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.steer",
+    "kind": "ui",
+    "file": "ui/icons/steer.png",
+    "vector": "ui/icons/steer.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.stop",
+    "kind": "ui",
+    "file": "ui/icons/stop.png",
+    "vector": "ui/icons/stop.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.retry",
+    "kind": "ui",
+    "file": "ui/icons/retry.png",
+    "vector": "ui/icons/retry.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.approve",
+    "kind": "ui",
+    "file": "ui/icons/approve.png",
+    "vector": "ui/icons/approve.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.deny",
+    "kind": "ui",
+    "file": "ui/icons/deny.png",
+    "vector": "ui/icons/deny.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.approval",
+    "kind": "ui",
+    "file": "ui/icons/approval.png",
+    "vector": "ui/icons/approval.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.question",
+    "kind": "ui",
+    "file": "ui/icons/question.png",
+    "vector": "ui/icons/question.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.review",
+    "kind": "ui",
+    "file": "ui/icons/review.png",
+    "vector": "ui/icons/review.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.error",
+    "kind": "ui",
+    "file": "ui/icons/error.png",
+    "vector": "ui/icons/error.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.disconnected",
+    "kind": "ui",
+    "file": "ui/icons/disconnected.png",
+    "vector": "ui/icons/disconnected.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.dependency",
+    "kind": "ui",
+    "file": "ui/icons/dependency.png",
+    "vector": "ui/icons/dependency.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.clock",
+    "kind": "ui",
+    "file": "ui/icons/clock.png",
+    "vector": "ui/icons/clock.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.thinking",
+    "kind": "ui",
+    "file": "ui/icons/thinking.png",
+    "vector": "ui/icons/thinking.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.reading",
+    "kind": "ui",
+    "file": "ui/icons/reading.png",
+    "vector": "ui/icons/reading.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.editing",
+    "kind": "ui",
+    "file": "ui/icons/editing.png",
+    "vector": "ui/icons/editing.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.building",
+    "kind": "ui",
+    "file": "ui/icons/building.png",
+    "vector": "ui/icons/building.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.testing",
+    "kind": "ui",
+    "file": "ui/icons/testing.png",
+    "vector": "ui/icons/testing.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.idle",
+    "kind": "ui",
+    "file": "ui/icons/idle.png",
+    "vector": "ui/icons/idle.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.tool",
+    "kind": "ui",
+    "file": "ui/icons/tool.png",
+    "vector": "ui/icons/tool.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.accepted",
+    "kind": "ui",
+    "file": "ui/icons/accepted.png",
+    "vector": "ui/icons/accepted.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.starting",
+    "kind": "ui",
+    "file": "ui/icons/starting.png",
+    "vector": "ui/icons/starting.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.stopping",
+    "kind": "ui",
+    "file": "ui/icons/stopping.png",
+    "vector": "ui/icons/stopping.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.cancelled",
+    "kind": "ui",
+    "file": "ui/icons/cancelled.png",
+    "vector": "ui/icons/cancelled.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.queued",
+    "kind": "ui",
+    "file": "ui/icons/queued.png",
+    "vector": "ui/icons/queued.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "icons.retry_clock",
+    "kind": "ui",
+    "file": "ui/icons/retry_clock.png",
+    "vector": "ui/icons/retry_clock.svg",
+    "size": [
+      16,
+      16
+    ]
+  },
+  {
+    "id": "badges.approval",
+    "kind": "ui",
+    "file": "ui/badges/approval.png",
+    "vector": "ui/badges/approval.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.question",
+    "kind": "ui",
+    "file": "ui/badges/question.png",
+    "vector": "ui/badges/question.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.review",
+    "kind": "ui",
+    "file": "ui/badges/review.png",
+    "vector": "ui/badges/review.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.error",
+    "kind": "ui",
+    "file": "ui/badges/error.png",
+    "vector": "ui/badges/error.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.disconnected",
+    "kind": "ui",
+    "file": "ui/badges/disconnected.png",
+    "vector": "ui/badges/disconnected.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.queued",
+    "kind": "ui",
+    "file": "ui/badges/queued.png",
+    "vector": "ui/badges/queued.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.dependency",
+    "kind": "ui",
+    "file": "ui/badges/dependency.png",
+    "vector": "ui/badges/dependency.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.retry_clock",
+    "kind": "ui",
+    "file": "ui/badges/retry_clock.png",
+    "vector": "ui/badges/retry_clock.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.stop",
+    "kind": "ui",
+    "file": "ui/badges/stop.png",
+    "vector": "ui/badges/stop.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.accepted",
+    "kind": "ui",
+    "file": "ui/badges/accepted.png",
+    "vector": "ui/badges/accepted.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.starting",
+    "kind": "ui",
+    "file": "ui/badges/starting.png",
+    "vector": "ui/badges/starting.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.thinking",
+    "kind": "ui",
+    "file": "ui/badges/thinking.png",
+    "vector": "ui/badges/thinking.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.reading",
+    "kind": "ui",
+    "file": "ui/badges/reading.png",
+    "vector": "ui/badges/reading.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.editing",
+    "kind": "ui",
+    "file": "ui/badges/editing.png",
+    "vector": "ui/badges/editing.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.building",
+    "kind": "ui",
+    "file": "ui/badges/building.png",
+    "vector": "ui/badges/building.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.testing",
+    "kind": "ui",
+    "file": "ui/badges/testing.png",
+    "vector": "ui/badges/testing.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.stopping",
+    "kind": "ui",
+    "file": "ui/badges/stopping.png",
+    "vector": "ui/badges/stopping.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.cancelled",
+    "kind": "ui",
+    "file": "ui/badges/cancelled.png",
+    "vector": "ui/badges/cancelled.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.idle",
+    "kind": "ui",
+    "file": "ui/badges/idle.png",
+    "vector": "ui/badges/idle.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "badges.tool",
+    "kind": "ui",
+    "file": "ui/badges/tool.png",
+    "vector": "ui/badges/tool.svg",
+    "size": [
+      24,
+      24
+    ],
+    "anchor": [
+      12,
+      24
+    ]
+  },
+  {
+    "id": "frames.order_ticket",
+    "kind": "ui",
+    "file": "ui/frames/order_ticket.png",
+    "vector": "ui/frames/order_ticket.svg",
+    "size": [
+      32,
+      40
+    ],
+    "nineSlice": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "contentPadding": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "id": "frames.nameplate",
+    "kind": "ui",
+    "file": "ui/frames/nameplate.png",
+    "vector": "ui/frames/nameplate.svg",
+    "size": [
+      48,
+      16
+    ],
+    "nineSlice": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "contentPadding": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "id": "frames.speech_bubble",
+    "kind": "ui",
+    "file": "ui/frames/speech_bubble.png",
+    "vector": "ui/frames/speech_bubble.svg",
+    "size": [
+      32,
+      24
+    ],
+    "nineSlice": null,
+    "contentPadding": [
+      4,
+      4,
+      4,
+      8
+    ]
+  },
+  {
+    "id": "frames.attention_board",
+    "kind": "ui",
+    "file": "ui/frames/attention_board.png",
+    "vector": "ui/frames/attention_board.svg",
+    "size": [
+      64,
+      48
+    ],
+    "nineSlice": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "contentPadding": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "id": "frames.tooltip",
+    "kind": "ui",
+    "file": "ui/frames/tooltip.png",
+    "vector": "ui/frames/tooltip.svg",
+    "size": [
+      48,
+      24
+    ],
+    "nineSlice": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "contentPadding": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "id": "frames.empty_agent_slot",
+    "kind": "ui",
+    "file": "ui/frames/empty_agent_slot.png",
+    "vector": "ui/frames/empty_agent_slot.svg",
+    "size": [
+      32,
+      40
+    ],
+    "nineSlice": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "contentPadding": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "id": "selection.footprint",
+    "kind": "ui",
+    "file": "ui/selection/footprint.png",
+    "vector": "ui/selection/footprint.svg",
+    "size": [
+      48,
+      24
+    ],
+    "anchor": [
+      24,
+      12
+    ]
+  },
+  {
+    "id": "selection.hover",
+    "kind": "ui",
+    "file": "ui/selection/hover.png",
+    "vector": "ui/selection/hover.svg",
+    "size": [
+      48,
+      24
+    ],
+    "anchor": [
+      24,
+      12
+    ]
+  },
+  {
+    "id": "selection.selected",
+    "kind": "ui",
+    "file": "ui/selection/selected.png",
+    "vector": "ui/selection/selected.svg",
+    "size": [
+      48,
+      24
+    ],
+    "anchor": [
+      24,
+      12
+    ]
+  },
+  {
+    "id": "selection.keyboard_focus",
+    "kind": "ui",
+    "file": "ui/selection/keyboard_focus.png",
+    "vector": "ui/selection/keyboard_focus.svg",
+    "size": [
+      48,
+      24
+    ],
+    "anchor": [
+      24,
+      12
+    ]
+  },
+  {
+    "id": "shadows.character",
+    "kind": "ui",
+    "file": "ui/shadows/character.png",
+    "vector": "ui/shadows/character.svg",
+    "size": [
+      24,
+      8
+    ],
+    "anchor": [
+      12,
+      4
+    ],
+    "intentionalTransparency": true
+  },
+  {
+    "id": "shadows.table",
+    "kind": "ui",
+    "file": "ui/shadows/table.png",
+    "vector": "ui/shadows/table.svg",
+    "size": [
+      32,
+      12
+    ],
+    "anchor": [
+      16,
+      6
+    ],
+    "intentionalTransparency": true
+  },
+  {
+    "id": "shadows.floor",
+    "kind": "ui",
+    "file": "ui/shadows/floor.png",
+    "vector": "ui/shadows/floor.svg",
+    "size": [
+      32,
+      16
+    ],
+    "anchor": [
+      16,
+      8
+    ],
+    "intentionalTransparency": true
+  },
+  {
+    "id": "shadows.stool",
+    "kind": "ui",
+    "file": "ui/shadows/stool.png",
+    "vector": "ui/shadows/stool.svg",
+    "size": [
+      20,
+      8
+    ],
+    "anchor": [
+      10,
+      4
+    ],
+    "intentionalTransparency": true
+  }
+]

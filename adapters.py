@@ -18,6 +18,8 @@ CODEX_ROOT = os.path.join(HOME, ".codex", "sessions")
 WEB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web")
 
 MAX_FIRST_READ = 24 * 1024 * 1024   # tail only the last 24 MB of a huge log
+MAX_TEXT = 100_000                  # replies and prompts are shown in full in the chat; this only guards against runaway blobs
+HANDBACK = "SubagentHandback"        # the tool a sub-agent calls to return its final report
 QUIET_DONE_SECS = 4.0               # sub-agent with a text-only last message + this much silence = finished
 LIVE_SECS = 90                      # a session touched within this window is "live"
 ID_RE = re.compile(r"^[A-Za-z0-9._-]{8,80}$")
@@ -129,6 +131,44 @@ def summarize_claude(name, inp):
     return clip(f"{label} {first}".strip(), 90)
 
 
+DIFF_FILE_LINES = 120                # per file; the terminal shows fewer, the page can afford a little more
+DIFF_FILES = 8
+
+
+def diff_of(tur):
+    """The file changes Claude Code shows under a tool call (Edit, Write, or a shell command that edited files):
+    [{"f": path, "l": ["+added", "-removed", " context", ...], "more": lines left out}], plus how many files
+    were changed but not included.  None when the call changed nothing."""
+    if not isinstance(tur, dict):
+        return None
+    files, more = [], 0
+    bd = tur.get("bashEditDiff")
+    if isinstance(bd, dict):
+        files = [(f.get("filePath"), f.get("hunks") or []) for f in bd.get("files") or [] if isinstance(f, dict)]
+        try:
+            more = int(bd.get("moreFiles") or 0)
+        except (TypeError, ValueError):
+            more = 0
+        more = max(more, len(bd.get("changedFiles") or []) - len(files))
+    elif tur.get("filePath") and (tur.get("structuredPatch") or tur.get("type") == "create"):
+        hunks = tur.get("structuredPatch") or []
+        if not hunks and isinstance(tur.get("content"), str):     # a new file: every line is an addition
+            hunks = [{"lines": ["+" + x for x in tur["content"].split("\n")]}]
+        files = [(tur["filePath"], hunks)]
+    out = []
+    for path, hunks in files[:DIFF_FILES]:
+        lines = []
+        for i, h in enumerate(hunks):
+            if i:
+                lines.append("⋯")
+            lines.extend(x for x in (h.get("lines") or []) if isinstance(x, str))
+        if lines or path:
+            out.append({"f": path or "?", "l": [clip(x, 300) for x in lines[:DIFF_FILE_LINES]],
+                        "more": max(0, len(lines) - DIFF_FILE_LINES)})
+    more += max(0, len(files) - DIFF_FILES)
+    return {"files": out, "more": more} if out or more else None
+
+
 def blocks_of(message):
     c = (message or {}).get("content")
     if isinstance(c, str):
@@ -154,6 +194,7 @@ class ClaudeSession:
         self.finished = set()
         self.maybe_final = {}   # agent -> (msg id) whose text-only message might be the last one
         self.msg_has_tool = set()
+        self.thought = set()    # message ids whose thinking was already emitted
 
     # -- record -> events
     def records(self, rec, agent):
@@ -162,8 +203,13 @@ class ClaudeSession:
             mid = m.get("id")
             for b in blocks_of(m):
                 bt = b.get("type")
-                if bt == "text" and (b.get("text") or "").strip():
-                    yield ev("say", agent, ts, text=clip(b["text"].strip(), 1600))
+                if bt in ("thinking", "redacted_thinking") and mid not in self.thought:
+                    # the reasoning text never reaches the transcript (the block is empty); only its size does
+                    self.thought.add(mid)
+                    th = ((m.get("usage") or {}).get("output_tokens_details") or {}).get("thinking_tokens", 0) or 0
+                    yield ev("think", agent, ts, id=mid, n=th)
+                elif bt == "text" and (b.get("text") or "").strip():
+                    yield ev("say", agent, ts, text=clip(b["text"].strip(), MAX_TEXT))
                 elif bt == "tool_use":
                     name, inp = b.get("name", "?"), b.get("input") or {}
                     self.msg_has_tool.add(mid)
@@ -172,8 +218,12 @@ class ClaudeSession:
                         yield ev("spawn", b["id"], ts, parent=agent, label=clip(inp.get("description") or "sub-agent", 120),
                                  atype=inp.get("subagent_type") or "general-purpose",
                                  model=inp.get("model") or "", brief=clip(inp.get("prompt") or "", 6000))
+                    if name != HANDBACK:
+                        self.finished.discard(agent)                 # new work: a later finish counts again (resumed sub-agent)
                     yield ev("tool", agent, ts, id=b["id"], name=name, kind=classify_claude(name),
                              sum=summarize_claude(name, inp), inp=clip(inp, 1800))
+                    if name == HANDBACK and agent != "main":         # a sub-agent handing its report back has finished
+                        yield from self.finish(agent, ts)
             u = m.get("usage")
             if u and mid:
                 cc = u.get("cache_creation") or {}
@@ -209,8 +259,12 @@ class ClaudeSession:
                     if isinstance(body, list):
                         body = "".join(x.get("text", "") for x in body if isinstance(x, dict))
                     body = body if isinstance(body, str) else json.dumps(body, ensure_ascii=False)
+                    extra = {}
+                    diff = diff_of(tur) if len([x for x in content if x.get("type") == "tool_result"]) == 1 else None
+                    if diff:
+                        extra["diff"] = diff
                     yield ev("result", agent, ts, id=b.get("tool_use_id"), err=bool(b.get("is_error")),
-                             n=len(body), txt=clip(body, 700))
+                             n=len(body), txt=clip(body, 700), **extra)
                     self.maybe_final.pop(agent, None)
                     # a foreground (non-async) Agent call returning = that sub-agent is done
                     if b.get("tool_use_id") in self.spawned and isinstance(tur, dict) and not tur.get("isAsync"):
@@ -223,7 +277,7 @@ class ClaudeSession:
             kind = origin.get("kind")
             if agent == "main":
                 if kind == "human" or (kind is None and not text.startswith("<")):
-                    yield ev("prompt", "main", ts, text=clip(text, 1200))
+                    yield ev("prompt", "main", ts, text=clip(text, MAX_TEXT))
                 elif kind == "peer" and origin.get("from") in self.aid2tu:
                     yield from self.finish(self.aid2tu[origin["from"]], ts)
                 elif kind == "task-notification":
@@ -328,9 +382,9 @@ class CodexSession:
             elif t == "response_item" and pt == "message":
                 text = codex_text(p.get("content")).strip()
                 if p.get("role") == "assistant" and text:
-                    out.append(ev("say", "main", ts, text=clip(text, 1600)))
+                    out.append(ev("say", "main", ts, text=clip(text, MAX_TEXT)))
                 elif p.get("role") == "user" and text and not text.startswith("<"):
-                    out.append(ev("prompt", "main", ts, text=clip(text, 1200)))
+                    out.append(ev("prompt", "main", ts, text=clip(text, MAX_TEXT)))
             elif t == "response_item" and pt in ("function_call", "custom_tool_call"):
                 name = p.get("name", "?")
                 body = p.get("arguments") if pt == "function_call" else p.get("input")
